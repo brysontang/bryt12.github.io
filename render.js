@@ -84,6 +84,32 @@ function renderRepoIndex() {
 }
 
 /**
+ * Render sidebar meta (Currently Reading + Axiom)
+ */
+function renderSidebarMeta() {
+  const now = SITE_DATA.site.sidebar?.now;
+  const quote = SITE_DATA.site.sidebar?.quote;
+
+  const nowHeader = document.getElementById("now-header");
+  const nowBody = document.getElementById("now-body");
+  if (now && nowHeader && nowBody) {
+    nowHeader.textContent = now.header || "Currently Reading";
+    const linkHtml = now.url
+      ? `<a href="${escapeHtml(now.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(now.title)}</a>`
+      : escapeHtml(now.title);
+    const noteHtml = now.note ? ` — ${escapeHtml(now.note)}` : '';
+    nowBody.innerHTML = `<span>${linkHtml}${noteHtml}</span>`;
+  }
+
+  const quoteHeader = document.getElementById("quote-header");
+  const quoteBody = document.getElementById("quote-body");
+  if (quote && quoteHeader && quoteBody) {
+    quoteHeader.textContent = quote.header || "Axiom";
+    quoteBody.textContent = `"${quote.text || ""}"`;
+  }
+}
+
+/**
  * Initialize all renders based on what's on the page
  */
 function initRenders() {
@@ -91,6 +117,7 @@ function initRenders() {
   renderStudioProjects();
   renderWritingList();
   renderRepoIndex();
+  renderSidebarMeta();
 }
 
 /**

@@ -13,7 +13,19 @@ const SITE_DATA = {
     github: "https://github.com/brysontang",
     email: "brysontang@gmail.com", // TODO: Consider using a contact form instead
     lastUpdated: "Dec 24, 2025",
-    visitorCount: "018538"
+    visitorCount: "018538",
+    sidebar: {
+      now: {
+        header: "Currently Reading",
+        title: "Paper: Scaling Laws for Neural Language Models",
+        url: "https://arxiv.org/abs/2001.08361",
+        note: "Understanding the empirical laws governing model performance."
+      },
+      quote: {
+        header: "Axiom",
+        text: "Prefer legibility over cleverness."
+      }
+    }
   },
 
   // ---------------------------------------------------------------------------
