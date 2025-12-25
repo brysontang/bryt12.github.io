@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bryson Tang | The Digital Matroid</title>
+    <title>The Archive | Bryson Tang</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -11,25 +11,8 @@
     <!-- BACKGROUND P5 LAYER -->
     <div id="bg-sketch-container"></div>
 
-    <!-- SPLASH SCREEN -->
-    <div id="splash-screen">
-      <div id="splash-p5"></div>
-      <div
-        style="
-          margin-bottom: 10px;
-          font-family: 'Courier New';
-          color: var(--dim-text);
-          margin-top: 10px;
-        "
-      >
-        [ System Ready ]
-      </div>
-      <a href="#" class="enter-btn" onclick="enterSite(); return false;">ENTER ARCHIVE</a>
-      <div style="margin-top: 20px; font-size: 0.8rem">Inscription #18538</div>
-    </div>
-
     <!-- MAIN SITE LAYOUT -->
-    <div id="main-site" class="hidden">
+    <div id="main-site">
       <!-- SIDEBAR FRAME -->
       <aside class="sidebar">
         <div class="profile-img">&#9672;</div>
@@ -46,7 +29,7 @@
           <div class="module-header">Navigation</div>
           <ul class="nav-list" style="border: none; padding: 0; margin: 0">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html">Home</a>
+              <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="lab.html">The Lab</a>
@@ -55,7 +38,7 @@
               <a class="nav-link" href="studio.html">The Studio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="archive.html">The Archive</a>
+              <a class="nav-link active" href="archive.html">The Archive</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="guestbook.html">Guestbook</a>
@@ -121,36 +104,46 @@
       <!-- CONTENT FRAME -->
       <main class="content-frame">
         <div class="page-section">
-          <span class="date-badge">index.html</span>
-          <h1>&#10023; The Intersection of Rigor and Whimsy &#10023;</h1>
-          <p>Welcome to my digital study.</p>
-          <p>
-            I am <strong>Bryson Tang</strong>, a Systems Architect and Data
-            Artisan. In an era of black boxes and ephemeral feeds, this site
-            serves as a permanent archive of my work across Data Science,
-            Generative Art, and Decentralized Protocols.
-          </p>
-          <p>
-            This space is hand-coded. No frameworks, no trackers. Just HTML,
-            CSS, and a few p5.js scripts running locally in your browser. It is
-            designed to be visited, not consumed.
-          </p>
+          <span class="date-badge">/var/logs</span>
+          <h1>[ The Archive ]</h1>
+          <p><em>"Noise to Signal" - Engineering Logs and System Notes.</em></p>
 
-          <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
-
-          <h3>Current Focus</h3>
-          <ul>
+          <ul style="list-style-type: square; padding-left: 20px">
             <li>
-              <strong>Infrastructure:</strong> Building reproducible ML
-              pipelines.
+              <span class="mono" style="color: var(--dim-text)"
+                >[2024-11-15]</span
+              >
+              <a href="#"
+                >The Indecisive AI: Reflections on a High School Maze Solver</a
+              >
             </li>
             <li>
-              <strong>Safety:</strong> Architecting identity protocols for AI
-              agents.
+              <span class="mono" style="color: var(--dim-text)"
+                >[2024-08-02]</span
+              >
+              <a href="#">Your Prompt's Favorite Prompt: LLMs as Megaphones</a>
             </li>
             <li>
-              <strong>Permanence:</strong> Inscribing recursive algorithms on
-              Bitcoin.
+              <span class="mono" style="color: var(--dim-text)"
+                >[2023-01-20]</span
+              >
+              <a href="#"
+                >Syncing the Node: A descent into barebones infrastructure</a
+              >
+            </li>
+            <li>
+              <span class="mono" style="color: var(--dim-text)"
+                >[2022-12-05]</span
+              >
+              <a href="#"
+                >Cinderella-ness: Hierarchical Cross-Validation in NCAA Data</a
+              >
+            </li>
+            <li>
+              <span class="mono" style="color: var(--dim-text)"
+                >[2020-11-20]</span
+              >
+              <a href="#">Why I Hate Green Backgrounds (Makeover Monday)</a>
             </li>
           </ul>
         </div>

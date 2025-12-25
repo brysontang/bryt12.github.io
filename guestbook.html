@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bryson Tang | The Digital Matroid</title>
+    <title>Guestbook | Bryson Tang</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -11,25 +11,8 @@
     <!-- BACKGROUND P5 LAYER -->
     <div id="bg-sketch-container"></div>
 
-    <!-- SPLASH SCREEN -->
-    <div id="splash-screen">
-      <div id="splash-p5"></div>
-      <div
-        style="
-          margin-bottom: 10px;
-          font-family: 'Courier New';
-          color: var(--dim-text);
-          margin-top: 10px;
-        "
-      >
-        [ System Ready ]
-      </div>
-      <a href="#" class="enter-btn" onclick="enterSite(); return false;">ENTER ARCHIVE</a>
-      <div style="margin-top: 20px; font-size: 0.8rem">Inscription #18538</div>
-    </div>
-
     <!-- MAIN SITE LAYOUT -->
-    <div id="main-site" class="hidden">
+    <div id="main-site">
       <!-- SIDEBAR FRAME -->
       <aside class="sidebar">
         <div class="profile-img">&#9672;</div>
@@ -46,7 +29,7 @@
           <div class="module-header">Navigation</div>
           <ul class="nav-list" style="border: none; padding: 0; margin: 0">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html">Home</a>
+              <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="lab.html">The Lab</a>
@@ -58,7 +41,7 @@
               <a class="nav-link" href="archive.html">The Archive</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="guestbook.html">Guestbook</a>
+              <a class="nav-link active" href="guestbook.html">Guestbook</a>
             </li>
           </ul>
         </div>
@@ -121,38 +104,71 @@
       <!-- CONTENT FRAME -->
       <main class="content-frame">
         <div class="page-section">
-          <span class="date-badge">index.html</span>
-          <h1>&#10023; The Intersection of Rigor and Whimsy &#10023;</h1>
-          <p>Welcome to my digital study.</p>
-          <p>
-            I am <strong>Bryson Tang</strong>, a Systems Architect and Data
-            Artisan. In an era of black boxes and ephemeral feeds, this site
-            serves as a permanent archive of my work across Data Science,
-            Generative Art, and Decentralized Protocols.
-          </p>
-          <p>
-            This space is hand-coded. No frameworks, no trackers. Just HTML,
-            CSS, and a few p5.js scripts running locally in your browser. It is
-            designed to be visited, not consumed.
-          </p>
+          <h1>[ Guestbook ]</h1>
+          <p>Sign the ledger. Leave a trace.</p>
 
-          <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
+          <form
+            onsubmit="
+              event.preventDefault();
+              alert('Entry recorded in local memory.');
+            "
+            style="border: 1px dashed var(--dim-text); padding: 20px"
+          >
+            <div style="margin-bottom: 10px">
+              <label class="mono">Name: </label><br />
+              <input
+                type="text"
+                style="
+                  background: var(--bg);
+                  border: 1px solid var(--border);
+                  color: var(--text);
+                  padding: 5px;
+                  width: 100%;
+                  max-width: 300px;
+                "
+              />
+            </div>
+            <div style="margin-bottom: 10px">
+              <label class="mono">Message: </label><br />
+              <textarea
+                style="
+                  background: var(--bg);
+                  border: 1px solid var(--border);
+                  color: var(--text);
+                  padding: 5px;
+                  width: 100%;
+                  height: 100px;
+                "
+              ></textarea>
+            </div>
+            <button type="submit" class="enter-btn" style="font-size: 1rem">
+              [ Sign Guestbook ]
+            </button>
+          </form>
 
-          <h3>Current Focus</h3>
-          <ul>
-            <li>
-              <strong>Infrastructure:</strong> Building reproducible ML
-              pipelines.
-            </li>
-            <li>
-              <strong>Safety:</strong> Architecting identity protocols for AI
-              agents.
-            </li>
-            <li>
-              <strong>Permanence:</strong> Inscribing recursive algorithms on
-              Bitcoin.
-            </li>
-          </ul>
+          <div style="margin-top: 30px">
+            <p
+              class="mono"
+              style="
+                font-size: 0.8rem;
+                border-bottom: 1px dotted var(--dim-text);
+              "
+            >
+              <strong>Satoshi</strong> wrote on 2023-01-25:<br />
+              Nice node setup. Keep it decentralized.
+            </p>
+            <p
+              class="mono"
+              style="
+                font-size: 0.8rem;
+                border-bottom: 1px dotted var(--dim-text);
+              "
+            >
+              <strong>Visitor 402</strong> wrote on 2024-05-12:<br />
+              The colors here remind me of my old GeoCities page. Great work on
+              Bloomdesk.
+            </p>
+          </div>
         </div>
 
         <div class="site-footer">
