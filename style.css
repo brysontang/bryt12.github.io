@@ -407,6 +407,71 @@ p {
   }
 }
 
+/* --- PROJECT LINKS --- */
+.project-links {
+  margin-top: 10px;
+}
+
+.project-links a {
+  margin-right: 10px;
+  font-size: 0.9rem;
+}
+
+/* --- STUDIO ITEMS --- */
+.studio-item {
+  margin-bottom: 10px;
+}
+
+.studio-item h3 {
+  margin-bottom: 5px;
+}
+
+.studio-item:last-child .decorative-hr {
+  display: none;
+}
+
+/* --- WRITING LIST --- */
+#writing-list {
+  list-style-type: square;
+  padding-left: 20px;
+}
+
+#writing-list li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+/* --- REPO INDEX --- */
+#repo-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.repo-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--dim-text);
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.repo-badge:hover {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+/* --- EXTERNAL LINK ICON --- */
+.sidebar-module a[target="_blank"]::after {
+  content: " ↗";
+  font-size: 0.7em;
+}
+
 /* --- FOOTER --- */
 .site-footer {
   text-align: center;

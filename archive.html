@@ -48,6 +48,14 @@
 
         <div class="sidebar-extras">
           <div class="sidebar-module">
+            <div class="module-header">Links</div>
+            <div style="font-size: 0.8rem; text-align: left; padding: 5px;">
+              <a href="https://github.com/brysontang" target="_blank" rel="noopener noreferrer">GitHub</a><br />
+              <a href="https://brysontang.dev" target="_blank" rel="noopener noreferrer">Website</a>
+            </div>
+          </div>
+
+          <div class="sidebar-module">
             <div class="module-header">Listening To</div>
             <div class="marquee">
               <span>&#9835; Boards of Canada - Dayvan Cowboy &#9835;</span>
@@ -92,7 +100,7 @@
             style="margin-top: 20px; font-size: 0.7rem; color: var(--dim-text)"
           >
             <a
-              href="mailto:hello@example.com"
+              href="mailto:brysontang@gmail.com"
               style="color: var(--dim-text); text-decoration: none"
               >[ email me ]</a
             ><br /><br />
@@ -108,44 +116,20 @@
           <h1>[ The Archive ]</h1>
           <p><em>"Noise to Signal" - Engineering Logs and System Notes.</em></p>
 
-          <ul style="list-style-type: square; padding-left: 20px">
-            <li>
-              <span class="mono" style="color: var(--dim-text)"
-                >[2024-11-15]</span
-              >
-              <a href="#"
-                >The Indecisive AI: Reflections on a High School Maze Solver</a
-              >
-            </li>
-            <li>
-              <span class="mono" style="color: var(--dim-text)"
-                >[2024-08-02]</span
-              >
-              <a href="#">Your Prompt's Favorite Prompt: LLMs as Megaphones</a>
-            </li>
-            <li>
-              <span class="mono" style="color: var(--dim-text)"
-                >[2023-01-20]</span
-              >
-              <a href="#"
-                >Syncing the Node: A descent into barebones infrastructure</a
-              >
-            </li>
-            <li>
-              <span class="mono" style="color: var(--dim-text)"
-                >[2022-12-05]</span
-              >
-              <a href="#"
-                >Cinderella-ness: Hierarchical Cross-Validation in NCAA Data</a
-              >
-            </li>
-            <li>
-              <span class="mono" style="color: var(--dim-text)"
-                >[2020-11-20]</span
-              >
-              <a href="#">Why I Hate Green Backgrounds (Makeover Monday)</a>
-            </li>
+          <h3>Writing</h3>
+          <ul id="writing-list">
+            <!-- Rendered by render.js -->
           </ul>
+
+          <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
+
+          <h3>Public Source Index</h3>
+          <p class="mono" style="font-size: 0.8rem; color: var(--dim-text)">
+            All public repositories, alphabetically.
+          </p>
+          <div id="repo-index">
+            <!-- Rendered by render.js -->
+          </div>
         </div>
 
         <div class="site-footer">
@@ -156,5 +140,7 @@
     </div>
 
     <script src="sketch.js"></script>
+    <script src="data.js"></script>
+    <script src="render.js"></script>
   </body>
 </html>

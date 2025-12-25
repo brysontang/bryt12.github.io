@@ -48,6 +48,14 @@
 
         <div class="sidebar-extras">
           <div class="sidebar-module">
+            <div class="module-header">Links</div>
+            <div style="font-size: 0.8rem; text-align: left; padding: 5px;">
+              <a href="https://github.com/brysontang" target="_blank" rel="noopener noreferrer">GitHub</a><br />
+              <a href="https://brysontang.dev" target="_blank" rel="noopener noreferrer">Website</a>
+            </div>
+          </div>
+
+          <div class="sidebar-module">
             <div class="module-header">Listening To</div>
             <div class="marquee">
               <span>&#9835; Boards of Canada - Dayvan Cowboy &#9835;</span>
@@ -92,7 +100,7 @@
             style="margin-top: 20px; font-size: 0.7rem; color: var(--dim-text)"
           >
             <a
-              href="mailto:hello@example.com"
+              href="mailto:brysontang@gmail.com"
               style="color: var(--dim-text); text-decoration: none"
               >[ email me ]</a
             ><br /><br />
@@ -111,44 +119,8 @@
             make AI function reliably in the real world.
           </p>
 
-          <div class="project-grid">
-            <div class="project-card">
-              <h4>Bloomdesk</h4>
-              <p class="mono" style="font-size: 0.8rem; color: var(--dim-text)">
-                Product | AI Pipeline
-              </p>
-              <p>
-                Addressing the "Translation Gap" between users and engineers. An
-                intelligent pipeline that converts vague bug reports into
-                structured, high-entropy technical tickets using LLMs.
-              </p>
-              <a href="#">[ View Project ]</a>
-            </div>
-
-            <div class="project-card">
-              <h4>crystallize</h4>
-              <p class="mono" style="font-size: 0.8rem; color: var(--dim-text)">
-                MLOps | Python
-              </p>
-              <p>
-                A lightweight framework for rigorous, reproducible data science.
-                Solving the "hidden state" problem of Jupyter notebooks by
-                enforcing a "Pipeline-as-Code" philosophy.
-              </p>
-              <a href="#">[ git clone ]</a>
-            </div>
-
-            <div class="project-card">
-              <h4>agent-tokens</h4>
-              <p class="mono" style="font-size: 0.8rem; color: var(--dim-text)">
-                Protocol | AI Safety
-              </p>
-              <p>
-                A standard proposal for AI Agent Identity. Shifting from
-                adversarial bot detection to declared cryptographic provenance.
-              </p>
-              <a href="#">[ Read RFC ]</a>
-            </div>
+          <div id="lab-projects" class="project-grid">
+            <!-- Rendered by render.js -->
           </div>
         </div>
 
@@ -160,5 +132,7 @@
     </div>
 
     <script src="sketch.js"></script>
+    <script src="data.js"></script>
+    <script src="render.js"></script>
   </body>
 </html>
