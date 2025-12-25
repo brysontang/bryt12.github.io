@@ -1,334 +1,1043 @@
-
 <!doctype html>
-<html class="no-js" lang="en">
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bryson Tang</title>
-    <link rel="stylesheet" href="assets/css/foundation.css">
-    <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bryson Tang | The Digital Matroid</title>
+    <!-- Importing p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+      :root {
+        --bg: #0f0f2d;
+        --sidebar-bg: #0a0a20;
+        --text: #c9b037;
+        --link: #7393b3;
+        --link-hover: #a8c4e0;
+        --border: #c9b037;
+        --dim-text: #8a7c45;
+      }
 
-    <link rel="icon" href="assets/img/icon/favicon.png">
+      * {
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        background-color: var(--bg);
+        color: var(--text);
+        font-family:
+          'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', 'Comic Neue',
+          sans-serif;
+        overflow: hidden; /* Prevent body scroll, handle inside frames */
+      }
+
+      /* --- TYPOGRAPHY & LINKS --- */
+      h1,
+      h2,
+      h3 {
+        font-weight: normal;
+        margin-top: 0;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 5px;
+      }
+
+      a {
+        color: var(--link);
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      a:hover {
+        color: var(--link-hover);
+        background-color: rgba(115, 147, 179, 0.1);
+      }
+
+      p {
+        line-height: 1.5;
+        margin-bottom: 15px;
+      }
+
+      .mono {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.9em;
+      }
+
+      /* --- BACKGROUND SKETCH --- */
+      #bg-sketch-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0; /* Behind everything */
+        /* Removed mix-blend-mode to allow softer overlay colors to show correctly */
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      /* --- SPLASH SCREEN --- */
+      #splash-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 1s ease-out;
+      }
+
+      #splash-p5 {
+        border: 2px solid var(--border);
+        margin-bottom: 20px;
+        box-shadow: 0 0 15px rgba(201, 176, 55, 0.2);
+        width: 300px;
+        height: 300px;
+      }
+
+      .enter-btn {
+        font-family: 'Courier New', monospace;
+        font-size: 1.5rem;
+        color: var(--text);
+        background: transparent;
+        border: 1px solid var(--border);
+        padding: 10px 20px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+
+      .enter-btn:hover {
+        background-color: var(--border);
+        color: var(--bg);
+        box-shadow: 0 0 10px var(--border);
+      }
+
+      /* --- MAIN LAYOUT --- */
+      #main-site {
+        display: none; /* Hidden until enter */
+        height: 100vh;
+        width: 100vw;
+        display: grid;
+        grid-template-columns: 260px 1fr; /* Slightly wider sidebar for clutter */
+        grid-template-rows: 100%;
+        position: relative;
+        z-index: 10; /* Above background */
+      }
+
+      /* Mobile Layout */
+      @media (max-width: 768px) {
+        #main-site {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto 1fr;
+        }
+        .sidebar {
+          border-right: none !important;
+          border-bottom: 2px solid var(--border);
+          padding: 10px !important;
+          height: auto;
+          max-height: 200px;
+          overflow-y: auto;
+        }
+        .sidebar-extras {
+          display: none;
+        }
+      }
+
+      /* --- SIDEBAR --- */
+      .sidebar {
+        background-color: rgba(
+          10,
+          10,
+          32,
+          0.95
+        ); /* High opacity to hide bg sketch */
+        border-right: 3px double var(--border);
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      .profile-img {
+        width: 100px;
+        height: 100px;
+        border: 2px inset var(--border);
+        margin: 0 auto 10px auto;
+        background-color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: var(--dim-text);
+      }
+
+      .nav-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 15px 0;
+        text-align: left;
+        width: 100%;
+        border-top: 1px solid var(--dim-text);
+        border-bottom: 1px solid var(--dim-text);
+        padding: 10px 0;
+      }
+
+      .nav-item {
+        margin-bottom: 5px;
+      }
+
+      .nav-link {
+        display: block;
+        padding: 3px 5px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .nav-link:hover {
+        background-color: var(--text);
+        color: var(--bg);
+        text-decoration: none;
+      }
+
+      .sidebar-module {
+        margin-bottom: 15px;
+        border: 1px solid var(--dim-text);
+        padding: 5px;
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      .module-header {
+        font-family: 'Courier New';
+        font-size: 0.75rem;
+        background: var(--dim-text);
+        color: var(--bg);
+        margin: -5px -5px 5px -5px;
+        padding: 2px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .hit-counter {
+        font-family: 'Courier New', monospace;
+        background: #000;
+        border: 2px inset #555;
+        color: #ff0000;
+        padding: 2px 8px;
+        margin: 10px auto;
+        display: inline-block;
+        letter-spacing: 3px;
+        font-weight: bold;
+        font-size: 1rem;
+      }
+
+      /* --- CONTENT FRAME --- */
+      .content-frame {
+        padding: 40px;
+        overflow-y: auto;
+        /* Transparent so background shows through */
+        background: transparent;
+      }
+
+      .page-section {
+        display: none;
+        max-width: 800px;
+        margin: 0 auto;
+        border: 2px solid var(--border);
+        padding: 25px;
+        /* Solid enough to read, transparent enough to feel the 'void' */
+        background-color: rgba(15, 15, 45, 0.92);
+        box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.6);
+        margin-bottom: 40px;
+        position: relative;
+      }
+
+      .page-section.active {
+        display: block;
+        animation: fadeIn 0.3s;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .date-badge {
+        float: right;
+        font-family: 'Courier New', monospace;
+        font-size: 0.8rem;
+        background: #000;
+        color: var(--link);
+        border: 1px solid var(--link);
+        padding: 2px 5px;
+        box-shadow: 2px 2px 0 var(--dim-text);
+      }
+
+      .decorative-hr {
+        text-align: center;
+        margin: 30px 0;
+        color: var(--dim-text);
+        font-size: 0.9rem;
+        font-family: monospace;
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+      }
+
+      .project-card {
+        border: 1px solid var(--dim-text);
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.4);
+      }
+
+      .project-card h4 {
+        margin-top: 0;
+        color: var(--link);
+        font-size: 1.1rem;
+      }
+
+      /* --- 88x31 BUTTONS --- */
+      .badges-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
+        margin-top: 10px;
+      }
+
+      .badge-88x31 {
+        width: 88px;
+        height: 31px;
+        border: 1px outset #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        font-family: 'Pixel', sans-serif;
+        text-decoration: none;
+        color: white !important;
+        text-shadow: 1px 1px 0 #000;
+        image-rendering: pixelated;
+      }
+
+      .b-claude {
+        background: #d97757;
+        color: #fff !important;
+      }
+      .b-p5 {
+        background: #ed225d;
+        color: #fff !important;
+      }
+      .b-ghostty {
+        background: #1c1c1c;
+        color: #fff !important;
+        border-color: #333;
+      }
+      .b-latent {
+        background: linear-gradient(to bottom, #4b0082, #000);
+        color: #e6e6fa !important;
+      }
+      .b-ts {
+        background: #3178c6;
+        color: #fff !important;
+      }
+      .b-mlx {
+        background: linear-gradient(to bottom, #888, #444);
+        color: #fff !important;
+      }
+
+      .badge-notepad {
+        background: linear-gradient(to bottom, #7393b3, #0f0f2d);
+      }
+      .badge-btc {
+        background: linear-gradient(to bottom, #c9b037, #8a7c45);
+      }
+      .badge-w3c {
+        background: linear-gradient(to bottom, #d6d6d6, #808080);
+        color: black !important;
+        text-shadow: none;
+      }
+
+      /* Scrollbar Styling */
+      ::-webkit-scrollbar {
+        width: 14px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000;
+        border-left: 1px solid var(--border);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--dim-text);
+        border: 2px solid #000;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--text);
+      }
+
+      .marquee {
+        white-space: nowrap;
+        overflow: hidden;
+        box-sizing: border-box;
+        font-family: 'Courier New';
+        font-size: 0.8rem;
+      }
+
+      .marquee span {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 10s linear infinite;
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(-100%, 0);
+        }
+      }
+    </style>
   </head>
-<body>
+  <body>
+    <!-- BACKGROUND P5 LAYER -->
+    <div id="bg-sketch-container"></div>
 
-  <div data-sticky-container>
-    <div data-sticky data-options="marginTop:0;" style="width:100%">
-      <div class="top-bar">
-        <div class="top-bar-left">
-          <ul class="dropdown menu" data-dropdown-menu>
-            <li class="menu-text">Bryson Tang</li>
-            <li><a href="#hero">About Me</a></li>
-            <li><a href="#makeovermonday">Makeover Monday</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#contact">Contact</a></li>
+    <!-- SPLASH SCREEN -->
+    <div id="splash-screen">
+      <div id="splash-p5"></div>
+      <div
+        style="
+          margin-bottom: 10px;
+          font-family: 'Courier New';
+          color: var(--dim-text);
+          margin-top: 10px;
+        "
+      >
+        [ System Ready ]
+      </div>
+      <a href="#" class="enter-btn" onclick="enterSite()">ENTER ARCHIVE</a>
+      <div style="margin-top: 20px; font-size: 0.8rem">Inscription #18538</div>
+    </div>
+
+    <!-- MAIN SITE LAYOUT -->
+    <div id="main-site">
+      <!-- SIDEBAR FRAME -->
+      <aside class="sidebar">
+        <div class="profile-img">◈</div>
+        <h2 style="font-size: 1.2rem; border: none; margin-bottom: 0">
+          B. TANG
+        </h2>
+        <div style="font-size: 0.7rem; color: var(--dim-text)">
+          DATA ARTISAN & ARCHITECT
+        </div>
+
+        <div class="decorative-hr" style="margin: 10px 0">~ ~ ~</div>
+
+        <div class="sidebar-module">
+          <div class="module-header">Navigation</div>
+          <ul class="nav-list" style="border: none; padding: 0; margin: 0">
+            <li class="nav-item">
+              <a class="nav-link" onclick="navigate('home')">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="navigate('lab')">The Lab</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="navigate('studio')">The Studio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="navigate('archive')">The Archive</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="navigate('guestbook')">Guestbook</a>
+            </li>
           </ul>
         </div>
-      </div>
-    </div>  
-  </div>
 
+        <div class="sidebar-extras">
+          <div class="sidebar-module">
+            <div class="module-header">Listening To</div>
+            <div class="marquee">
+              <span>♫ Boards of Canada - Dayvan Cowboy ♫</span>
+            </div>
+          </div>
 
-  <section id="hero" class="hero">
-    <div>
-      <div class="row hero-section-title">
-        <h2>Welcome to Bryson's Portfolio</h2>
-      </div>
-      <div class="row hero-section-text">
-        <p>I have been interested in pursuing the field of Data Science ever since I was a Junior in High School and someone told me I could combine my two loves into a career, math and programming. Since then I have gone out of my way to learn and constantly be thinking about data and how it plays a part in this rapidly changing world. When working on a data science project, I am always of the philosophy that although machine learning models are powerful, they come way after an in depth understanding of the data through graphs and pure statistics. I have a very strong passion for data and see love getting my hands dirty in trying to understand the structure and patterns in the data.</p>
-      </div>
-      <div class="row hero-section-links">
-        <a href="https://www.linkedin.com/in/bryson-t-datascience/">
-          <img class="thumbnail" src="assets/img/linkedin.png" alt="LinkedIn Logo">
-        </a>
-        <a href="https://github.com/Bryt12">
-          <img class="thumbnail" src="assets/img/github.png" alt="GitHub Logo">
-        </a>
-        <a href="https://www.kaggle.com/brysontang">
-          <img class="thumbnail" src="assets/img/kaggle.png" alt="Kaggle Logo">
-        </a>
-      </div>
-    </div>
-  </section>
+          <div class="sidebar-module">
+            <div class="module-header">Quote</div>
+            <p style="font-size: 0.75rem; font-style: italic; margin: 0">
+              "The map is not the territory."<br />
+              - Alfred Korzybski
+            </p>
+          </div>
 
-  <section id="makeovermonday" class="makeovermonday">
-    <h2 class="section-title">Makeover Monday</h2>
-    <p class="maom-text">
-      Makeover Monday is a community of people who are passionate about data visualization. Every week a data set and a visualization are posted and the community must work on a better way of representing the data. There is a place to post your visualizations and the community will comment on what you have done. I joined this community in October of 2020 as I wanted a place to practice my data visualization because one can do all the fancy statistics and machine learning models in the world, but if you can't elegantly express your results in a visual way, it is in vain. My current goal is to understand how to make visually appealing, then I will tackle creating more interactive dashboards. Due to the size of my current workload in school, I am currently taking a break, but will continue this journey once the school year ends.
-    </p>
-    <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit data-timer-delay="10000">
-      <div class="orbit-wrapper">
-        <div class="orbit-controls">
-          <button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
-          <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
+          <div class="decorative-hr" style="margin: 15px 0">═══════</div>
+
+          <div style="font-size: 0.8rem; margin-bottom: 5px">
+            You are visitor number:
+          </div>
+          <div class="hit-counter">018538</div>
+
+          <div class="decorative-hr" style="margin: 15px 0">~ ~ ~</div>
+
+          <div style="font-size: 0.75rem; margin-bottom: 5px" class="mono">
+            [ Webring ]
+          </div>
+          <div class="mono" style="font-size: 0.7rem">
+            &lt; <a href="#">Prev</a> | <a href="#">Hub</a> |
+            <a href="#">Next</a> &gt;
+          </div>
+
+          <div class="badges-container">
+            <div class="badge-88x31 b-claude">CLAUDE</div>
+            <div class="badge-88x31 b-ghostty">GHOSTTY</div>
+            <div class="badge-88x31 b-ts">TYPESCRIPT</div>
+            <div class="badge-88x31 b-latent">LATENT</div>
+            <div class="badge-88x31 b-mlx">MLX</div>
+            <div class="badge-88x31 b-p5">p5.js</div>
+          </div>
+
+          <div
+            style="margin-top: 20px; font-size: 0.7rem; color: var(--dim-text)"
+          >
+            <a
+              href="mailto:hello@example.com"
+              style="color: var(--dim-text); text-decoration: none"
+              >[ email me ]</a
+            ><br /><br />
+            Last Updated:<br />Dec 24, 2025
+          </div>
         </div>
-        <ul class="orbit-container">
-          <li class="is-active orbit-slide">
-            <figure class="orbit-figure">
-              <img class="orbit-image" src="Makeover Monday/Crop/Week_02_2021.png" alt="Space">
-              <figcaption class="orbit-caption">2021 Week 2 - In exploring this data I was shocked by the visualization. Full Dashboard can be found <a href="https://public.tableau.com/profile/bryson4773#!/vizhome/Week_02_2021/HowAidshasAffectedtheAdolescentPopulation">here</a></figcaption>
-            </figure>
-          </li>
-          <li class="is-active orbit-slide">
-            <figure class="orbit-figure">
-              <img class="orbit-image" src="Makeover Monday/Crop/Week_01_2021.png" alt="Space">
-              <figcaption class="orbit-caption">2021 Week 1 - First graph of the year, the data could be misleading if not fully explored. Full Dashboard can be found <a href="https://public.tableau.com/profile/bryson4773#!/vizhome/Week_01_2021/TheGreatBikeBoom">here</a></figcaption>
-            </figure>
-          </li>
-          <li class="is-active orbit-slide">
-            <figure class="orbit-figure">
-              <img class="orbit-image" src="Makeover Monday/Crop/Week_52_2020.png" alt="Space">
-              <figcaption class="orbit-caption">2020 Week 52 - Last one of the year. Full Dashboard can be found <a href="https://public.tableau.com/profile/bryson4773#!/vizhome/Week_52_2020/Dashboard1">here</a></figcaption>
-            </figure>
-          </li>
-          <li class="orbit-slide">
-            <figure class="orbit-figure">
-              <img class="orbit-image" src="Makeover Monday/Crop/Week_51_2020.png" alt="Space">
-              <figcaption class="orbit-caption">2020 Week 51 - Experimented with colored backgrounds, I'm not the biggest fan of green backgrounds. Full Dashboard can be found <a href="https://public.tableau.com/profile/bryson4773#!/vizhome/Week_51_2020/Dashboard1?publish=yes">here</a></figcaption>
-            </figure>
-          </li>
-          <li class="orbit-slide">
-            <figure class="orbit-figure">
-              <img class="orbit-image" src="Makeover Monday/Crop/Week_50_2020.png" alt="Space">
-              <figcaption class="orbit-caption">2020 Week 50 - This was an interesting week and I decided to include filtering options. Full Dashboard can be found <a href="https://public.tableau.com/profile/bryson4773#!/vizhome/Week_50_2020/Dashboard1?publish=yes">here</a></figcaption>
-            </figure>
-          </li>
-          <li class="orbit-slide">
-            <figure class="orbit-figure">
-              <img class="orbit-image" src="Makeover Monday/Crop/Week_49_2020.png" alt="Space">
-              <figcaption class="orbit-caption">2020 Week 49 - Once again went for a quick one here to try to see what I can produce quickly. Full Dashboard can be found <a href="https://public.tableau.com/profile/bryson4773#!/vizhome/week_49_2020/Dashboard1?publish=yes">here</a></figcaption>
-            </figure>
-          </li>
-          <li class="orbit-slide">
-            <figure class="orbit-figure">
-              <img class="orbit-image" src="Makeover Monday/Crop/Week_48_2020.png" alt="Space">
-              <figcaption class="orbit-caption">2020 Week 48 - As I was going through finals week I didn't have much time to explore this data, but it was a very interesting data set. Full Dashboard can be found <a href="https://public.tableau.com/profile/bryson4773#!/vizhome/Week482020/Dashboard1?publish=yes">here</a></figcaption>
-            </figure>
-          </li>
-          <li class="orbit-slide">
-            <figure class="orbit-figure">
-              <img class="orbit-image" src="Makeover Monday/Crop/Week_47_2020.png" alt="Space">
-              <figcaption class="orbit-caption">2020 Week 47 - As suggested by the creator of Makeover Monday I only spent an hour on this visualization as not to overthink it. Full Dashboard can be found <a href="https://public.tableau.com/profile/bryson4773#!/vizhome/Week_47_2020/Dashboard1?publish=yes">here</a></figcaption>
-            </figure>
-          </li>
-          <li class="orbit-slide">
-            <figure class="orbit-figure">
-              <img class="orbit-image" src="Makeover Monday/Crop/Week_46_2020.png" alt="Space">
-              <figcaption class="orbit-caption">2020 Week 46 - Fifth week of Makeover Monday, I worked on exploring the data a little bit more to show other angles. Full dashboard can be found <a href="https://public.tableau.com/profile/bryson4773#!/vizhome/Week_46_2020/Dashboard1?publish=yes">here</a></figcaption>
-            </figure>
-          </li>
-          <li class="orbit-slide">
-            <figure class="orbit-figure">
-              <img class="orbit-image" src="Makeover Monday/Crop/Week_45_2020.png" alt="Space">
-              <figcaption class="orbit-caption">2020 Week 45 - Fourth week of Makeover Monday, This week instead of focusing on displaying the data, I decided to focus on creating an interactive dashboard. Full dashboard can be found <a href="https://public.tableau.com/profile/bryson4773#!/vizhome/Week_45_2020/Dashboard?publish=yes">here</a></figcaption>
-            </figure>
-          </li>
-          <li class="orbit-slide">
-            <figure class="orbit-figure">
-              <img class="orbit-image" src="Makeover Monday/Crop/Week_44_2020.png" alt="Space">
-              <figcaption class="orbit-caption">2020 Week 44 - Third week of Makeover Monday, Continued working on making graphs tell a story. Full Dashboard can be found <a href="https://public.tableau.com/profile/bryson4773#!/vizhome/Week44_16042467698890/Dashboard1?publish=yes">here</a></figcaption>
-            </figure>
-          </li>
-        </ul>
-      </div>
-      <nav class="orbit-bullets">
-        <button class="is-active" data-slide="0">
-          <span class="show-for-sr">First slide details.</span>
-          <span class="show-for-sr" data-slide-active-label>Current Slide</span>
-        </button>
-        <button data-slide="1"><span class="show-for-sr">Second slide details.</span></button>
-        <button data-slide="2"><span class="show-for-sr">Third slide details.</span></button>
-        <button data-slide="3"><span class="show-for-sr">Fourth slide details.</span></button>
-        <button data-slide="4"><span class="show-for-sr">Fifth slide details.</span></button>
-        <button data-slide="5"><span class="show-for-sr">Sixth slide details.</span></button>
-        <button data-slide="6"><span class="show-for-sr">Seventh slide details.</span></button>
-        <button data-slide="7"><span class="show-for-sr">Eighth slide details.</span></button>
-        <button data-slide="8"><span class="show-for-sr">Ninth slide details.</span></button>
-        <button data-slide="9"><span class="show-for-sr">Tenth slide details.</span></button>
-        <button data-slide="10"><span class="show-for-sr">Eleventh slide details.</span></button>
-      </nav>
-    </div>
-  </section>
+      </aside>
 
-  <section id="experience" class="experience">
-    <h2 class="section-title">Experience</h2>
+      <!-- CONTENT FRAME -->
+      <main class="content-frame">
+        <!-- SECTION: HOME -->
+        <div id="home" class="page-section active">
+          <span class="date-badge">index.html</span>
+          <h1>✧ The Intersection of Rigor and Whimsy ✧</h1>
+          <p>Welcome to my digital study.</p>
+          <p>
+            I am <strong>Bryson Tang</strong>, a Systems Architect and Data
+            Artisan. In an era of black boxes and ephemeral feeds, this site
+            serves as a permanent archive of my work across Data Science,
+            Generative Art, and Decentralized Protocols.
+          </p>
+          <p>
+            This space is hand-coded. No frameworks, no trackers. Just HTML,
+            CSS, and a few p5.js scripts running locally in your browser. It is
+            designed to be visited, not consumed.
+          </p>
 
-    <hr class="hr-text" data-content="2020">
+          <div class="decorative-hr">~ ~ ~ ◈ ~ ~ ~</div>
 
-    <div class="media-object stack-for-small">
-      <div class="media-object-section">
-        <div class="">
-          <img src="assets/img/media-object/al.png">
+          <h3>Current Focus</h3>
+          <ul>
+            <li>
+              <strong>Infrastructure:</strong> Building reproducible ML
+              pipelines.
+            </li>
+            <li>
+              <strong>Safety:</strong> Architecting identity protocols for AI
+              agents.
+            </li>
+            <li>
+              <strong>Permanence:</strong> Inscribing recursive algorithms on
+              Bitcoin.
+            </li>
+          </ul>
         </div>
-      </div>
-      <div class="media-object-section">
-        <h5 class="project-title">Agency Leads</h5>
-        <h6>Data Scientist</h6>
-        <p>For this project I worked on a small team of one other data scientist and a business advisor. The goal of the project was to use machine learning to make a prediction system to speed up the job of Lead Geniuses. We utilized a deep neural network that was trained on 75,000 data points and had an accuracy of roughly 40%. Due to the fact that this was classification with very sparse classes this is roughly the accuracy the business advisor wanted us to hit. After developing the model we worked on building a Flask API endpoint in order to reach the model from the front end. This endpoint was documented in openapi.</p> 
-      </div>
-    </div>
 
-    <div class="media-object stack-for-small">
-      <div class="media-object-section">
-        <div class="">
-          <img src="assets/img/media-object/emc.jpg">
+        <!-- SECTION: THE LAB -->
+        <div id="lab" class="page-section">
+          <span class="date-badge">/sys/engineering</span>
+          <h1>[ The Lab ]</h1>
+          <p>
+            The domain of Applied Intelligence. Here, I build the systems that
+            make AI function reliably in the real world.
+          </p>
+
+          <div class="project-grid">
+            <div class="project-card">
+              <h4>Bloomdesk</h4>
+              <p class="mono" style="font-size: 0.8rem; color: var(--dim-text)">
+                Product | AI Pipeline
+              </p>
+              <p>
+                Addressing the "Translation Gap" between users and engineers. An
+                intelligent pipeline that converts vague bug reports into
+                structured, high-entropy technical tickets using LLMs.
+              </p>
+              <a href="#">[ View Project ]</a>
+            </div>
+
+            <div class="project-card">
+              <h4>crystallize</h4>
+              <p class="mono" style="font-size: 0.8rem; color: var(--dim-text)">
+                MLOps | Python
+              </p>
+              <p>
+                A lightweight framework for rigorous, reproducible data science.
+                Solving the "hidden state" problem of Jupyter notebooks by
+                enforcing a "Pipeline-as-Code" philosophy.
+              </p>
+              <a href="#">[ git clone ]</a>
+            </div>
+
+            <div class="project-card">
+              <h4>agent-tokens</h4>
+              <p class="mono" style="font-size: 0.8rem; color: var(--dim-text)">
+                Protocol | AI Safety
+              </p>
+              <p>
+                A standard proposal for AI Agent Identity. Shifting from
+                adversarial bot detection to declared cryptographic provenance.
+              </p>
+              <a href="#">[ Read RFC ]</a>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="media-object-section">
-        <h5 class="project-title">Dell EMC - ML to detect board health</h5>
-        <h6>Major Qualifying Project</h6>
-        <p>At WPI every student must complete an MQP as a senior to graduate. My MQP is with Dell EMC and we worked on analyzing board logs in order to predict future failures and uncover hidden reasons why past boards had been failing. We utilized data mining, feature selected, and machine learning in order to do this. Our team consisted of 4 WPI students, a WPI professor, and a team of Dell EMC engineers. This project was a great learning experience as it was a data science project that we got to plan all the way from data cleaning to model tuning. Our team used pandas on top of Python in order to clean and parse the data and we used Scikit to build the machine learning models.</p>
-        <p>This data set was just raw data and we experienced data in many different formats such as json, tables, and unstructured key value pairs. This meant that we had to program a lot of parsing tools in order to extract the patterns from the raw data. This was very exciting as we got to utilize many different data parsing techniques and some complex regex. Once we had the features extracted from the raw data we utilized many feature selection techniques, such as the Wilcoxon signed rank test, chi-squared, PCA, and Pearson correlation, in order to reduce the 300 features.
-        </p>
-      </div>
-    </div>
 
-    <div class="media-object stack-for-small">
-      <div class="media-object-section">
-        <div class="">
-          <img src="assets/img/media-object/WPI.png">
+        <!-- SECTION: THE STUDIO -->
+        <div id="studio" class="page-section">
+          <span class="date-badge">/usr/creative</span>
+          <h1>[ The Studio ]</h1>
+          <p>
+            Where code becomes a brush. Exploring emergence, recursion, and
+            provenance.
+          </p>
+
+          <div class="decorative-hr">══════════════</div>
+
+          <h3>Inscription #18,538 (The Quine)</h3>
+          <p><em>Jan 2023. Bitcoin Blockchain.</em></p>
+          <p>
+            A recursive inscription created using a barebones node setup. No
+            APIs, just raw CLI. It is a Quine—a program that outputs its own
+            source code. It lives on every node in the network.
+          </p>
+
+          <div class="decorative-hr">~ ~ ~</div>
+
+          <h3>Matroid</h3>
+          <p><em>TypeScript | Nostr Protocol</em></p>
+          <p>
+            A decentralized curation client for generative art. Built on Nostr
+            to separate identity from storage. Implements
+            <strong>Kind 95</strong> events to render p5.js sketches live in the
+            browser, ensuring the art is a performance, not a recording.
+          </p>
+
+          <div class="decorative-hr">~ ~ ~</div>
+
+          <h3>Tree of Processing</h3>
+          <p><em>Generative Algorithm</em></p>
+          <p>
+            The genesis of my artistic journey. Using recursive logic to
+            generate organic forms. "The map is not the territory, but the tree
+            is the seed."
+          </p>
         </div>
-      </div>
-      <div class="media-object-section">
-        <h5 class="project-title">Worcester Polytechnic Institute - COVID-19 Dataset Aggregation</h5>
-        <h6>Summer Research Intern</h6>
-        <p>While doing a project in my Machine Learning class on COVID-19, my Professor and I noticed that there was a severe lack of any collections of data sets that had demographic data in relation to the pandemic. (travel data, weather, health care infrastructure, tourism rates) After attending Professor Yousefi's office hours to ask what direction I should take my Data Science career, he offered the opportunity of a summer internship. After writing up a project proposal I spent the summer collecting, cleaning, and architecturing this data set.</p>
-        <!-- <p data-toggle="covid"><a>Expand</a></p> -->
-        <div id="covid" data-toggler=".is-hidden" data-animate="hinge-in-from-top spin-out">
-          <p>This project was a great learning experience for me as it allowed me to own and define a project from the ground up. First I researched various Government/academic resources (UN, World Health Organization, and Johns Hopkins University) that collect relevant demographic information. After finding the data sets I had to architect how I wanted the data sets to be connected then, I wrote a python script that utilizes pandas to clean and structure the data how I wanted it. From there I created a MySQL database on an academic server and hosted the data through an express API. I designed and programmed a website to call this API and allow the user to download and filter the data. After the project was finished, I uploaded the data to kaggle in hopes to have a further outreach. I hope that this data set can help the research community better understand how COVID-19 was properly handled (or not) and how to be better prepared for a situation like this in the future.</p>
-          <p>The kaggle data set can be found <a href="https://www.kaggle.com/brysontang/covid19-global-status">here.</a></p>
+
+        <!-- SECTION: THE ARCHIVE -->
+        <div id="archive" class="page-section">
+          <span class="date-badge">/var/logs</span>
+          <h1>[ The Archive ]</h1>
+          <p><em>"Noise to Signal" - Engineering Logs and System Notes.</em></p>
+
+          <ul style="list-style-type: square; padding-left: 20px">
+            <li>
+              <span class="mono" style="color: var(--dim-text)"
+                >[2024-11-15]</span
+              >
+              <a href="#"
+                >The Indecisive AI: Reflections on a High School Maze Solver</a
+              >
+            </li>
+            <li>
+              <span class="mono" style="color: var(--dim-text)"
+                >[2024-08-02]</span
+              >
+              <a href="#">Your Prompt's Favorite Prompt: LLMs as Megaphones</a>
+            </li>
+            <li>
+              <span class="mono" style="color: var(--dim-text)"
+                >[2023-01-20]</span
+              >
+              <a href="#"
+                >Syncing the Node: A descent into barebones infrastructure</a
+              >
+            </li>
+            <li>
+              <span class="mono" style="color: var(--dim-text)"
+                >[2022-12-05]</span
+              >
+              <a href="#"
+                >Cinderella-ness: Hierarchical Cross-Validation in NCAA Data</a
+              >
+            </li>
+            <li>
+              <span class="mono" style="color: var(--dim-text)"
+                >[2020-11-20]</span
+              >
+              <a href="#">Why I Hate Green Backgrounds (Makeover Monday)</a>
+            </li>
+          </ul>
         </div>
-      </div>
-    </div>
 
-    <div class="media-object stack-for-small">
-      <div class="media-object-section">
-        <div class="">
-          <img src="assets/img/media-object/WPI.png">
+        <!-- SECTION: GUESTBOOK -->
+        <div id="guestbook" class="page-section">
+          <h1>[ Guestbook ]</h1>
+          <p>Sign the ledger. Leave a trace.</p>
+
+          <form
+            onsubmit="
+              event.preventDefault();
+              alert('Entry recorded in local memory.');
+            "
+            style="border: 1px dashed var(--dim-text); padding: 20px"
+          >
+            <div style="margin-bottom: 10px">
+              <label class="mono">Name: </label><br />
+              <input
+                type="text"
+                style="
+                  background: var(--bg);
+                  border: 1px solid var(--border);
+                  color: var(--text);
+                  padding: 5px;
+                  width: 100%;
+                  max-width: 300px;
+                "
+              />
+            </div>
+            <div style="margin-bottom: 10px">
+              <label class="mono">Message: </label><br />
+              <textarea
+                style="
+                  background: var(--bg);
+                  border: 1px solid var(--border);
+                  color: var(--text);
+                  padding: 5px;
+                  width: 100%;
+                  height: 100px;
+                "
+              ></textarea>
+            </div>
+            <button type="submit" class="enter-btn" style="font-size: 1rem">
+              [ Sign Guestbook ]
+            </button>
+          </form>
+
+          <div style="margin-top: 30px">
+            <p
+              class="mono"
+              style="
+                font-size: 0.8rem;
+                border-bottom: 1px dotted var(--dim-text);
+              "
+            >
+              <strong>Satoshi</strong> wrote on 2023-01-25:<br />
+              Nice node setup. Keep it decentralized.
+            </p>
+            <p
+              class="mono"
+              style="
+                font-size: 0.8rem;
+                border-bottom: 1px dotted var(--dim-text);
+              "
+            >
+              <strong>Visitor 402</strong> wrote on 2024-05-12:<br />
+              The colors here remind me of my old GeoCities page. Great work on
+              Bloomdesk.
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="media-object-section">
-        <h5 class="project-title">Worcester Polytechnic Institute - Statistical Learning</h5>
-        <h6>Class (Final Project)</h6>
-        <p>For our final project in Statistical Learning we took the March Madness data from the previous 10 years and built models to identify "Cinderellas". (A low seeded team that performs better than expected) After feature engineering and creating an equation to describe Cinderellas-ness, we performed hierarchical cross-validation in order to avoid data snooping the final testing set. The models that were utilized were random forest, linear regression (stepwise selection), lasso regression, and neural networks. Also, we did hyper-parameter tuning in order to increase the model accuracy, such as in the random forest the number of features to pick from or the threshold on the lasso regression.</p>
-      </div>
-    </div>
 
-    <div class="media-object stack-for-small">
-      <div class="media-object-section">
-        <div class="">
-          <img src="assets/img/media-object/FIT.png">
+        <div
+          style="
+            text-align: center;
+            margin-top: 50px;
+            color: var(--dim-text);
+            font-family: 'Courier New';
+            font-size: 0.8rem;
+          "
+        >
+          © 2025 Bryson Tang. All Rights Reserved.<br />
+          <span style="font-size: 1.2rem">∞</span>
         </div>
-      </div>
-      <div class="media-object-section">
-        <h5 class="project-title">Florida Institute of Technology - Project Eve</h5>
-        <h6>Data Analyst</h6>
-        <p>When a good friend from high school reached out to me asking if I was interested in helping with a research project, I didn't even think twice about it. Their team was working on an aerospace project and had flight data that had to be analyzed after each flight. My contribution towards the project was an R script that took in a raw CSV file and returned a graph with a line of best fit on the descent. I had to work with the team to understand how to process the data so that it could automatically tell when the descent happened. Once it knew the time period of the descent, the script would fit a linear regression then the team used the slope to tell the descent velocity and the R-squared value to tell the effectiveness of the parachute. This allowed the team to spend less time graphing and cleaning the data and more time to interpret the results. Every week I would attend the teams meeting and take suggestions on how to make the graphs more readable and useful for them.</p>
-      </div>
+      </main>
     </div>
 
-    <hr class="hr-text" data-content="2019">
+    <!-- SCRIPTS -->
+    <script>
+      // --- NAVIGATION LOGIC ---
+      function enterSite() {
+        document.getElementById('splash-screen').style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('splash-screen').style.display = 'none';
+          document.getElementById('main-site').style.display = 'grid'; // Grid for desktop
+          // Re-check layout for mobile if necessary
+          if (window.innerWidth <= 768) {
+            document.getElementById('main-site').style.display = 'grid';
+          }
+        }, 1000);
+      }
 
-    <div class="media-object stack-for-small">
-      <div class="media-object-section">
-        <div class="">
-          <img src="assets/img/media-object/xin.png">
-        </div>
-      </div>
-      <div class="media-object-section">
-        <h5 class="project-title">Xin Foundation - Raising Mental Health Awareness in Hangzhou, China</h5>
-        <h6>Interactive Qualifying Project</h6>
-        <p>Junior year WPI students are given the opportunity to travel abroad to complete a project to help the local communities. I was fortunate enough to be able to travel to Hangzhou China and complete a project with the Xin Foundation. The goal of our project was to help the Xin Foundation understand the stigma of mental health in China and address it with a WeChat mini program in order to educate. In order to achieve this we created a survey asking how people felt about the concept of mental health and spread it around the local college we were staying at. Building this survey was a learning experience as we got to understand that the way you ask your questions can influence the outcome, so it's important to take that into account. On top of this we had to work with local students to translate the survey and still hold the non-biasness of it. Working with the Xin foundation and the students at the college, I got to experience working in a completely different culture from my own and really began to appreciate the Chinese work culture.</p>
-      </div>
-    </div>
+      function navigate(sectionId) {
+        // Hide all sections
+        const sections = document.querySelectorAll('.page-section');
+        sections.forEach((s) => s.classList.remove('active'));
 
-    <div class="media-object stack-for-small">
-      <div class="media-object-section">
-        <div class="">
-          <img src="assets/img/media-object/psk.jpg">
-        </div>
-      </div>
-      <div class="media-object-section">
-        <h5 class="project-title">Phi Sigma Kappa </h5>
-        <h6>President</h6>
-        <p>Being president of my fraternity was one of the best learning experiences I have had in my life. I learned how to manage people towards a common goal of the group and what my leadership style is. I had to manage conveying information to the brotherhood while at the same time being in active communication with my superiors. (Chapter Advisor, WPI, National Chapter) There were many times that I was faced with inner brother conflicts that I was tasked with resolving. I found these the most challenging as I had to balance my relationship with the brothers and justice. I also worked with the treasurer on facing the financial crisis head on, as it had been a background problem that had been growing for years. This involved working on the balance sheet and completely re-imagining the yearly budget and dues. I found this role very fulfilling and it allowed me to gain a better understanding of my personal leadership style, which through this opportunity, I spent a lot of time refining.</p>
-      </div>
-    </div>
-    <hr class="hr-text" data-content="2018">
-    <div class="media-object stack-for-small">
-      <div class="media-object-section">
-        <div class="">
-          <img src="assets/img/media-object/csn.png">
-        </div>
-      </div>
-      <div class="media-object-section">
-        <h5 class="project-title">CyberSN</h5>
-        <h6>Software Engineer Intern</h6>
-        <p>During the summer of 2018, I worked in a team to rapidly prototype and develop an internal application (Blitz) for the Regional Outbound Sales teams. For Blitz I worked on full stack development, which interested me as the flow of data from the front end all the way to the database is such an elegant pipeline. I implemented the database architecture to allow the data to be filtered by the user. I also implemented roles so only specific users could see specific data points. The fast paced environment allowed me to rapidly prototype my ideas and see what worked well or not. The company also sponsored my team to visit defcon 2019 where I got to learn about cyber security from real experts. One interesting talk I attended was the AI behind deep-fakes and how this new scary technology could affect future politics and business.</p>
-        <p>
-          I also spent some time going through the code base and documenting the coding stack and design patterns. Through this I have thought through how to keep a clean code base that is easy to maintain. I enjoyed this exercise and it allowed future employees to more easily join the code base and write clean and consistent code.
-        </p>
-      </div>
-    </div>
-    <hr class="hr-text" data-content="2017">
+        // Show target section
+        const target = document.getElementById(sectionId);
+        if (target) {
+          target.classList.add('active');
 
-    <div class="media-object stack-for-small">
-      <div class="media-object-section">
-        <div class="">
-          <img src="assets/img/media-object/nt.png">
-        </div>
-      </div>
-      <div class="media-object-section">
-        <h5 class="project-title">Nashoba Valley Technical High School - Predicting Number of Students Year to Year</h5>
-        <h6>Senior Project</h6>
-        <p>During my senior year of high school I knew that I wanted to pursue the field of data science. For my senior project I worked directly with the school administration on how their data could benefit their decision making. Due to the fact that I went to a technical high school the number of students year to year is not as easy as looking at the number of eighth graders. This is because there were 8 sending towns and 8th graders had to choose not to continue the public school track in order to go to Nashoba Tech. The school granted me data on the number of students from the sending towns year to year and I began using python to parse this data. Unfamiliar with regressions at the time, my best guess for predicting the next number in a series was taylor series, as I had just learned about that concept in AP Calculus. My model predicted that the proportion of students coming from each sending town would increase, but unfortunately that overall number of students would decrease. After further investigation I found that the student population of the sending towns was on the decrease thus they should focus on marketing in order to draw more students in.</p>
-      </div>
-    </div>
+          // On mobile, scroll to top of content
+          if (window.innerWidth <= 768) {
+            document.querySelector('.content-frame').scrollTop = 0;
+          }
+        }
+      }
 
-        <hr class="hr-text" data-content="2016">
+      // --- INSTANCE 1: SPLASH SCREEN (Tree) ---
+      var splashSketch = function (p) {
+        let angle = 0;
 
-    <div class="media-object stack-for-small">
-      <div class="media-object-section">
-        <div class="">
-          <img src="assets/img/media-object/nt.png">
-        </div>
-      </div>
-      <div class="media-object-section">
-        <h5 class="project-title">Nashoba Valley Technical High School - Depth First Maze Solver</h5>
-        <h6>Junior Project</h6>
-        <p>By my junior year I knew that I wanted to do something in the field of data science as a career, so for my junior project I did research into Artificial Intelligence. First I created a maze program in Java that allowed the player to step their dot through a maze. Then I programmed a search agent to work on top of this. My first attempt was to create an agent that stepped through the maze and had a memory of where it had been and a probability that the end was in a certain direction so it could pick the best path to travel when it got to forks. The problem this agent faced was that it would go all over the map trying to decide the best path to take and never made a real decision. My next attempt was a depth-first agent, this worked extremely well and after watching it solve the maze for the first time I was filled with the feeling of accomplishment.</p>
-      </div>
-    </div>
+        p.setup = function () {
+          let canvas = p.createCanvas(300, 300);
+          canvas.parent('splash-p5');
+          p.stroke(201, 176, 55); // Gold color
+          p.noFill();
+        };
 
-    <hr class="hr-text" data-content="2015">
+        p.draw = function () {
+          p.background(15, 15, 45); // Match BG
 
-    <div class="media-object stack-for-small">
-      <div class="media-object-section">
-        <div class="">
-          <img src="assets/img/media-object/biscom.png">
-        </div>
-      </div>
-      <div class="media-object-section">
-        <h5 class="project-title"> Biscom </h5>
-        <h6>Intern</h6>
-        <p>My first project at Biscom was querying the VeroSync databases with SQL in order to build a dashboard to tell the story of user usage. For this project I had to learn SQL and understand what a database is and how to query it. While working on this project I worked with the software engineers in order to understand the data and how to interpret it. Once I had created the charts I thought told a story I created a PowerPoint presentation and presented my findings to the President of the company and the software engineers working on VeroSync. This was my first introduction to data, and ever since I have had an affinity for data and the visualization of it.</p>
-      </div>
-    </div>
-  </section>
+          // Pulsing logic
+          let pulse = p.map(p.sin(p.frameCount * 0.05), -1, 1, 0.5, 0.6);
 
+          p.translate(p.width / 2, p.height);
+          p.strokeWeight(2);
+          branch(70, pulse);
+        };
 
-  <section id="contact" class="contact">
-    <h2 class="section-title">Contact</h2>
-    <div class="section-text">
-      <p>If you would like to reach out to me please email me at bmtang@wpi.edu and you can find my resume <a href="Resume.pdf">here</a></p>
-    </div>
-  </section>
+        function branch(h, pulse) {
+          h *= 0.66;
+          if (h > 2) {
+            p.push();
+            p.rotate(pulse);
+            p.line(0, 0, 0, -h);
+            p.translate(0, -h);
+            branch(h, pulse);
+            p.pop();
 
-  <script src="assets/js/vendor.js"></script>
-  <script src="assets/js/foundation.js"></script>
-  <script src="assets/js/app.js"></script>
+            p.push();
+            p.rotate(-pulse);
+            p.line(0, 0, 0, -h);
+            p.translate(0, -h);
+            branch(h, pulse);
+            p.pop();
+          }
+        }
+      };
+      new p5(splashSketch);
 
-</body>
+      // --- INSTANCE 2: BACKGROUND WALLPAPER (Cellular Automata) ---
+      var bgSketch = function (p) {
+        let tiles = [];
+        let w, h;
+        // Larger cells for performance
+        let cellW = 15;
+        let off;
+        let seed;
+
+        p.setup = function () {
+          let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+          canvas.parent('bg-sketch-container');
+
+          seed = p.int(p.random(10000000));
+          p.noiseSeed(seed);
+          p.randomSeed(seed);
+          p.pixelDensity(1);
+          p.angleMode(p.DEGREES);
+
+          // Initialize Grid dimensions based on screen size
+          w = p.ceil(p.width / cellW);
+          h = p.ceil(p.height / cellW);
+
+          // Initialize Tiles (Simple standard 1D array)
+          let totalCells = w * h;
+          tiles = new Array(totalCells);
+
+          for (let i = 0; i < totalCells; i++) {
+            // Random initialization
+            tiles[i] = p.random() < 0.47;
+          }
+
+          off = p.random(10000);
+
+          // Run Simulation Generation (Sync)
+          // We run this once at startup to generate the texture
+          for (var k = 0; k < 10; k++) {
+            nextGen();
+          }
+
+          p.noLoop(); // Static background
+        };
+
+        p.draw = function () {
+          p.clear(); // Transparent background
+          p.noStroke();
+
+          for (let j = 0; j < h; j++) {
+            for (let i = 0; i < w; i++) {
+              // Only draw empty spaces that are near walls
+              if (!isSolid(i, j)) {
+                let d = getDistanceFromWall(i, j);
+                // Optimization: limit drawing to meaningful distances
+                if (d > 0) {
+                  p.fill(nc(d));
+                  p.square(i * cellW, j * cellW, cellW);
+                }
+              }
+            }
+          }
+
+          // Scanlines (Subtle overlay)
+          // let lines = 100;
+          // let dist = p.width / lines;
+          // for (let i = 0; i < lines; i++) {
+          //   p.stroke(0, 0, 0, 30); // Very subtle scanline
+          //   p.line(i * dist, 0, i * dist, p.height);
+          // }
+        };
+
+        // --- Helper Functions ---
+
+        function nextGen() {
+          let newTiles = new Array(tiles.length);
+          for (let j = 0; j < h; j++) {
+            for (let i = 0; i < w; i++) {
+              let idx = i + j * w;
+              let neighbors = getNeighbors(i, j);
+              // Standard Cellular Automata Rule (4-5 Rule roughly)
+              newTiles[idx] = neighbors >= 5;
+            }
+          }
+          tiles = newTiles;
+        }
+
+        function getNeighbors(x, y) {
+          let total = 0;
+          for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+              // Check self and neighbors
+              if (i === 0 && j === 0) continue;
+
+              if (isSolid(x + i, y + j)) {
+                total++;
+              }
+            }
+          }
+          // Add self state if logic requires it, but standard Game of Life counts neighbors.
+          // The user's original logic counted "non-solid" neighbors?
+          // "if (!isSolid) total += 1". Let's stick to user logic:
+          // User logic: count EMPTY neighbors?
+          // Let's invert to standard "solid" counting for easier logic
+          // User logic: `if (!isSolid(i_ + i, j_ + j)) total += 1` -> Counting Empty Space.
+          // User logic: `solid = neighbors >= 5`.
+          // This implies "Stay Solid if lots of empty space around me?"
+          // Let's stick to standard smoothing: if lots of solids around, become solid.
+          // If I count solids:
+          let solidNeighbors = 0;
+          for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+              if (isSolid(x + i, y + j)) solidNeighbors++;
+            }
+          }
+          return solidNeighbors; // Using standard logic for simpler caves
+        }
+
+        // Overriding nextGen logic to be standard cave generation:
+        // If solid neighbors > 4, become solid.
+        // This creates nice caves.
+
+        function isSolid(i, j) {
+          // Bounds check - Edges are solid
+          if (i < 0 || j < 0 || i >= w || j >= h) {
+            return true;
+          }
+          return tiles[i + j * w];
+        }
+
+        function getDistanceFromWall(i, j) {
+          // Optimization: simplified radial check
+          let dist = -1;
+          let r = 1;
+          let maxR = 15; // Limit check to prevent hang
+
+          while (dist < 0 && r < maxR) {
+            // Check circumference
+            let circumference = p.floor(2 * p.PI * r);
+            // Lower resolution check for speed
+            // let steps = p.max(8, circumference / 2);
+
+            for (var a = 0; a < 360; a += 40) {
+              let x = r * p.cos(a) * 0.5 + i;
+              let y = r * p.sin(a) + j;
+
+              if (isSolid(x, y)) {
+                dist = r;
+              }
+            }
+            r++;
+          }
+          return dist;
+        }
+
+        function nc(d) {
+          p.randomSeed(d * 100 + off);
+          p.push();
+          p.colorMode(p.HSL, 360, 100, 100, 1);
+
+          // Constrain to your palette: blues (200-240) and golds (35-50)
+          let hue = p.random() > 0.7 ? p.random(35, 50) : p.random(200, 260);
+          let sat = p.random(70, 100);
+          let lig = p.random(40, 70);
+          let alp = 0.5;
+
+          let c = p.color(hue, sat, lig, alp);
+          p.pop();
+          return c;
+        }
+        p.windowResized = function () {
+          p.resizeCanvas(p.windowWidth, p.windowHeight);
+          // Re-init on resize
+          p.setup();
+        };
+      };
+      new p5(bgSketch);
+    </script>
+  </body>
 </html>
- 
