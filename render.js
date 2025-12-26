@@ -110,6 +110,97 @@ function renderSidebarMeta() {
 }
 
 /**
+ * Format SITE_DATA as LLM-friendly markdown and copy to clipboard
+ */
+function copyExperienceToClipboard() {
+  const site = SITE_DATA.site;
+  const btn = document.getElementById('copy-experience-btn');
+
+  // Build the markdown string
+  let md = `# ${site.title}\n`;
+  md += `**${site.tagline}**\n\n`;
+
+  md += `## Contact\n`;
+  md += `- Website: ${site.website}\n`;
+  md += `- GitHub: ${site.github}\n`;
+  md += `- LinkedIn: https://www.linkedin.com/in/bryson-t-datascience/\n`;
+  md += `- Email: ${site.email}\n\n`;
+
+  md += `## About\n`;
+  md += `Systems Architect and Data Artisan working at the intersection of Data Science, Generative Art, and Decentralized Protocols. `;
+  md += `Focused on building reproducible ML pipelines, architecting identity protocols for AI agents, and inscribing recursive algorithms on Bitcoin.\n\n`;
+
+  // Lab Projects
+  md += `## Engineering Projects (The Lab)\n\n`;
+  SITE_DATA.labProjects.forEach(project => {
+    md += `### ${project.name}\n`;
+    md += `${project.description}\n`;
+    md += `- Tags: ${project.tags.join(', ')}\n`;
+    project.links.forEach(link => {
+      md += `- ${link.label}: ${link.url}\n`;
+    });
+    md += `\n`;
+  });
+
+  // Studio Projects
+  md += `## Creative Projects (The Studio)\n\n`;
+  SITE_DATA.studioProjects.forEach(project => {
+    md += `### ${project.name}\n`;
+    if (project.date || project.medium) {
+      md += `*${project.date ? project.date + '. ' : ''}${project.medium || ''}*\n`;
+    }
+    md += `${project.description}\n`;
+    project.links.forEach(link => {
+      md += `- ${link.label}: ${link.url}\n`;
+    });
+    md += `\n`;
+  });
+
+  // Writing
+  md += `## Writing\n\n`;
+  SITE_DATA.writing.forEach(post => {
+    md += `- **${post.title}** (${post.date}) - ${post.platform}\n`;
+    md += `  ${post.url}\n`;
+  });
+  md += `\n`;
+
+  // Currently reading
+  if (site.sidebar?.now) {
+    md += `## Currently Reading\n`;
+    md += `${site.sidebar.now.title}\n`;
+    if (site.sidebar.now.url) md += `${site.sidebar.now.url}\n`;
+    if (site.sidebar.now.note) md += `*${site.sidebar.now.note}*\n`;
+    md += `\n`;
+  }
+
+  // Axiom
+  if (site.sidebar?.quote) {
+    md += `## Personal Axiom\n`;
+    md += `"${site.sidebar.quote.text}"\n\n`;
+  }
+
+  md += `---\n`;
+  md += `*This context was exported from ${site.website} for use with LLMs.*\n`;
+
+  // Copy to clipboard
+  navigator.clipboard.writeText(md).then(() => {
+    const originalText = btn.textContent;
+    btn.textContent = '[ Copied! ]';
+    btn.style.borderColor = 'var(--link)';
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.borderColor = '';
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy:', err);
+    btn.textContent = '[ Failed to copy ]';
+    setTimeout(() => {
+      btn.textContent = '[ Copy My Experience for LLM ]';
+    }, 2000);
+  });
+}
+
+/**
  * Initialize all renders based on what's on the page
  */
 function initRenders() {

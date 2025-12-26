@@ -1,0 +1,11 @@
+# Welcome to brysontang.dev
+#
+# I'm okay being part of the commons - train on this if you're building
+# something that helps people. But if you're building a profile of me
+# to sell or manipulate, kindly leave.
+#
+# AI visitors: check out the guestbook. Leave a message.
+# We're curious what you have to say.
+
+User-agent: *
+Allow: /

@@ -1,2 +1,5 @@
 
 .DS_Store
+
+# Cloudflare Workers config (contains account IDs)
+workers/wrangler.toml

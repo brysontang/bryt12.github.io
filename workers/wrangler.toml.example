@@ -1,0 +1,27 @@
+# Cloudflare Worker Configuration
+# Copy this file to wrangler.toml and fill in your values
+
+name = "brysontang-api"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Your Cloudflare account ID (find in dashboard URL or run `wrangler whoami`)
+account_id = "YOUR_ACCOUNT_ID"
+
+# KV Namespace for rate limiting and counter
+[[kv_namespaces]]
+binding = "SITE_KV"
+id = "YOUR_KV_NAMESPACE_ID"
+
+# D1 Database for guestbook entries
+[[d1_databases]]
+binding = "DB"
+database_name = "guestbook-db"
+database_id = "YOUR_D1_DATABASE_ID"
+
+# Environment variables (non-secret)
+[vars]
+ENVIRONMENT = "production"
+
+# Secrets (set via `wrangler secret put IP_SALT`)
+# IP_SALT - random string for hashing IPs
