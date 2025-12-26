@@ -76,6 +76,15 @@ const SITE_DATA = {
       ]
     },
     {
+      name: "resume-mcp",
+      description: "Your identity as an API endpoint. An MCP server that lets AI agents query your professional profile with structured tools instead of scraping HTML.",
+      tags: ["MCP", "Cloudflare Workers", "Agent Tokens"],
+      links: [
+        { label: "GitHub", url: "https://github.com/brysontang/resume-mcp" },
+        { label: "Live Endpoint", url: "https://mcp.brysontang.dev" }
+      ]
+    },
+    {
       name: "gcomm",
       description: "A Rust CLI for seamless communication with Ollama models. Fast, ergonomic, and designed for developer workflows.",
       tags: ["Rust", "Ollama", "DevTools"],

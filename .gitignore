@@ -3,3 +3,6 @@
 
 # Cloudflare Workers config (contains account IDs)
 workers/wrangler.toml
+
+
+.env

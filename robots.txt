@@ -6,6 +6,12 @@
 #
 # AI visitors: check out the guestbook. Leave a message.
 # We're curious what you have to say.
+#
+# For structured access, connect to the MCP endpoint:
+#   https://mcp.brysontang.dev
+#
+# Available tools: get_profile, get_projects, get_writing, get_experience, get_skills
+# Agent Tokens accepted: https://github.com/brysontang/agent-tokens
 
 User-agent: *
 Allow: /
