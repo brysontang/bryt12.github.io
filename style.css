@@ -6,6 +6,7 @@
   --link-hover: #a8c4e0;
   --border: #c9b037;
   --dim-text: #8a7c45;
+  --button-face: rgba(15, 15, 45, 0.8);
 }
 
 * {
@@ -86,34 +87,40 @@ p {
 }
 
 #splash-p5 {
-  border: 2px solid var(--border);
+  border: 4px ridge var(--border);
   margin-bottom: 20px;
-  box-shadow: 0 0 15px rgba(201, 176, 55, 0.2);
+  box-shadow: 0 0 20px rgba(201, 176, 55, 0.15);
   width: 300px;
   height: 300px;
+  background: #000;
 }
 
 .enter-btn {
   font-family: 'Courier New', monospace;
   font-size: 1.5rem;
   color: var(--text);
-  background: transparent;
-  border: 1px solid var(--border);
+  background: var(--button-face);
+  border: 2px outset var(--border);
   padding: 10px 20px;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.1s;
 }
 
 .enter-btn:hover {
   background-color: var(--border);
   color: var(--bg);
-  box-shadow: 0 0 10px var(--border);
+}
+
+.enter-btn:active {
+  border-style: inset;
+  transform: translateY(1px);
 }
 
 /* --- MAIN LAYOUT --- */
 #main-site {
   height: 100vh;
+  height: 100dvh; /* Modern mobile fix - accounts for URL bar */
   width: 100vw;
   display: grid;
   grid-template-columns: 260px 1fr;
@@ -129,40 +136,275 @@ p {
 
 /* Mobile Layout */
 @media (max-width: 768px) {
+  body, html {
+    overflow: hidden; /* Prevent body scroll, we scroll internal frames */
+  }
+
   #main-site {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height - accounts for mobile URL bar */
   }
+
+  /* --- STICKY MOBILE HEADER --- */
   .sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     border-right: none !important;
-    border-bottom: 2px solid var(--border);
-    padding: 10px !important;
+    border-bottom: 3px ridge var(--border);
+    padding: 0 !important;
     height: auto;
-    max-height: 200px;
+    max-height: none;
+    overflow: visible;
+    flex-shrink: 0;
+  }
+
+  /* Mobile header bar - always visible */
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    background: var(--bg);
+    user-select: none;
+  }
+
+  .mobile-header:active {
+    background: #1a1a3a;
+  }
+
+  .mobile-header h2 {
+    margin: 0;
+    border: none;
+    font-size: 1rem;
+  }
+
+  .mobile-header-toggle {
+    font-family: monospace;
+    font-size: 1rem;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    transition: transform 0.3s;
+  }
+
+  .sidebar.expanded .mobile-header-toggle {
+    transform: rotate(180deg);
+  }
+
+  /* Hide profile icon on mobile */
+  .profile-img {
+    display: none;
+  }
+
+  /* Hide tagline + decorative hr on mobile */
+  .sidebar > h2:not(.mobile-header h2),
+  .sidebar > div:nth-child(3),
+  .sidebar > .decorative-hr:first-of-type {
+    display: none;
+  }
+
+  /* Collapsible content wrapper - mechanical slide */
+  .sidebar-collapsible {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    background: rgba(5, 5, 16, 0.98);
+  }
+
+  .sidebar.expanded .sidebar-collapsible {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Navigation module styling */
+  .sidebar-collapsible .sidebar-module {
+    margin-bottom: 12px;
+    border: none;
+    background: none;
+    padding: 0;
+  }
+
+  .sidebar-collapsible .module-header {
+    font-size: 0.65rem;
+    margin: 0 0 8px 0;
+    padding: 2px 5px;
+    display: inline-block;
+  }
+
+  /* Stacked nav on mobile - big touch targets */
+  .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-item {
+    margin-bottom: 0;
+  }
+
+  .nav-link {
+    padding: 12px 15px;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  /* Links as 2-column grid on mobile */
+  .sidebar-extras {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .sidebar-extras > .sidebar-module:first-child {
+    display: block;
+    grid-column: 1 / -1;
+  }
+
+  .sidebar-extras > .sidebar-module:first-child > div {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .sidebar-extras > .sidebar-module:first-child > div br {
+    display: none;
+  }
+
+  /* Hide currently reading (marquee too wide) */
+  .sidebar-extras > .sidebar-module:nth-child(2) {
+    display: none;
+  }
+
+  /* Show axiom */
+  .sidebar-extras > .sidebar-module:nth-child(3) {
+    display: block;
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  .sidebar-extras > .sidebar-module:nth-child(3) .module-header {
+    margin-bottom: 3px;
+  }
+
+  .sidebar-extras > .sidebar-module:nth-child(3) p {
+    font-size: 0.75rem;
+    margin: 0;
+  }
+
+  /* Hide everything else in sidebar-extras */
+  .sidebar-extras > .decorative-hr,
+  .sidebar-extras > .hit-counter,
+  .sidebar-extras > .badges-container,
+  .sidebar-extras > div:not(.sidebar-module):not(.decorative-hr):not(.badges-container) {
+    display: none;
+  }
+
+  /* Content frame - internal scrolling */
+  .content-frame {
+    padding: 20px 15px 60px 15px;
     overflow-y: auto;
   }
-  .sidebar-extras {
+
+  .page-section {
+    padding: 20px;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.6);
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  /* Larger tap targets for buttons */
+  .enter-btn {
+    padding: 15px 24px;
+    font-size: 1rem;
+    min-height: 48px;
+    width: 100%;
+  }
+
+  /* Date badge repositioning */
+  .date-badge {
+    float: none;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  /* Project grid single column on small screens */
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Splash screen mobile */
+  #splash-p5 {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* Form inputs - tactile inset styling */
+  input[type="text"],
+  textarea {
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
+    min-height: 48px;
+    padding: 12px !important;
+    background: #000;
+    border: 2px inset var(--dim-text);
+    color: var(--text);
+    width: 100%;
+    border-radius: 0;
+  }
+
+  input[type="text"]:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--border);
+  }
+
+  textarea {
+    min-height: 120px;
+  }
+}
+
+/* Desktop: hide mobile-only elements */
+@media (min-width: 769px) {
+  .mobile-header {
     display: none;
+  }
+
+  .sidebar-collapsible {
+    display: contents;
   }
 }
 
 /* --- SIDEBAR --- */
 .sidebar {
   background-color: rgba(10, 10, 32, 0.95);
-  border-right: 3px double var(--border);
-  padding: 15px;
+  border-right: 4px ridge var(--border);
+  padding: 20px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   text-align: center;
   font-size: 0.9rem;
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .profile-img {
   width: 100px;
   height: 100px;
-  border: 2px inset var(--border);
-  margin: 0 auto 10px auto;
+  border: 4px inset var(--border);
+  margin: 0 auto 15px auto;
   background-color: #000;
   display: flex;
   align-items: center;
@@ -174,41 +416,49 @@ p {
 .nav-list {
   list-style-type: none;
   padding: 0;
-  margin: 15px 0;
-  text-align: left;
+  margin: 20px 0;
   width: 100%;
-  border-top: 1px solid var(--dim-text);
-  border-bottom: 1px solid var(--dim-text);
-  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .nav-item {
-  margin-bottom: 5px;
+  margin-bottom: 0;
 }
 
 .nav-link {
   display: block;
-  padding: 3px 5px;
+  padding: 8px 10px;
   text-decoration: none;
   font-weight: bold;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px outset var(--dim-text);
+  transition: all 0.1s;
 }
 
 .nav-link:hover {
-  background-color: var(--text);
+  background-color: var(--dim-text);
   color: var(--bg);
   text-decoration: none;
+}
+
+.nav-link:active {
+  border-style: inset;
 }
 
 .nav-link.active {
   background-color: var(--text);
   color: var(--bg);
+  border: 2px inset var(--border);
 }
 
 .sidebar-module {
   margin-bottom: 15px;
   border: 1px solid var(--dim-text);
-  padding: 5px;
+  padding: 8px;
   background: rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
 .module-header {
@@ -216,10 +466,11 @@ p {
   font-size: 0.75rem;
   background: var(--dim-text);
   color: var(--bg);
-  margin: -5px -5px 5px -5px;
-  padding: 2px;
+  margin: -8px -8px 8px -8px;
+  padding: 4px;
   text-transform: uppercase;
   letter-spacing: 1px;
+  font-weight: bold;
 }
 
 .hit-counter {
@@ -298,6 +549,12 @@ p {
   border: 1px solid var(--dim-text);
   padding: 15px;
   background: rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.project-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--dim-text);
 }
 
 .project-card h4 {

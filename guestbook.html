@@ -47,7 +47,14 @@
     <!-- MAIN SITE LAYOUT -->
     <div id="main-site">
       <!-- SIDEBAR FRAME -->
-      <aside class="sidebar">
+      <aside class="sidebar" id="sidebar">
+        <!-- Mobile header (visible only on mobile) -->
+        <div class="mobile-header" onclick="toggleSidebar()">
+          <h2>B. TANG</h2>
+          <span class="mobile-header-toggle">▼</span>
+        </div>
+
+        <!-- Desktop profile (hidden on mobile) -->
         <div class="profile-img">&#9672;</div>
         <h2 style="font-size: 1.2rem; border: none; margin-bottom: 0">
           B. TANG
@@ -58,28 +65,30 @@
 
         <div class="decorative-hr" style="margin: 10px 0">~ ~ ~</div>
 
-        <div class="sidebar-module">
-          <div class="module-header">Navigation</div>
-          <ul class="nav-list" style="border: none; padding: 0; margin: 0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="lab.html">The Lab</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="studio.html">The Studio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="archive.html">The Archive</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="guestbook.html">Guestbook</a>
-            </li>
-          </ul>
-        </div>
+        <!-- Collapsible content wrapper -->
+        <div class="sidebar-collapsible">
+          <div class="sidebar-module">
+            <div class="module-header">Navigation</div>
+            <ul class="nav-list" style="border: none; padding: 0; margin: 0">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="lab.html">The Lab</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="studio.html">The Studio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="archive.html">The Archive</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="guestbook.html">Guestbook</a>
+              </li>
+            </ul>
+          </div>
 
-        <div class="sidebar-extras">
+          <div class="sidebar-extras">
           <div class="sidebar-module">
             <div class="module-header">Links</div>
             <div style="font-size: 0.8rem; text-align: left; padding: 5px;">
@@ -136,6 +145,7 @@
             Last Updated:<br />Dec 24, 2025
           </div>
         </div>
+        </div><!-- end sidebar-collapsible -->
       </aside>
 
       <!-- CONTENT FRAME -->
@@ -213,6 +223,11 @@
     <script src="sketch.js"></script>
     <script src="data.js"></script>
     <script src="render.js"></script>
+    <script>
+      function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('expanded');
+      }
+    </script>
     <script>
       // API base URL - update this after deploying your worker
       const API_BASE = 'https://brysontang-api.brysontang-api.workers.dev';
