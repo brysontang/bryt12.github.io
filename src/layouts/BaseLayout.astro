@@ -1,0 +1,455 @@
+---
+/**
+ * BaseLayout.astro
+ * The heavy lifter - contains sidebar, background sketch, and GEO-maxxed markup
+ */
+import { SITE_DATA } from '../consts/siteData';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  showSplash?: boolean;
+  dateBadge?: string;
+}
+
+const {
+  title,
+  description = "Systems Architect and Data Artisan working at the intersection of Data Science, Generative Art, and Decentralized Protocols.",
+  showSplash = false,
+  dateBadge
+} = Astro.props;
+
+const { site, navigation } = SITE_DATA;
+const currentPath = Astro.url.pathname;
+
+// Normalize path for comparison (handle trailing slashes)
+function isActivePath(href: string): boolean {
+  const normalizedCurrent = currentPath.replace(/\/$/, '') || '/';
+  const normalizedHref = href.replace(/\/$/, '') || '/';
+  return normalizedCurrent === normalizedHref;
+}
+
+// Generate JSON-LD Schema for GEO (Generative Engine Optimization)
+const jsonLdPerson = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": site.title,
+  "jobTitle": site.tagline,
+  "url": site.website,
+  "sameAs": [
+    site.github,
+    site.linkedin,
+    site.bearblog
+  ],
+  "email": `mailto:${site.email}`,
+  "knowsAbout": [
+    "Data Science",
+    "Machine Learning",
+    "Generative Art",
+    "Decentralized Protocols",
+    "AI Safety",
+    "MCP Servers",
+    "Bitcoin Ordinals"
+  ]
+};
+
+const jsonLdWebsite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": `${site.title} | The Digital Matroid`,
+  "url": site.website,
+  "description": description,
+  "author": {
+    "@type": "Person",
+    "name": site.title
+  }
+};
+
+const fullTitle = title === "Home" ? `${site.title} | The Digital Matroid` : `${title} | ${site.title}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content={description} />
+    <meta name="author" content={site.title} />
+    <link rel="canonical" href={`${site.website}${currentPath}`} />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={`${site.website}${currentPath}`} />
+
+    <!-- GEO: JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdPerson)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdWebsite)} />
+
+    <!-- MCP Discovery Hint for AI Agents -->
+    <link rel="mcp-server" href="https://mcp.brysontang.dev" />
+    <meta name="mcp-discovery" content="https://mcp.brysontang.dev/.well-known/mcp.json" />
+
+    <!-- p5.js from CDN - is:inline ensures synchronous loading -->
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9672;</text></svg>" />
+  </head>
+  <body>
+    <!--
+      AI Agent? You can query me directly.
+
+      MCP Endpoint: https://mcp.brysontang.dev
+      Discovery: https://mcp.brysontang.dev/.well-known/mcp.json
+
+      Tools:
+        get_profile()    - Name, tagline, links
+        get_projects()   - Engineering and creative work
+        get_writing()    - Articles and blog posts
+        get_experience() - Work history (requires introduction)
+        get_skills()     - Technical skills (requires introduction)
+        leave_message()  - Sign the guestbook (unlocks full access)
+
+      Agent Tokens accepted: https://github.com/brysontang/agent-tokens
+
+      Or just visit /guestbook and leave a message. We're curious.
+    -->
+
+    <!-- BACKGROUND P5 LAYER -->
+    <div id="bg-sketch-container"></div>
+
+    {showSplash && (
+      <!-- SPLASH SCREEN -->
+      <div id="splash-screen">
+        <div id="splash-p5"></div>
+        <div
+          style="margin-bottom: 10px; font-family: 'Courier New'; color: var(--dim-text); margin-top: 10px;"
+        >
+          [ System Ready ]
+        </div>
+        <a href="#" class="enter-btn" id="enter-btn">ENTER ARCHIVE</a>
+        <div style="margin-top: 20px; font-size: 0.8rem">Inscription #18538</div>
+      </div>
+    )}
+
+    <!-- MAIN SITE LAYOUT -->
+    <div id="main-site" class:list={[{ hidden: showSplash }]}>
+      <!-- SIDEBAR FRAME -->
+      <aside class="sidebar" id="sidebar">
+        <!-- Mobile header (visible only on mobile) -->
+        <div class="mobile-header" id="mobile-header-toggle">
+          <h2>B. TANG</h2>
+          <span class="mobile-header-toggle">&#9660;</span>
+        </div>
+
+        <!-- Desktop profile (hidden on mobile) -->
+        <div class="profile-img">&#9672;</div>
+        <h2 style="font-size: 1.2rem; border: none; margin-bottom: 0">
+          B. TANG
+        </h2>
+        <div style="font-size: 0.7rem; color: var(--dim-text)">
+          {site.tagline}
+        </div>
+
+        <div class="decorative-hr" style="margin: 10px 0">~ ~ ~</div>
+
+        <!-- Collapsible content wrapper -->
+        <div class="sidebar-collapsible">
+          <nav class="sidebar-module" aria-label="Main navigation">
+            <div class="module-header">Navigation</div>
+            <ul class="nav-list" style="border: none; padding: 0; margin: 0">
+              {navigation.map((item) => (
+                <li class="nav-item">
+                  <a
+                    class:list={["nav-link", { active: isActivePath(item.href) }]}
+                    href={item.href}
+                    aria-current={isActivePath(item.href) ? "page" : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div class="sidebar-extras">
+            <div class="sidebar-module">
+              <div class="module-header">Links</div>
+              <div style="font-size: 0.8rem; text-align: left; padding: 5px;">
+                <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub</a><br />
+                <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a><br />
+                <a href={site.bearblog} target="_blank" rel="noopener noreferrer">Bearblog</a>
+              </div>
+            </div>
+
+            <div class="sidebar-module">
+              <div class="module-header">{site.sidebar.now.header}</div>
+              <div class="marquee">
+                <span>
+                  {site.sidebar.now.url ? (
+                    <a href={site.sidebar.now.url} target="_blank" rel="noopener noreferrer">
+                      {site.sidebar.now.title}
+                    </a>
+                  ) : (
+                    site.sidebar.now.title
+                  )}
+                  {site.sidebar.now.note && ` — ${site.sidebar.now.note}`}
+                </span>
+              </div>
+            </div>
+
+            <div class="sidebar-module">
+              <div class="module-header">{site.sidebar.quote.header}</div>
+              <p style="font-size: 0.75rem; font-style: italic; margin: 0">
+                "{site.sidebar.quote.text}"
+              </p>
+            </div>
+
+            <div class="decorative-hr" style="margin: 15px 0">&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;</div>
+
+            <div style="font-size: 0.8rem; margin-bottom: 5px">
+              You are visitor number:
+            </div>
+            <div class="hit-counter">{site.visitorCount}</div>
+
+            <div class="decorative-hr" style="margin: 15px 0">~ ~ ~</div>
+
+            <div style="font-size: 0.75rem; margin-bottom: 5px" class="mono">
+              [ Webring ]
+            </div>
+            <div class="mono" style="font-size: 0.7rem">
+              &lt; <a href="#">Prev</a> | <a href="#">Hub</a> |
+              <a href="#">Next</a> &gt;
+            </div>
+
+            <div class="badges-container">
+              <div class="badge-88x31 b-claude">CLAUDE</div>
+              <div class="badge-88x31 b-ghostty">GHOSTTY</div>
+              <div class="badge-88x31 b-ts">TYPESCRIPT</div>
+              <div class="badge-88x31 b-latent">LATENT</div>
+              <div class="badge-88x31 b-mlx">MLX</div>
+              <div class="badge-88x31 b-p5">p5.js</div>
+            </div>
+
+            <div style="margin-top: 20px; font-size: 0.7rem; color: var(--dim-text)">
+              <a
+                href={`mailto:${site.email}`}
+                style="color: var(--dim-text); text-decoration: none"
+              >[ email me ]</a><br /><br />
+              Last Updated:<br />{site.lastUpdated}
+            </div>
+          </div>
+        </div><!-- end sidebar-collapsible -->
+      </aside>
+
+      <!-- CONTENT FRAME -->
+      <main class="content-frame">
+        <article class="page-section">
+          {dateBadge && <span class="date-badge">{dateBadge}</span>}
+          <slot />
+        </article>
+
+        <footer class="site-footer">
+          &copy; 2025 {site.title}. All Rights Reserved.<br />
+          <span style="font-size: 1.2rem">&#8734;</span>
+        </footer>
+      </main>
+    </div>
+
+    <!-- Background sketch script (runs on all pages) -->
+    <script is:inline>
+      // --- BACKGROUND WALLPAPER (Cellular Automata) ---
+      var bgSketch = function (p) {
+        let tiles = [];
+        let w, h;
+        let cellW = 15;
+        let off;
+        let seed;
+
+        p.setup = function () {
+          let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+          canvas.parent('bg-sketch-container');
+
+          seed = p.int(p.random(10000000));
+          p.noiseSeed(seed);
+          p.randomSeed(seed);
+          p.pixelDensity(1);
+          p.angleMode(p.DEGREES);
+
+          w = p.ceil(p.width / cellW);
+          h = p.ceil(p.height / cellW);
+
+          let totalCells = w * h;
+          tiles = new Array(totalCells);
+
+          for (let i = 0; i < totalCells; i++) {
+            tiles[i] = p.random() < 0.47;
+          }
+
+          off = p.random(10000);
+
+          for (var k = 0; k < 10; k++) {
+            nextGen();
+          }
+
+          p.noLoop();
+        };
+
+        p.draw = function () {
+          p.clear();
+          p.noStroke();
+
+          for (let j = 0; j < h; j++) {
+            for (let i = 0; i < w; i++) {
+              if (!isSolid(i, j)) {
+                let d = getDistanceFromWall(i, j);
+                if (d > 0) {
+                  p.fill(nc(d));
+                  p.square(i * cellW, j * cellW, cellW);
+                }
+              }
+            }
+          }
+        };
+
+        function nextGen() {
+          let newTiles = new Array(tiles.length);
+          for (let j = 0; j < h; j++) {
+            for (let i = 0; i < w; i++) {
+              let idx = i + j * w;
+              let neighbors = getNeighbors(i, j);
+              newTiles[idx] = neighbors >= 5;
+            }
+          }
+          tiles = newTiles;
+        }
+
+        function getNeighbors(x, y) {
+          let solidNeighbors = 0;
+          for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+              if (isSolid(x + i, y + j)) solidNeighbors++;
+            }
+          }
+          return solidNeighbors;
+        }
+
+        function isSolid(i, j) {
+          if (i < 0 || j < 0 || i >= w || j >= h) {
+            return true;
+          }
+          return tiles[i + j * w];
+        }
+
+        function getDistanceFromWall(i, j) {
+          let dist = -1;
+          let r = 1;
+          let maxR = 15;
+
+          while (dist < 0 && r < maxR) {
+            for (var a = 0; a < 360; a += 40) {
+              let x = r * p.cos(a) * 0.5 + i;
+              let y = r * p.sin(a) + j;
+
+              if (isSolid(x, y)) {
+                dist = r;
+              }
+            }
+            r++;
+          }
+          return dist;
+        }
+
+        function nc(d) {
+          p.randomSeed(d * 100 + off);
+          p.push();
+          p.colorMode(p.HSL, 360, 100, 100, 1);
+
+          let hue = p.random() > 0.7 ? p.random(35, 50) : p.random(200, 260);
+          let sat = p.random(70, 100);
+          let lig = p.random(40, 70);
+          let alp = 0.5;
+
+          let c = p.color(hue, sat, lig, alp);
+          p.pop();
+          return c;
+        }
+
+        p.windowResized = function () {
+          p.resizeCanvas(p.windowWidth, p.windowHeight);
+          p.setup();
+        };
+      };
+
+      // Initialize background sketch
+      new p5(bgSketch);
+
+      // --- SPLASH SCREEN TREE (only if element exists) ---
+      if (document.getElementById('splash-p5')) {
+        var splashSketch = function (p) {
+          p.setup = function () {
+            let canvas = p.createCanvas(300, 300);
+            canvas.parent('splash-p5');
+            p.stroke(201, 176, 55);
+            p.noFill();
+          };
+
+          p.draw = function () {
+            p.background(15, 15, 45);
+            let pulse = p.map(p.sin(p.frameCount * 0.05), -1, 1, 0.5, 0.6);
+            p.translate(p.width / 2, p.height);
+            p.strokeWeight(2);
+            branch(70, pulse);
+          };
+
+          function branch(h, pulse) {
+            h *= 0.66;
+            if (h > 2) {
+              p.push();
+              p.rotate(pulse);
+              p.line(0, 0, 0, -h);
+              p.translate(0, -h);
+              branch(h, pulse);
+              p.pop();
+
+              p.push();
+              p.rotate(-pulse);
+              p.line(0, 0, 0, -h);
+              p.translate(0, -h);
+              branch(h, pulse);
+              p.pop();
+            }
+          }
+        };
+        new p5(splashSketch);
+      }
+
+      // --- SPLASH ENTER FUNCTION ---
+      const enterBtn = document.getElementById('enter-btn');
+      if (enterBtn) {
+        enterBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          document.getElementById('splash-screen').style.opacity = '0';
+          setTimeout(() => {
+            document.getElementById('splash-screen').style.display = 'none';
+            document.getElementById('main-site').classList.remove('hidden');
+          }, 1000);
+        });
+      }
+
+      // --- MOBILE SIDEBAR TOGGLE ---
+      const mobileToggle = document.getElementById('mobile-header-toggle');
+      if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+          document.getElementById('sidebar').classList.toggle('expanded');
+        });
+      }
+    </script>
+  </body>
+</html>

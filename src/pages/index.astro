@@ -1,0 +1,85 @@
+---
+/**
+ * index.astro - Homepage with splash screen
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_DATA, generateLLMExport } from '../consts/siteData';
+---
+
+<BaseLayout
+  title="Home"
+  description="Systems Architect and Data Artisan working at the intersection of Data Science, Generative Art, and Decentralized Protocols."
+  showSplash={true}
+  dateBadge="index.html"
+>
+  <h1>&#10023; The Intersection of Rigor and Whimsy &#10023;</h1>
+  <p>Welcome to my digital study.</p>
+  <p>
+    I am <strong>Bryson Tang</strong>, a Systems Architect and Data
+    Artisan. In an era of black boxes and ephemeral feeds, this site
+    serves as a permanent archive of my work across Data Science,
+    Generative Art, and Decentralized Protocols.
+  </p>
+  <p>
+    This space is hand-coded. No frameworks, no trackers. Just HTML,
+    CSS, and a few p5.js scripts running locally in your browser. It is
+    designed to be visited, not consumed.
+  </p>
+
+  <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
+
+  <h3>Current Focus</h3>
+  <ul>
+    <li>
+      <strong>Infrastructure:</strong> Building reproducible ML
+      pipelines.
+    </li>
+    <li>
+      <strong>Safety:</strong> Architecting identity protocols for AI
+      agents.
+    </li>
+    <li>
+      <strong>Permanence:</strong> Inscribing recursive algorithms on
+      Bitcoin.
+    </li>
+  </ul>
+
+  <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
+
+  <div style="text-align: center;">
+    <button class="enter-btn" id="copy-experience-btn" style="font-size: 0.9rem;">
+      [ Copy My Experience for LLM ]
+    </button>
+    <p class="mono" style="font-size: 0.7rem; color: var(--dim-text); margin-top: 10px;">
+      Paste into ChatGPT, Claude, etc. to ask questions about me.
+    </p>
+  </div>
+</BaseLayout>
+
+<script>
+  import { generateLLMExport } from '../consts/siteData';
+
+  const btn = document.getElementById('copy-experience-btn');
+  if (btn) {
+    btn.addEventListener('click', async () => {
+      const md = generateLLMExport();
+
+      try {
+        await navigator.clipboard.writeText(md);
+        const originalText = btn.textContent;
+        btn.textContent = '[ Copied! ]';
+        btn.style.borderColor = 'var(--link)';
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.borderColor = '';
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+        btn.textContent = '[ Failed to copy ]';
+        setTimeout(() => {
+          btn.textContent = '[ Copy My Experience for LLM ]';
+        }, 2000);
+      }
+    });
+  }
+</script>

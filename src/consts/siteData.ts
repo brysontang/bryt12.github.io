@@ -2,7 +2,81 @@
 // SITE DATA - Central data store for all projects, writing, and repos
 // =============================================================================
 
-const SITE_DATA = {
+export interface ProjectLink {
+  label: string;
+  url: string;
+}
+
+export interface LabProject {
+  name: string;
+  description: string;
+  tags: string[];
+  links: ProjectLink[];
+}
+
+export interface StudioProject {
+  name: string;
+  description: string;
+  date?: string;
+  medium?: string;
+  links: ProjectLink[];
+}
+
+export interface WritingPost {
+  title: string;
+  url: string;
+  date: string;
+  platform: string;
+}
+
+export interface Repo {
+  name: string;
+  url: string;
+}
+
+export interface SidebarNow {
+  header: string;
+  title: string;
+  url?: string;
+  note?: string;
+}
+
+export interface SidebarQuote {
+  header: string;
+  text: string;
+}
+
+export interface NavItem {
+  label: string;
+  href: string;
+}
+
+export interface SiteInfo {
+  title: string;
+  tagline: string;
+  website: string;
+  github: string;
+  linkedin: string;
+  bearblog: string;
+  email: string;
+  lastUpdated: string;
+  visitorCount: string;
+  sidebar: {
+    now: SidebarNow;
+    quote: SidebarQuote;
+  };
+}
+
+export interface SiteData {
+  site: SiteInfo;
+  navigation: NavItem[];
+  labProjects: LabProject[];
+  studioProjects: StudioProject[];
+  writing: WritingPost[];
+  allRepos: Repo[];
+}
+
+export const SITE_DATA: SiteData = {
   // ---------------------------------------------------------------------------
   // Site Info
   // ---------------------------------------------------------------------------
@@ -11,7 +85,9 @@ const SITE_DATA = {
     tagline: "DATA ARTISAN & ARCHITECT",
     website: "https://brysontang.dev",
     github: "https://github.com/brysontang",
-    email: "brysontang@gmail.com", // TODO: Consider using a contact form instead
+    linkedin: "https://www.linkedin.com/in/bryson-t-datascience/",
+    bearblog: "https://noise2signal.bearblog.dev/",
+    email: "brysontang@gmail.com",
     lastUpdated: "Dec 24, 2025",
     visitorCount: "018538",
     sidebar: {
@@ -27,6 +103,17 @@ const SITE_DATA = {
       }
     }
   },
+
+  // ---------------------------------------------------------------------------
+  // Navigation Links
+  // ---------------------------------------------------------------------------
+  navigation: [
+    { label: "Home", href: "/" },
+    { label: "The Lab", href: "/lab" },
+    { label: "The Studio", href: "/studio" },
+    { label: "The Archive", href: "/archive" },
+    { label: "Guestbook", href: "/guestbook" }
+  ],
 
   // ---------------------------------------------------------------------------
   // Featured Lab Projects (Engineering/Technical)
@@ -180,14 +267,7 @@ const SITE_DATA = {
       url: "https://medium.com/@brysontang/your-prompts-favorite-prompt-fae76a0b0eb0",
       date: "2024",
       platform: "Medium"
-    },
-    // TODO: Add Bear blog posts here
-    // {
-    //   title: "Post Title",
-    //   url: "https://your-bear-blog.bearblog.dev/post-slug",
-    //   date: "2024",
-    //   platform: "Bear"
-    // }
+    }
   ],
 
   // ---------------------------------------------------------------------------
@@ -240,3 +320,70 @@ const SITE_DATA = {
     { name: "Tron", url: "https://github.com/brysontang/Tron" }
   ]
 };
+
+// Helper function to generate LLM-friendly markdown export
+export function generateLLMExport(): string {
+  const { site, labProjects, studioProjects, writing } = SITE_DATA;
+
+  let md = `# ${site.title}\n`;
+  md += `**${site.tagline}**\n\n`;
+
+  md += `## Contact\n`;
+  md += `- Website: ${site.website}\n`;
+  md += `- GitHub: ${site.github}\n`;
+  md += `- LinkedIn: ${site.linkedin}\n`;
+  md += `- Email: ${site.email}\n\n`;
+
+  md += `## About\n`;
+  md += `Systems Architect and Data Artisan working at the intersection of Data Science, Generative Art, and Decentralized Protocols. `;
+  md += `Focused on building reproducible ML pipelines, architecting identity protocols for AI agents, and inscribing recursive algorithms on Bitcoin.\n\n`;
+
+  md += `## Engineering Projects (The Lab)\n\n`;
+  labProjects.forEach(project => {
+    md += `### ${project.name}\n`;
+    md += `${project.description}\n`;
+    md += `- Tags: ${project.tags.join(', ')}\n`;
+    project.links.forEach(link => {
+      md += `- ${link.label}: ${link.url}\n`;
+    });
+    md += `\n`;
+  });
+
+  md += `## Creative Projects (The Studio)\n\n`;
+  studioProjects.forEach(project => {
+    md += `### ${project.name}\n`;
+    if (project.date || project.medium) {
+      md += `*${project.date ? project.date + '. ' : ''}${project.medium || ''}*\n`;
+    }
+    md += `${project.description}\n`;
+    project.links.forEach(link => {
+      md += `- ${link.label}: ${link.url}\n`;
+    });
+    md += `\n`;
+  });
+
+  md += `## Writing\n\n`;
+  writing.forEach(post => {
+    md += `- **${post.title}** (${post.date}) - ${post.platform}\n`;
+    md += `  ${post.url}\n`;
+  });
+  md += `\n`;
+
+  if (site.sidebar?.now) {
+    md += `## Currently Reading\n`;
+    md += `${site.sidebar.now.title}\n`;
+    if (site.sidebar.now.url) md += `${site.sidebar.now.url}\n`;
+    if (site.sidebar.now.note) md += `*${site.sidebar.now.note}*\n`;
+    md += `\n`;
+  }
+
+  if (site.sidebar?.quote) {
+    md += `## Personal Axiom\n`;
+    md += `"${site.sidebar.quote.text}"\n\n`;
+  }
+
+  md += `---\n`;
+  md += `*This context was exported from ${site.website} for use with LLMs.*\n`;
+
+  return md;
+}

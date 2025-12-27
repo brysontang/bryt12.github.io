@@ -1,0 +1,41 @@
+---
+/**
+ * studio.astro - The Studio (Creative Projects)
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_DATA } from '../consts/siteData';
+
+const { studioProjects } = SITE_DATA;
+---
+
+<BaseLayout
+  title="The Studio"
+  description="Creative and generative art projects exploring algorithmic aesthetics, Bitcoin inscriptions, and decentralized curation."
+  dateBadge="/art/generative"
+>
+  <h1>[ The Studio ]</h1>
+  <p>
+    The domain of Generative Expression. Here, algorithms become art and code becomes canvas.
+  </p>
+
+  {studioProjects.map((project) => (
+    <div class="studio-item">
+      <h3>{project.name}</h3>
+      <p>
+        <em>
+          {project.date ? `${project.date}. ` : ''}
+          {project.medium || ''}
+        </em>
+      </p>
+      <p>{project.description}</p>
+      <div class="project-links">
+        {project.links.map((link) => (
+          <a href={link.url} target="_blank" rel="noopener noreferrer">
+            [ {link.label} ]
+          </a>
+        ))}
+      </div>
+      <div class="decorative-hr">~ ~ ~</div>
+    </div>
+  ))}
+</BaseLayout>
