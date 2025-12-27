@@ -14,31 +14,37 @@ const { writing, allRepos } = SITE_DATA;
   dateBadge="/docs/archive"
 >
   <h1>[ The Archive ]</h1>
-  <p>
-    A catalog of writings and repositories. The permanent record.
-  </p>
+  <p>A catalog of writings and repositories. The permanent record.</p>
 
   <h3>Writing</h3>
   <ul id="writing-list">
-    {writing.map((post) => (
-      <li>
-        <span class="mono" style="color: var(--dim-text)">[{post.date}]</span>
-        <a href={post.url} target="_blank" rel="noopener noreferrer">{post.title}</a>
-        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text)">
-          &mdash; {post.platform}
-        </span>
-      </li>
-    ))}
+    {
+      writing.map((post) => (
+        <li>
+          <span class="mono" style="color: var(--dim-text)">
+            [{post.date}]
+          </span>
+          <a href={post.url} target="_blank" rel="noopener noreferrer">
+            {post.title}
+          </a>
+          <span class="mono" style="font-size: 0.75rem; color: var(--dim-text)">
+            &mdash; {post.platform}
+          </span>
+        </li>
+      ))
+    }
   </ul>
 
   <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
 
   <h3>Public Repositories</h3>
   <div id="repo-index">
-    {allRepos.map((repo) => (
-      <a href={repo.url} target="_blank" rel="noopener noreferrer" class="repo-badge">
-        {repo.name}
-      </a>
-    ))}
+    {
+      allRepos.map((repo) => (
+        <a href={repo.url} target="_blank" rel="noopener noreferrer" class="repo-badge">
+          {repo.name}
+        </a>
+      ))
+    }
   </div>
 </BaseLayout>

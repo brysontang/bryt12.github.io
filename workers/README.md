@@ -63,6 +63,7 @@ cp wrangler.toml.example wrangler.toml
 ```
 
 Edit `wrangler.toml` and fill in:
+
 - `account_id` - Your Cloudflare account ID
 - KV namespace `id` - From step 1
 - D1 `database_id` - From step 2
@@ -96,6 +97,7 @@ Your API will be available at `https://brysontang-api.<your-subdomain>.workers.d
 Increments and returns the visitor count.
 
 **Response:**
+
 ```json
 {
   "count": 18542,
@@ -108,6 +110,7 @@ Increments and returns the visitor count.
 Returns the 50 most recent guestbook entries.
 
 **Response:**
+
 ```json
 [
   {
@@ -123,6 +126,7 @@ Returns the 50 most recent guestbook entries.
 Creates a new guestbook entry.
 
 **Request:**
+
 ```json
 {
   "name": "Your Name",
@@ -131,6 +135,7 @@ Creates a new guestbook entry.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -143,6 +148,7 @@ Creates a new guestbook entry.
 ```
 
 **Error responses:**
+
 - `400` - Invalid input (missing fields, too long)
 - `429` - Rate limited (1 post per hour)
 
@@ -164,6 +170,7 @@ This starts a local server at `http://localhost:8787` with access to your KV and
 ## Cost
 
 Cloudflare Workers free tier includes:
+
 - 100,000 requests/day
 - 1GB KV storage
 - 5GB D1 storage

@@ -21,9 +21,7 @@ html {
   width: 100%;
   background-color: var(--bg);
   color: var(--text);
-  font-family:
-    'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', 'Comic Neue',
-    sans-serif;
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', 'Comic Neue', sans-serif;
   overflow: hidden;
 }
 
@@ -136,7 +134,8 @@ p {
 
 /* Mobile Layout */
 @media (max-width: 768px) {
-  body, html {
+  body,
+  html {
     overflow: hidden; /* Prevent body scroll, we scroll internal frames */
   }
 
@@ -353,7 +352,7 @@ p {
   }
 
   /* Form inputs - tactile inset styling */
-  input[type="text"],
+  input[type='text'],
   textarea {
     font-size: 16px !important; /* Prevents iOS zoom on focus */
     min-height: 48px;
@@ -365,7 +364,7 @@ p {
     border-radius: 0;
   }
 
-  input[type="text"]:focus,
+  input[type='text']:focus,
   textarea:focus {
     outline: none;
     border-color: var(--border);
@@ -549,7 +548,9 @@ p {
   border: 1px solid var(--dim-text);
   padding: 15px;
   background: rgba(0, 0, 0, 0.4);
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 
 .project-card:hover {
@@ -724,8 +725,8 @@ p {
 }
 
 /* --- EXTERNAL LINK ICON --- */
-.sidebar-module a[target="_blank"]::after {
-  content: " ↗";
+.sidebar-module a[target='_blank']::after {
+  content: ' ↗';
   font-size: 0.7em;
 }
 

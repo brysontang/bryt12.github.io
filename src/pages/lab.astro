@@ -15,26 +15,28 @@ const { labProjects } = SITE_DATA;
 >
   <h1>[ The Lab ]</h1>
   <p>
-    The domain of Applied Intelligence. Here, I build the systems that
-    make AI function reliably in the real world.
+    The domain of Applied Intelligence. Here, I build the systems that make AI function reliably in
+    the real world.
   </p>
 
   <div class="project-grid">
-    {labProjects.map((project) => (
-      <div class="project-card">
-        <h4>{project.name}</h4>
-        <p class="mono" style="font-size: 0.8rem; color: var(--dim-text)">
-          {project.tags.join(' | ')}
-        </p>
-        <p>{project.description}</p>
-        <div class="project-links">
-          {project.links.map((link) => (
-            <a href={link.url} target="_blank" rel="noopener noreferrer">
-              [ {link.label} ]
-            </a>
-          ))}
+    {
+      labProjects.map((project) => (
+        <div class="project-card">
+          <h4>{project.name}</h4>
+          <p class="mono" style="font-size: 0.8rem; color: var(--dim-text)">
+            {project.tags.join(' | ')}
+          </p>
+          <p>{project.description}</p>
+          <div class="project-links">
+            {project.links.map((link) => (
+              <a href={link.url} target="_blank" rel="noopener noreferrer">
+                [ {link.label} ]
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
-    ))}
+      ))
+    }
   </div>
 </BaseLayout>

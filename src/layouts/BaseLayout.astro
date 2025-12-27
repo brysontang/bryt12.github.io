@@ -15,9 +15,9 @@ interface Props {
 
 const {
   title,
-  description = "Systems Architect and Data Artisan working at the intersection of Data Science, Generative Art, and Decentralized Protocols.",
+  description = 'Systems Architect and Data Artisan working at the intersection of Data Science, Generative Art, and Decentralized Protocols.',
   showSplash = false,
-  dateBadge
+  dateBadge,
 } = Astro.props;
 
 const { site, navigation } = SITE_DATA;
@@ -32,41 +32,38 @@ function isActivePath(href: string): boolean {
 
 // Generate JSON-LD Schema for GEO (Generative Engine Optimization)
 const jsonLdPerson = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": site.title,
-  "jobTitle": site.tagline,
-  "url": site.website,
-  "sameAs": [
-    site.github,
-    site.linkedin,
-    site.bearblog
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.title,
+  jobTitle: site.tagline,
+  url: site.website,
+  sameAs: [site.github, site.linkedin, site.bearblog],
+  email: `mailto:${site.email}`,
+  knowsAbout: [
+    'Data Science',
+    'Machine Learning',
+    'Generative Art',
+    'Decentralized Protocols',
+    'AI Safety',
+    'MCP Servers',
+    'Bitcoin Ordinals',
   ],
-  "email": `mailto:${site.email}`,
-  "knowsAbout": [
-    "Data Science",
-    "Machine Learning",
-    "Generative Art",
-    "Decentralized Protocols",
-    "AI Safety",
-    "MCP Servers",
-    "Bitcoin Ordinals"
-  ]
 };
 
 const jsonLdWebsite = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": `${site.title} | The Digital Matroid`,
-  "url": site.website,
-  "description": description,
-  "author": {
-    "@type": "Person",
-    "name": site.title
-  }
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: `${site.title} | The Digital Matroid`,
+  url: site.website,
+  description: description,
+  author: {
+    '@type': 'Person',
+    name: site.title,
+  },
 };
 
-const fullTitle = title === "Home" ? `${site.title} | The Digital Matroid` : `${title} | ${site.title}`;
+const fullTitle =
+  title === 'Home' ? `${site.title} | The Digital Matroid` : `${title} | ${site.title}`;
 ---
 
 <!doctype html>
@@ -99,7 +96,10 @@ const fullTitle = title === "Home" ? `${site.title} | The Digital Matroid` : `${
     <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9672;</text></svg>" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>"
+    />
   </head>
   <body>
     <!--
@@ -124,19 +124,21 @@ const fullTitle = title === "Home" ? `${site.title} | The Digital Matroid` : `${
     <!-- BACKGROUND P5 LAYER -->
     <div id="bg-sketch-container"></div>
 
-    {showSplash && (
-      <!-- SPLASH SCREEN -->
-      <div id="splash-screen">
-        <div id="splash-p5"></div>
-        <div
-          style="margin-bottom: 10px; font-family: 'Courier New'; color: var(--dim-text); margin-top: 10px;"
-        >
-          [ System Ready ]
+    {/* SPLASH SCREEN */}
+    {
+      showSplash && (
+        <div id="splash-screen">
+          <div id="splash-p5" />
+          <div style="margin-bottom: 10px; font-family: 'Courier New'; color: var(--dim-text); margin-top: 10px;">
+            [ System Ready ]
+          </div>
+          <a href="#" class="enter-btn" id="enter-btn">
+            ENTER ARCHIVE
+          </a>
+          <div style="margin-top: 20px; font-size: 0.8rem">Inscription #18538</div>
         </div>
-        <a href="#" class="enter-btn" id="enter-btn">ENTER ARCHIVE</a>
-        <div style="margin-top: 20px; font-size: 0.8rem">Inscription #18538</div>
-      </div>
-    )}
+      )
+    }
 
     <!-- MAIN SITE LAYOUT -->
     <div id="main-site" class:list={[{ hidden: showSplash }]}>
@@ -150,9 +152,7 @@ const fullTitle = title === "Home" ? `${site.title} | The Digital Matroid` : `${
 
         <!-- Desktop profile (hidden on mobile) -->
         <div class="profile-img">&#9672;</div>
-        <h2 style="font-size: 1.2rem; border: none; margin-bottom: 0">
-          B. TANG
-        </h2>
+        <h2 style="font-size: 1.2rem; border: none; margin-bottom: 0">B. TANG</h2>
         <div style="font-size: 0.7rem; color: var(--dim-text)">
           {site.tagline}
         </div>
@@ -164,17 +164,19 @@ const fullTitle = title === "Home" ? `${site.title} | The Digital Matroid` : `${
           <nav class="sidebar-module" aria-label="Main navigation">
             <div class="module-header">Navigation</div>
             <ul class="nav-list" style="border: none; padding: 0; margin: 0">
-              {navigation.map((item) => (
-                <li class="nav-item">
-                  <a
-                    class:list={["nav-link", { active: isActivePath(item.href) }]}
-                    href={item.href}
-                    aria-current={isActivePath(item.href) ? "page" : undefined}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {
+                navigation.map((item) => (
+                  <li class="nav-item">
+                    <a
+                      class:list={['nav-link', { active: isActivePath(item.href) }]}
+                      href={item.href}
+                      aria-current={isActivePath(item.href) ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))
+              }
             </ul>
           </nav>
 
@@ -192,13 +194,15 @@ const fullTitle = title === "Home" ? `${site.title} | The Digital Matroid` : `${
               <div class="module-header">{site.sidebar.now.header}</div>
               <div class="marquee">
                 <span>
-                  {site.sidebar.now.url ? (
-                    <a href={site.sidebar.now.url} target="_blank" rel="noopener noreferrer">
-                      {site.sidebar.now.title}
-                    </a>
-                  ) : (
-                    site.sidebar.now.title
-                  )}
+                  {
+                    site.sidebar.now.url ? (
+                      <a href={site.sidebar.now.url} target="_blank" rel="noopener noreferrer">
+                        {site.sidebar.now.title}
+                      </a>
+                    ) : (
+                      site.sidebar.now.title
+                    )
+                  }
                   {site.sidebar.now.note && ` — ${site.sidebar.now.note}`}
                 </span>
               </div>
@@ -211,18 +215,16 @@ const fullTitle = title === "Home" ? `${site.title} | The Digital Matroid` : `${
               </p>
             </div>
 
-            <div class="decorative-hr" style="margin: 15px 0">&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;</div>
-
-            <div style="font-size: 0.8rem; margin-bottom: 5px">
-              You are visitor number:
+            <div class="decorative-hr" style="margin: 15px 0">
+              &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;
             </div>
+
+            <div style="font-size: 0.8rem; margin-bottom: 5px">You are visitor number:</div>
             <div class="hit-counter">{site.visitorCount}</div>
 
             <div class="decorative-hr" style="margin: 15px 0">~ ~ ~</div>
 
-            <div style="font-size: 0.75rem; margin-bottom: 5px" class="mono">
-              [ Webring ]
-            </div>
+            <div style="font-size: 0.75rem; margin-bottom: 5px" class="mono">[ Webring ]</div>
             <div class="mono" style="font-size: 0.7rem">
               &lt; <a href="#">Prev</a> | <a href="#">Hub</a> |
               <a href="#">Next</a> &gt;
@@ -238,10 +240,9 @@ const fullTitle = title === "Home" ? `${site.title} | The Digital Matroid` : `${
             </div>
 
             <div style="margin-top: 20px; font-size: 0.7rem; color: var(--dim-text)">
-              <a
-                href={`mailto:${site.email}`}
-                style="color: var(--dim-text); text-decoration: none"
-              >[ email me ]</a><br /><br />
+              <a href={`mailto:${site.email}`} style="color: var(--dim-text); text-decoration: none"
+                >[ email me ]</a
+              ><br /><br />
               Last Updated:<br />{site.lastUpdated}
             </div>
           </div>
@@ -433,7 +434,7 @@ const fullTitle = title === "Home" ? `${site.title} | The Digital Matroid` : `${
       // --- SPLASH ENTER FUNCTION ---
       const enterBtn = document.getElementById('enter-btn');
       if (enterBtn) {
-        enterBtn.addEventListener('click', function(e) {
+        enterBtn.addEventListener('click', function (e) {
           e.preventDefault();
           document.getElementById('splash-screen').style.opacity = '0';
           setTimeout(() => {
@@ -446,7 +447,7 @@ const fullTitle = title === "Home" ? `${site.title} | The Digital Matroid` : `${
       // --- MOBILE SIDEBAR TOGGLE ---
       const mobileToggle = document.getElementById('mobile-header-toggle');
       if (mobileToggle) {
-        mobileToggle.addEventListener('click', function() {
+        mobileToggle.addEventListener('click', function () {
           document.getElementById('sidebar').classList.toggle('expanded');
         });
       }

@@ -40,17 +40,17 @@ export default {
       console.error('Worker error:', error);
       return new Response(JSON.stringify({ error: 'Internal server error' }), {
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
-  }
+  },
 };
 
 /**
  * Increment and return visitor count
  */
 async function handleCounter(env, corsHeaders) {
-  const currentCount = parseInt(await env.SITE_KV.get('visitor_count') || '18538');
+  const currentCount = parseInt((await env.SITE_KV.get('visitor_count')) || '18538');
   const newCount = currentCount + 1;
   await env.SITE_KV.put('visitor_count', newCount.toString());
 
@@ -58,7 +58,7 @@ async function handleCounter(env, corsHeaders) {
   const paddedCount = newCount.toString().padStart(6, '0');
 
   return new Response(JSON.stringify({ count: newCount, display: paddedCount }), {
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   });
 }
 
@@ -66,15 +66,17 @@ async function handleCounter(env, corsHeaders) {
  * Fetch recent guestbook entries
  */
 async function getGuestbookEntries(env, corsHeaders) {
-  const { results } = await env.DB.prepare(`
+  const { results } = await env.DB.prepare(
+    `
     SELECT name, message, created_at
     FROM guestbook
     ORDER BY created_at DESC
     LIMIT 50
-  `).all();
+  `
+  ).all();
 
   return new Response(JSON.stringify(results), {
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   });
 }
 
@@ -89,13 +91,16 @@ async function postGuestbookEntry(request, env, corsHeaders) {
   const lastPost = await env.SITE_KV.get(rateLimitKey);
 
   if (lastPost) {
-    return new Response(JSON.stringify({
-      error: 'Please wait before posting again',
-      retryAfter: '1 hour'
-    }), {
-      status: 429,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-    });
+    return new Response(
+      JSON.stringify({
+        error: 'Please wait before posting again',
+        retryAfter: '1 hour',
+      }),
+      {
+        status: 429,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      }
+    );
   }
 
   // Parse request body
@@ -105,7 +110,7 @@ async function postGuestbookEntry(request, env, corsHeaders) {
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
       status: 400,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
 
@@ -116,7 +121,7 @@ async function postGuestbookEntry(request, env, corsHeaders) {
   if (website) {
     // Pretend success but don't store - bot detected
     return new Response(JSON.stringify({ success: true }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
 
@@ -124,21 +129,21 @@ async function postGuestbookEntry(request, env, corsHeaders) {
   if (!name || !message) {
     return new Response(JSON.stringify({ error: 'Name and message are required' }), {
       status: 400,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
 
   if (name.length > 50) {
     return new Response(JSON.stringify({ error: 'Name too long (max 50 characters)' }), {
       status: 400,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
 
   if (message.length > 500) {
     return new Response(JSON.stringify({ error: 'Message too long (max 500 characters)' }), {
       status: 400,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
 
@@ -150,24 +155,31 @@ async function postGuestbookEntry(request, env, corsHeaders) {
   const ipHash = await hashIP(ip, env.IP_SALT || 'default-salt');
   const createdAt = new Date().toISOString();
 
-  await env.DB.prepare(`
+  await env.DB.prepare(
+    `
     INSERT INTO guestbook (name, message, ip_hash, created_at)
     VALUES (?, ?, ?, ?)
-  `).bind(sanitizedName, sanitizedMessage, ipHash, createdAt).run();
+  `
+  )
+    .bind(sanitizedName, sanitizedMessage, ipHash, createdAt)
+    .run();
 
   // Set rate limit (1 hour TTL)
   await env.SITE_KV.put(rateLimitKey, '1', { expirationTtl: 3600 });
 
-  return new Response(JSON.stringify({
-    success: true,
-    entry: {
-      name: sanitizedName,
-      message: sanitizedMessage,
-      created_at: createdAt
+  return new Response(
+    JSON.stringify({
+      success: true,
+      entry: {
+        name: sanitizedName,
+        message: sanitizedMessage,
+        created_at: createdAt,
+      },
+    }),
+    {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     }
-  }), {
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-  });
+  );
 }
 
 /**
@@ -178,5 +190,8 @@ async function hashIP(ip, salt) {
   const data = encoder.encode(ip + salt);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 16);
+  return hashArray
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+    .slice(0, 16);
 }

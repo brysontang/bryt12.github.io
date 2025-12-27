@@ -14,28 +14,28 @@ const { studioProjects } = SITE_DATA;
   dateBadge="/art/generative"
 >
   <h1>[ The Studio ]</h1>
-  <p>
-    The domain of Generative Expression. Here, algorithms become art and code becomes canvas.
-  </p>
+  <p>The domain of Generative Expression. Here, algorithms become art and code becomes canvas.</p>
 
-  {studioProjects.map((project) => (
-    <div class="studio-item">
-      <h3>{project.name}</h3>
-      <p>
-        <em>
-          {project.date ? `${project.date}. ` : ''}
-          {project.medium || ''}
-        </em>
-      </p>
-      <p>{project.description}</p>
-      <div class="project-links">
-        {project.links.map((link) => (
-          <a href={link.url} target="_blank" rel="noopener noreferrer">
-            [ {link.label} ]
-          </a>
-        ))}
+  {
+    studioProjects.map((project) => (
+      <div class="studio-item">
+        <h3>{project.name}</h3>
+        <p>
+          <em>
+            {project.date ? `${project.date}. ` : ''}
+            {project.medium || ''}
+          </em>
+        </p>
+        <p>{project.description}</p>
+        <div class="project-links">
+          {project.links.map((link) => (
+            <a href={link.url} target="_blank" rel="noopener noreferrer">
+              [ {link.label} ]
+            </a>
+          ))}
+        </div>
+        <div class="decorative-hr">~ ~ ~</div>
       </div>
-      <div class="decorative-hr">~ ~ ~</div>
-    </div>
-  ))}
+    ))
+  }
 </BaseLayout>
