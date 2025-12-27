@@ -23,3 +23,7 @@ pnpm-debug.log*
 
 # Astro
 .astro/
+
+# Cloudflare Workers (contains account/resource IDs)
+workers/wrangler.toml
+.wrangler/
