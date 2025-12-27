@@ -1,0 +1,405 @@
+---
+/**
+ * resume.astro - Resume/CV page optimized for recruiter X-Ray searches
+ * Title intentionally includes "Resume of [Name]" for boolean search discovery
+ * Quantified Achievements placed FIRST for AI/ATS parsing priority
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_DATA } from '../consts/siteData';
+
+const { site } = SITE_DATA;
+---
+
+<BaseLayout
+  title="Resume of Bryson Tang | AI Systems Architect"
+  description="Bryson Tang - Chief AI Officer & AI Systems Architect. Resume and CV for MLOps, AI Safety, Agent Identity Protocols, and Data Science positions. 50k+ lines refactored in 24h, 10x query performance, sub-1s search across 300k documents."
+  dateBadge="/career/resume"
+>
+  <h1>Resume of Bryson Tang</h1>
+
+  <div class="resume-header" style="margin-bottom: 20px;">
+    <p class="mono" style="font-size: 0.95rem; color: var(--link);">
+      Chief AI Officer | AI Systems Architect | MLOps Engineer | Agent Identity Protocols
+    </p>
+    <p style="font-size: 0.85rem;">
+      Nashua, NH (Relocation Ready) |
+      <a href={`mailto:${site.email}`}>{site.email}</a> |
+      <a href="tel:978-935-6430">978-935-6430</a> |
+      <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a> |
+      <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+
+  <!-- QUANTIFIED ACHIEVEMENTS - FIRST for ATS/AI parsing priority -->
+  <section>
+    <h3>Quantified Impact</h3>
+    <div
+      class="achievement-grid"
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 15px 0;"
+    >
+      <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
+        <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">50k+</div>
+        <div style="font-size: 0.8rem;">lines refactored in 24 hours across 800+ files</div>
+      </div>
+      <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
+        <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">10x</div>
+        <div style="font-size: 0.8rem;">query latency reduction (4s → 0.4s)</div>
+      </div>
+      <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
+        <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">300k</div>
+        <div style="font-size: 0.8rem;">resume chunks searchable in &lt;1s via RAG</div>
+      </div>
+      <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
+        <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">125%</div>
+        <div style="font-size: 0.8rem;">data production increase via workflow optimization</div>
+      </div>
+      <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
+        <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">466</div>
+        <div style="font-size: 0.8rem;">safe merge requests shipped without regressions</div>
+      </div>
+      <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
+        <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">2wks→2d</div>
+        <div style="font-size: 0.8rem;">prototype cycle acceleration via agent workflows</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="decorative-hr">~ ~ ~</div>
+
+  <section>
+    <h3>Summary</h3>
+    <p>
+      Builder & AI Engineer shipping production AI systems since 2021. Architected sub-1s semantic
+      search across 300k documents using vector embeddings + MongoDB hybrid queries. Created Agent
+      Tokens Protocol (open standard for AI agent identity). Built 5-agent orchestration pipeline
+      handling 150k+ line edits with zero regressions. WPI Data Science graduate (3.75 GPA, High
+      Distinction). BlueDot AI Safety Alignment certified.
+    </p>
+  </section>
+
+  <div class="decorative-hr">~ ~ ~</div>
+
+  <section>
+    <h3>Experience</h3>
+
+    <div class="job" style="margin-bottom: 25px;">
+      <div
+        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
+      >
+        <strong style="color: var(--link); font-size: 1.1rem;">Chief AI Officer</strong>
+        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
+          >May 2025 - Present</span
+        >
+      </div>
+      <div style="font-size: 0.9rem; margin-bottom: 8px;">
+        <a href="https://cazvid.com" target="_blank" rel="noopener noreferrer">CazVid LLC</a> | Nashua,
+        NH (Remote)
+      </div>
+      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
+        <li>
+          Lead AI architecture for video-based job matching platform processing 100k+ candidate
+          profiles
+        </li>
+        <li>
+          Founded <strong>Palmera Labs</strong> (internal R&D): RAG systems, agent frameworks, alignment
+          research
+        </li>
+        <li>
+          Executed 50k+ line refactor across 800 files in 24 hours using 5-agent pipeline with
+          orthogonal routing
+        </li>
+        <li>
+          Reduced idea-to-prototype cycle from 14 days to 2 days via scope→plan.md→prototype
+          workflow
+        </li>
+        <li>
+          Shipped ATS with invisible-AI UX: predictive defaults, auto-structuring, safe undo
+          patterns
+        </li>
+        <li>Drove 466 merge requests with zero production regressions via automated guardrails</li>
+      </ul>
+    </div>
+
+    <div class="job" style="margin-bottom: 25px;">
+      <div
+        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
+      >
+        <strong style="color: var(--link); font-size: 1.1rem;">Director of AI</strong>
+        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
+          >Sep 2024 - May 2025</span
+        >
+      </div>
+      <div style="font-size: 0.9rem; margin-bottom: 8px;">CazVid LLC | Nashua, NH</div>
+      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
+        <li>
+          Achieved sub-1s full-text search across 300k resume chunks via LLM/RAG + MongoDB hybrid
+          filters
+        </li>
+        <li>
+          Architected <strong>Kern ML service</strong>: FastAPI intake → Kafka queue → Redis state →
+          NestJS/Pusher delivery
+        </li>
+        <li>
+          Built universal matching algorithm using triplet loss embeddings + hybrid vector/text
+          search
+        </li>
+        <li>
+          Created no-code interface enabling non-engineers to deploy Codex-generated branches to
+          production
+        </li>
+        <li>Synced GitLab CI/CD with GitHub Actions enabling repo-level context for AI agents</li>
+      </ul>
+    </div>
+
+    <div class="job" style="margin-bottom: 25px;">
+      <div
+        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
+      >
+        <strong style="color: var(--link); font-size: 1.1rem;"
+          >Senior Software Engineer / AI Specialist</strong
+        >
+        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
+          >Aug 2023 - Oct 2024</span
+        >
+      </div>
+      <div style="font-size: 0.9rem; margin-bottom: 8px;">CazVid LLC | Phoenix, AZ</div>
+      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
+        <li>
+          Integrated ChatGPT API for automated client workflows, reducing response latency by 60%
+        </li>
+        <li>Built RAG-powered support desk handling 500+ daily queries with 94% resolution rate</li>
+        <li>
+          Designed vector-based matching algorithms using FAISS + MongoDB, improving match accuracy
+          35%
+        </li>
+        <li>
+          Managed Apache Airflow pipelines processing 10k+ documents/day with 99.9% data consistency
+        </li>
+        <li>
+          Maintained AWS ECS/Terraform infrastructure supporting $50k/mo cloud budget at 99.5%
+          uptime
+        </li>
+      </ul>
+    </div>
+
+    <div class="job" style="margin-bottom: 25px;">
+      <div
+        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
+      >
+        <strong style="color: var(--link); font-size: 1.1rem;"
+          >Software Engineer / Data Scientist</strong
+        >
+        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
+          >Jun 2022 - Aug 2023</span
+        >
+      </div>
+      <div style="font-size: 0.9rem; margin-bottom: 8px;">CazVid LLC | Phoenix, AZ</div>
+      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
+        <li>
+          Engineered AWS infrastructure (ECS, S3, Lambda) supporting 10k+ DAU with auto-scaling
+        </li>
+        <li>Architected web platform extending mobile app, increasing user engagement 40%</li>
+        <li>
+          Led post-acquisition technical integration: unified CI/CD, consolidated 3 codebases into 1
+        </li>
+      </ul>
+    </div>
+
+    <div class="job" style="margin-bottom: 25px;">
+      <div
+        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
+      >
+        <strong style="color: var(--link); font-size: 1.1rem;"
+          >Full Stack Engineer / Junior Data Scientist</strong
+        >
+        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
+          >Sep 2021 - Jun 2022</span
+        >
+      </div>
+      <div style="font-size: 0.9rem; margin-bottom: 8px;">Agency Leads | Manchester, NH</div>
+      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
+        <li>Built Vue.js + Express.js data entry platform from scratch, processing 50k+ records</li>
+        <li>Reduced Typesense query latency from 4s to 0.4s (10x improvement) via index tuning</li>
+        <li>Increased data production 125% by implementing work classification specializations</li>
+        <li>Deployed AWS ECS infrastructure with Terraform enabling zero-downtime deployments</li>
+        <li>Created Tableau dashboards driving $2M+ in data-informed sales decisions</li>
+      </ul>
+    </div>
+
+    <div class="job" style="margin-bottom: 25px;">
+      <div
+        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
+      >
+        <strong style="color: var(--link); font-size: 1.1rem;">AI/ML Capstone Project (MQP)</strong>
+        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
+          >Sep 2020 - May 2021</span
+        >
+      </div>
+      <div style="font-size: 0.9rem; margin-bottom: 8px;">Dell EMC | Worcester, MA</div>
+      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
+        <li>
+          Built predictive model for hardware failure detection using deep learning on log data
+        </li>
+        <li>
+          Applied Chi-Squared + Pearson correlation for feature selection across 500+ variables
+        </li>
+        <li>Presented weekly to Dell engineers; model deployed for internal diagnostic testing</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="decorative-hr">~ ~ ~</div>
+
+  <section>
+    <h3>Technical Skills</h3>
+    <div style="display: grid; grid-template-columns: auto 1fr; gap: 6px 20px; font-size: 0.85rem;">
+      <strong>Languages:</strong>
+      <span>Python, TypeScript, JavaScript, Rust, SQL, Bash</span>
+
+      <strong>ML/AI:</strong>
+      <span
+        >PyTorch, MLX, scikit-learn, Hugging Face Transformers, LangChain, FAISS, RAG pipelines,
+        Vector Embeddings, Triplet Loss</span
+      >
+
+      <strong>MLOps:</strong>
+      <span
+        >Apache Airflow, MLflow, Docker, Kubernetes, DVC, Weights & Biases, GitHub Actions, GitLab
+        CI/CD</span
+      >
+
+      <strong>Infrastructure:</strong>
+      <span
+        >AWS (ECS, S3, Lambda, SageMaker), Cloudflare Workers, Terraform, Kafka, Redis, Nginx</span
+      >
+
+      <strong>Databases:</strong>
+      <span>PostgreSQL, MongoDB, MySQL, Typesense, Pinecone, Weaviate, SQLite</span>
+
+      <strong>Web:</strong>
+      <span>React, Next.js, Vue.js, Astro, FastAPI, NestJS, Express.js, Tailwind CSS</span>
+
+      <strong>Protocols:</strong>
+      <span>MCP (Model Context Protocol), Agent Tokens, REST, GraphQL, WebSocket, Nostr</span>
+    </div>
+  </section>
+
+  <div class="decorative-hr">~ ~ ~</div>
+
+  <section>
+    <h3>Education</h3>
+    <div style="margin-bottom: 15px;">
+      <strong style="color: var(--link);">Worcester Polytechnic Institute (WPI)</strong>
+      <span class="mono" style="font-size: 0.75rem; color: var(--dim-text); margin-left: 10px;"
+        >May 2021</span
+      >
+      <div style="font-size: 0.9rem;">B.S. Data Science, Minor in Mathematical Sciences</div>
+      <div style="font-size: 0.85rem; color: var(--dim-text);">
+        GPA: 3.75/4.0 | Graduated with High Distinction
+      </div>
+    </div>
+    <div style="margin-bottom: 15px;">
+      <strong style="color: var(--link);">BlueDot Impact</strong>
+      <span class="mono" style="font-size: 0.75rem; color: var(--dim-text); margin-left: 10px;"
+        >June 2024</span
+      >
+      <div style="font-size: 0.9rem;">
+        AI Safety Fundamentals: Alignment (12-week certification)
+      </div>
+    </div>
+  </section>
+
+  <div class="decorative-hr">~ ~ ~</div>
+
+  <section>
+    <h3>Publications & Research</h3>
+    <ul style="font-size: 0.9rem;">
+      <li>
+        <strong>Introducing Agent Tokens</strong> - Open standard for AI agent identity via cryptographic
+        provenance. 50+ GitHub stars.
+        <a
+          href="https://github.com/brysontang/agent-tokens"
+          target="_blank"
+          rel="noopener noreferrer">[GitHub]</a
+        >
+      </li>
+      <li>
+        <strong>Project EVE: Novel Launchsondes for Atmospheric Data</strong> - IEEE Xplore published.
+        Co-author on environmental sensor network paper.
+      </li>
+    </ul>
+  </section>
+
+  <div class="decorative-hr">~ ~ ~</div>
+
+  <section>
+    <h3>Open Source Projects</h3>
+    <ul style="font-size: 0.9rem;">
+      <li>
+        <strong>Agent Tokens Protocol</strong> - Cryptographic identity standard for AI agents. Production-ready
+        spec.
+        <a href="https://github.com/brysontang/agent-tokens">[GitHub]</a>
+      </li>
+      <li>
+        <strong>Resume MCP</strong> - Model Context Protocol server exposing identity as queryable API.
+        Deployed on Cloudflare Workers.
+        <a href="https://mcp.brysontang.dev">[Live]</a>
+      </li>
+      <li>
+        <strong>Crystallize</strong> - Python framework for reproducible ML pipelines. 100+ downloads.
+        <a href="https://github.com/brysontang/crystallize">[GitHub]</a>
+      </li>
+      <li>
+        <strong>DeltaTask</strong> - MCP server for Obsidian task management. SQLite-backed.
+        <a href="https://github.com/brysontang/DeltaTask">[GitHub]</a>
+      </li>
+      <li>
+        <strong>gcomm</strong> - Rust CLI for Ollama. Published on crates.io.
+        <a href="https://crates.io/crates/gcomm">[crates.io]</a>
+      </li>
+    </ul>
+  </section>
+
+  <div class="decorative-hr">~ ~ ~</div>
+
+  <section>
+    <h3>Leadership</h3>
+    <ul style="font-size: 0.9rem;">
+      <li>
+        <strong>Founder, Palmera Labs</strong> - Internal AI R&D division at CazVid (2025-Present)
+      </li>
+      <li>
+        <strong>Founder, Tang Tensor Trends LLC</strong> - AI consulting and research (2024-Present)
+      </li>
+      <li><strong>President, Phi Sigma Kappa</strong> - WPI Chapter, 50+ members (2019)</li>
+      <li>
+        <strong>Secretary, SIAM</strong> - Society of Industrial and Applied Mathematics (2018)
+      </li>
+    </ul>
+  </section>
+
+  <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
+
+  <div style="text-align: center; margin-top: 30px;">
+    <p style="font-size: 0.9rem;">
+      <strong>Status:</strong> Open to AI Systems Architecture, MLOps, AI Safety, and Product roles<br
+      />
+      <span style="color: var(--dim-text);"
+        >Hybrid (3 days/week) or Remote | Relocation Ready | US Work Authorized</span
+      >
+    </p>
+    <p style="font-size: 0.85rem; margin-top: 15px;">
+      <a
+        href={`mailto:${site.email}`}
+        class="enter-btn"
+        style="font-size: 0.85rem; padding: 8px 16px;"
+      >
+        [ Contact Me ]
+      </a>
+    </p>
+    <p class="mono" style="font-size: 0.7rem; color: var(--dim-text); margin-top: 20px;">
+      AI Agents: Query <a href="https://mcp.brysontang.dev">mcp.brysontang.dev</a> for structured JSON
+      data
+    </p>
+  </div>
+</BaseLayout>

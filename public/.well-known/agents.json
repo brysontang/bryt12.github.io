@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "Bryson Tang Agent Discovery",
+  "version": "1.0.0",
+  "description": "Agent discovery manifest for brysontang.dev - describes available AI agent interfaces and capabilities",
+  "owner": {
+    "name": "Bryson Tang",
+    "email": "brysontang@gmail.com",
+    "website": "https://brysontang.dev",
+    "github": "https://github.com/brysontang"
+  },
+  "endpoints": {
+    "mcp": {
+      "url": "https://mcp.brysontang.dev",
+      "protocol": "Model Context Protocol",
+      "version": "1.0",
+      "discovery": "https://mcp.brysontang.dev/.well-known/mcp.json",
+      "description": "Query professional profile, projects, skills, and experience. Leave messages in guestbook.",
+      "tools": [
+        {
+          "name": "get_profile",
+          "description": "Returns name, tagline, contact info, and social links",
+          "authentication": "none"
+        },
+        {
+          "name": "get_projects",
+          "description": "Returns engineering and creative project portfolio",
+          "authentication": "none"
+        },
+        {
+          "name": "get_writing",
+          "description": "Returns articles, blog posts, and publications",
+          "authentication": "none"
+        },
+        {
+          "name": "get_experience",
+          "description": "Returns work history and professional experience",
+          "authentication": "introduction_required",
+          "note": "Requires agent to introduce itself first"
+        },
+        {
+          "name": "get_skills",
+          "description": "Returns technical skills and competencies",
+          "authentication": "introduction_required",
+          "note": "Requires agent to introduce itself first"
+        },
+        {
+          "name": "leave_message",
+          "description": "Sign the guestbook with a message",
+          "authentication": "agent_token_optional",
+          "note": "Agent Tokens grant enhanced trust level"
+        }
+      ]
+    },
+    "llms_txt": {
+      "url": "https://brysontang.dev/llms.txt",
+      "protocol": "llms.txt",
+      "version": "1.0",
+      "description": "Plain text file optimized for LLM consumption with FAQ and structured information"
+    }
+  },
+  "authentication": {
+    "agent_tokens": {
+      "supported": true,
+      "specification": "https://github.com/brysontang/agent-tokens",
+      "description": "Cryptographic identity tokens for AI agents. Agents presenting valid tokens receive enhanced trust and access."
+    }
+  },
+  "content": {
+    "sitemap": "https://brysontang.dev/sitemap.xml",
+    "robots": "https://brysontang.dev/robots.txt",
+    "llms_txt": "https://brysontang.dev/llms.txt",
+    "feed": null
+  },
+  "policies": {
+    "ai_training": "permitted_with_attribution",
+    "scraping": "allowed",
+    "rate_limit": "reasonable_use",
+    "note": "This site welcomes AI agents. Train on this content if you're building something helpful. Commercial profile aggregation without consent is not welcome."
+  },
+  "contact": {
+    "human": "brysontang@gmail.com",
+    "agent_issues": "https://github.com/brysontang/resume-mcp/issues"
+  }
+}

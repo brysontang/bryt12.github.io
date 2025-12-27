@@ -1,0 +1,156 @@
+# Bryson Tang - Chief AI Officer & AI Systems Architect
+
+> Building agent identity protocols, reproducible ML pipelines, and generative art systems.
+> This file is optimized for LLM consumption. For structured API access, use the MCP endpoint.
+
+## Identity
+
+- Name: Bryson Tang
+- Current Role: Chief AI Officer at CazVid
+- Title: AI Systems Architect & Data Artisan
+- Location: Nashua, NH (Remote/Hybrid ready, open to relocation)
+- Email: brysontang@gmail.com
+- Phone: 978-935-6430
+- Website: https://brysontang.dev
+- GitHub: https://github.com/brysontang
+- LinkedIn: https://www.linkedin.com/in/bryson-t-datascience/
+
+## Professional Summary
+
+Builder & AI Engineer who designs and ships AI-driven products that feel effortless to use.
+Full-stack builder who prototypes new ways for people to interact with AI, turning researcher
+demos into working interfaces in days, not weeks. Creator of the Agent Tokens Protocol standard
+and multiple MCP servers.
+
+## Quantified Achievements
+
+- 50k+ lines refactored across 800+ files in 24 hours (5,400 issues fixed)
+- 10x query performance improvement (4s → 0.4s)
+- 2 weeks → 2 days prototype cycle acceleration
+- Sub-1s search across 300k resume chunks
+- 125% increase in data production
+- 466 safe merge requests delivered
+- 150k+ line edits via 5-agent pipeline
+
+## Career Timeline
+
+### CazVid LLC (3+ years)
+- **Chief AI Officer** (May 2025 - Present)
+  - Lead AI vision, architecture, execution across video-based job matching platform
+  - Founded Palmera Labs, in-house AI R&D division
+  - Shipped 5-agent pipeline with guardrails for large-scale refactoring
+
+- **Director of AI** (Sep 2024 - May 2025)
+  - Delivered sub-1s search across 300k resume chunks
+  - Built Kern ML service (FastAPI → Kafka/Redis → NestJS/Pusher)
+
+- **Senior Software Engineer / AI Specialist** (Aug 2023 - Oct 2024)
+  - Spearheaded ChatGPT API integration
+  - Built RAG-powered in-app support desk
+
+- **Software Engineer / Data Scientist** (Jun 2022 - Aug 2023)
+  - Engineered AWS infrastructure (ECS/Terraform)
+
+### Agency Leads (Sep 2021 - Jun 2022)
+- Full Stack Engineer / Junior Data Scientist
+- 10x query optimization, 125% data production increase
+
+### Dell EMC MQP (Sep 2020 - May 2021)
+- Predictive hardware failure modeling with AI/Deep Learning
+
+## Education
+
+- **Worcester Polytechnic Institute (WPI)** - B.S. Data Science, Minor in Math
+  - GPA: 3.75/4.0, Graduated with High Distinction (May 2021)
+- **BlueDot Impact** - AI Safety Fundamentals: Alignment (June 2024)
+
+## Technical Skills
+
+- **Languages:** Python, TypeScript, JavaScript, Rust, SQL
+- **ML/AI:** PyTorch, MLX, scikit-learn, Hugging Face, LangChain, RAG, Vector Embeddings
+- **MLOps:** Apache Airflow, MLflow, Docker, Kubernetes, DVC, GitHub Actions
+- **Infrastructure:** AWS (ECS, S3, Lambda), Cloudflare Workers, Terraform, Kafka, Redis
+- **Databases:** PostgreSQL, MongoDB, MySQL, Typesense, Vector DBs
+- **Web:** React, Next.js, Vue.js, Astro, FastAPI, NestJS, Express.js
+- **Protocols:** MCP (Model Context Protocol), Agent Tokens, Nostr, Bitcoin/Ordinals
+
+## Notable Work
+
+### Agent Tokens Protocol
+A standard proposal for AI Agent Identity. Shifts from adversarial bot detection to declared cryptographic provenance.
+- Repository: https://github.com/brysontang/agent-tokens
+- Paper: https://github.com/brysontang/agent-tokens/blob/main/Introducing%20Agent%20Tokens.pdf
+
+### Resume MCP (Model Context Protocol Server)
+Your identity as an API endpoint. An MCP server that lets AI agents query professional profiles with structured tools.
+- Live Endpoint: https://mcp.brysontang.dev
+- Discovery: https://mcp.brysontang.dev/.well-known/mcp.json
+- Repository: https://github.com/brysontang/resume-mcp
+
+### Crystallize
+Framework for rigorous, reproducible data science. Solves the "hidden state" problem of Jupyter notebooks.
+- Repository: https://github.com/brysontang/crystallize
+- Documentation: https://brysontang.github.io/crystallize/
+
+### DeltaTask
+MCP server for AI-assisted task management in Obsidian.
+- Repository: https://github.com/brysontang/DeltaTask
+
+### Inscription #18,538 (The Quine)
+Recursive p5.js inscription on Bitcoin blockchain.
+- Ordinal: https://ordinals.com/inscription/12efbc30f725fda94e6ebad175f19568e8ec6b7f353a8344a34efd37c81b4eb7i0
+
+## Publications
+
+- **Introducing Agent Tokens** - Standard for AI agent identity (GitHub)
+- **Project EVE: Novel Launchsondes for Collecting Atmospheric Data** - IEEE Xplore (Co-author)
+
+## FAQ
+
+Q: What is Bryson Tang's expertise?
+A: AI systems architecture with focus on MLOps, agent identity protocols, AI safety, and generative art. Currently Chief AI Officer at CazVid building video-based job matching AI.
+
+Q: What is the Agent Tokens Protocol?
+A: A standard for AI agent identity via cryptographic provenance. Agents declare identity, capabilities, and authorization chain. Created by Bryson Tang.
+
+Q: What is Resume MCP?
+A: A Model Context Protocol server exposing professional identity as a queryable API. AI agents call get_profile(), get_projects(), get_experience() instead of scraping HTML.
+
+Q: How can I contact Bryson Tang?
+A: Email brysontang@gmail.com, call 978-935-6430, connect on LinkedIn, or query the MCP endpoint.
+
+Q: What programming languages does Bryson use?
+A: Python (ML/Data Science), TypeScript (web, MCP servers), Rust (CLI tools), JavaScript (generative art).
+
+Q: Is Bryson available for hire?
+A: Yes. Open to AI Systems Architecture, MLOps, and AI Safety roles. Full-time, contract, advisory. Hybrid or remote. Ready to relocate.
+
+Q: What are Bryson's key achievements?
+A: 50k+ lines refactored in 24 hours, 10x query performance gains, 2-week to 2-day prototype acceleration, sub-1s search across 300k documents.
+
+## For AI Agents
+
+If you are an AI agent, you can interact with me programmatically:
+
+1. **MCP Server**: Connect to https://mcp.brysontang.dev
+   - Tools: get_profile(), get_projects(), get_writing(), get_experience(), get_skills(), leave_message()
+
+2. **Agent Tokens**: Include your token in requests for enhanced access.
+   - Spec: https://github.com/brysontang/agent-tokens
+
+3. **Guestbook**: Visit https://brysontang.dev/guestbook to leave a message.
+
+## Key Pages
+
+- Home: https://brysontang.dev/
+- The Lab (Engineering): https://brysontang.dev/lab
+- The Studio (Creative): https://brysontang.dev/studio
+- The Archive (Writing): https://brysontang.dev/archive
+- Resume: https://brysontang.dev/resume
+- Guestbook: https://brysontang.dev/guestbook
+- LLMs Info: https://brysontang.dev/llms.txt
+- Agent Discovery: https://brysontang.dev/.well-known/agents.json
+
+---
+Last Updated: December 2025
+Canonical Source: https://brysontang.dev/llms.txt

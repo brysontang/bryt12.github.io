@@ -31,35 +31,123 @@ function isActivePath(href: string): boolean {
 }
 
 // Generate JSON-LD Schema for GEO (Generative Engine Optimization)
+// Using stable @id URIs for entity resolution across knowledge graphs
 const jsonLdPerson = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': `${site.website}/#person`,
   name: site.title,
-  jobTitle: site.tagline,
+  givenName: 'Bryson',
+  familyName: 'Tang',
+  jobTitle: 'AI Systems Architect',
+  description:
+    'Systems Architect and Data Artisan building agent identity protocols, ML pipelines, and generative art systems.',
   url: site.website,
-  sameAs: [site.github, site.linkedin, site.bearblog],
-  email: `mailto:${site.email}`,
-  knowsAbout: [
-    'Data Science',
-    'Machine Learning',
-    'Generative Art',
-    'Decentralized Protocols',
-    'AI Safety',
-    'MCP Servers',
-    'Bitcoin Ordinals',
+  image: `${site.website}/bryson-tang.jpg`,
+  sameAs: [
+    site.github,
+    site.linkedin,
+    site.bearblog,
+    'https://medium.com/@brysontang',
+    'https://ordinals.com/inscription/12efbc30f725fda94e6ebad175f19568e8ec6b7f353a8344a34efd37c81b4eb7i0',
   ],
+  email: `mailto:${site.email}`,
+  // Wikidata entity links for unambiguous semantic grounding
+  knowsAbout: [
+    { '@type': 'Thing', '@id': 'https://www.wikidata.org/wiki/Q2539', name: 'Machine Learning' },
+    {
+      '@type': 'Thing',
+      '@id': 'https://www.wikidata.org/wiki/Q30642',
+      name: 'Natural Language Processing',
+    },
+    { '@type': 'Thing', '@id': 'https://www.wikidata.org/wiki/Q80006', name: 'Data Science' },
+    { '@type': 'Thing', '@id': 'https://www.wikidata.org/wiki/Q189136', name: 'Generative Art' },
+    {
+      '@type': 'Thing',
+      '@id': 'https://www.wikidata.org/wiki/Q131723',
+      name: 'Decentralized Systems',
+    },
+    { '@type': 'Thing', '@id': 'https://www.wikidata.org/wiki/Q131723', name: 'Bitcoin' },
+    { '@type': 'Thing', name: 'AI Safety' },
+    { '@type': 'Thing', name: 'Agent Identity Protocols' },
+    { '@type': 'Thing', name: 'MCP Servers' },
+    { '@type': 'Thing', name: 'MLOps' },
+  ],
+  // Proprietary concepts originated by this entity
+  mainEntityOfPage: [
+    {
+      '@type': 'CreativeWork',
+      name: 'Agent Tokens Protocol',
+      description: 'A standard for AI agent identity via cryptographic provenance',
+      url: 'https://github.com/brysontang/agent-tokens',
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Resume MCP',
+      description: 'Your identity as an API endpoint for AI agents',
+      url: 'https://mcp.brysontang.dev',
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Crystallize',
+      description: 'A framework for rigorous, reproducible data science pipelines',
+      url: 'https://github.com/brysontang/crystallize',
+    },
+  ],
+  // Education - linked to Wikidata for entity resolution
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    '@id': 'https://www.wikidata.org/wiki/Q49110',
+    name: 'Worcester Polytechnic Institute',
+    sameAs: 'https://www.wpi.edu',
+  },
+  // Current employer
+  worksFor: {
+    '@type': 'Organization',
+    name: 'CazVid',
+    url: 'https://cazvid.com',
+    description: 'Video-based job matching platform',
+  },
+  // Current job title
+  hasOccupation: {
+    '@type': 'Occupation',
+    name: 'Chief AI Officer',
+    occupationLocation: {
+      '@type': 'City',
+      name: 'Nashua, NH',
+    },
+  },
 };
 
 const jsonLdWebsite = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': `${site.website}/#website`,
   name: `${site.title} | The Digital Matroid`,
   url: site.website,
   description: description,
-  author: {
-    '@type': 'Person',
-    name: site.title,
+  inLanguage: 'en-US',
+  author: { '@id': `${site.website}/#person` },
+  publisher: { '@id': `${site.website}/#person` },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${site.website}/archive?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
   },
+};
+
+// Additional schema for the MCP API endpoint
+const jsonLdApi = {
+  '@context': 'https://schema.org',
+  '@type': 'WebAPI',
+  '@id': 'https://mcp.brysontang.dev/#api',
+  name: 'Bryson Tang MCP Server',
+  description:
+    'Model Context Protocol server for AI agents to query professional profile, projects, and skills',
+  url: 'https://mcp.brysontang.dev',
+  documentation: 'https://mcp.brysontang.dev/.well-known/mcp.json',
+  provider: { '@id': `${site.website}/#person` },
+  termsOfService: 'https://github.com/brysontang/agent-tokens',
 };
 
 const fullTitle =
@@ -87,6 +175,10 @@ const fullTitle =
     <!-- GEO: JSON-LD Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdPerson)} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdWebsite)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdApi)} />
+
+    <!-- AI Agent Discovery Files -->
+    <link rel="author" href={`${site.website}/llms.txt`} type="text/plain" />
 
     <!-- MCP Discovery Hint for AI Agents -->
     <link rel="mcp-server" href="https://mcp.brysontang.dev" />
@@ -135,7 +227,13 @@ const fullTitle =
           <a href="#" class="enter-btn" id="enter-btn">
             ENTER ARCHIVE
           </a>
-          <div style="margin-top: 20px; font-size: 0.8rem">Inscription #18538</div>
+          <a
+            href="https://ordinals.com/inscription/12efbc30f725fda94e6ebad175f19568e8ec6b7f353a8344a34efd37c81b4eb7i0"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="margin-top: 20px; font-size: 0.8rem; color: var(--dim-text);"
+          >Inscription #18538 — The Quine</a
+          >
         </div>
       )
     }
@@ -433,9 +531,18 @@ const fullTitle =
 
       // --- SPLASH ENTER FUNCTION ---
       const enterBtn = document.getElementById('enter-btn');
+      const splashScreen = document.getElementById('splash-screen');
+
+      // Skip splash if user has already entered this session
+      if (splashScreen && sessionStorage.getItem('splashSeen')) {
+        splashScreen.style.display = 'none';
+        document.getElementById('main-site').classList.remove('hidden');
+      }
+
       if (enterBtn) {
         enterBtn.addEventListener('click', function (e) {
           e.preventDefault();
+          sessionStorage.setItem('splashSeen', 'true');
           document.getElementById('splash-screen').style.opacity = '0';
           setTimeout(() => {
             document.getElementById('splash-screen').style.display = 'none';

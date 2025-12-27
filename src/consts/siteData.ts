@@ -112,6 +112,7 @@ export const SITE_DATA: SiteData = {
     { label: 'The Lab', href: '/lab' },
     { label: 'The Studio', href: '/studio' },
     { label: 'The Archive', href: '/archive' },
+    { label: 'Resume', href: '/resume' },
     { label: 'Guestbook', href: '/guestbook' },
   ],
 

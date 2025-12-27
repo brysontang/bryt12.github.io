@@ -12,6 +12,45 @@
 #
 # Available tools: get_profile, get_projects, get_writing, get_experience, get_skills
 # Agent Tokens accepted: https://github.com/brysontang/agent-tokens
+#
+# Additional AI-friendly resources:
+#   /llms.txt - Structured info for LLMs
+#   /.well-known/agents.json - Agent capabilities manifest
 
+# Default: Allow all
 User-agent: *
 Allow: /
+
+# Explicitly allow AI crawlers for GEO (Generative Engine Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://brysontang.dev/sitemap-index.xml
