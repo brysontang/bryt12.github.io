@@ -262,6 +262,12 @@ export const SITE_DATA: SiteData = {
       platform: 'Bear Blog',
     },
     {
+      title: "Your Prompt's Favorite Prompt",
+      url: 'https://medium.com/@brysontang/your-prompts-favorite-prompt-fae76a0b0eb0',
+      date: 'Nov 2025',
+      platform: 'Medium',
+    },
+    {
       title: 'The Bitter Lesson 2.0: Reasoning Without Worlds',
       url: 'https://noise2signal.bearblog.dev/the-bitter-lesson-20-reasoning-without-worlds/',
       date: 'Oct 2025',
@@ -302,12 +308,6 @@ export const SITE_DATA: SiteData = {
       url: 'https://noise2signal.bearblog.dev/grain-of-thought/',
       date: 'Jun 2025',
       platform: 'Bear Blog',
-    },
-    {
-      title: "Your Prompt's Favorite Prompt",
-      url: 'https://medium.com/@brysontang/your-prompts-favorite-prompt-fae76a0b0eb0',
-      date: 'Nov 2025',
-      platform: 'Medium',
     },
     {
       title: 'p5.js Recursive Inscriptions Guide',
