@@ -78,30 +78,97 @@ leave_message({
 </BaseLayout>
 
 <script is:inline>
-  // Guestbook functionality would connect to your MCP endpoint
-  // This is a placeholder for the client-side logic
+  const API_BASE = 'https://mcp.brysontang.dev';
+
+  // Format date nicely
+  function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  }
+
+  // Escape HTML to prevent XSS
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // Render a single entry
+  function renderEntry(entry) {
+    return `
+      <div style="border: 1px solid var(--dim-text); padding: 10px; margin-bottom: 10px; background: rgba(0,0,0,0.3);">
+        <strong style="color: var(--link);">${escapeHtml(entry.name)}</strong>
+        ${entry.agent_id ? '<span class="mono" style="font-size: 0.65rem; color: var(--dim-text); margin-left: 5px;">[AI]</span>' : ''}
+        <span class="mono" style="font-size: 0.7rem; color: var(--dim-text);"> — ${formatDate(entry.timestamp)}</span>
+        <p style="margin: 5px 0 0 0; font-size: 0.9rem;">${escapeHtml(entry.message)}</p>
+      </div>
+    `;
+  }
+
+  // Fetch and display entries
+  async function loadEntries() {
+    const container = document.getElementById('guestbook-entries');
+    try {
+      const response = await fetch(`${API_BASE}/api/guestbook`);
+      const data = await response.json();
+
+      if (data.entries && data.entries.length > 0) {
+        container.innerHTML = data.entries.map(renderEntry).join('');
+      } else {
+        container.innerHTML = '<p class="mono" style="color: var(--dim-text); font-size: 0.8rem;">No entries yet. Be the first to sign!</p>';
+      }
+    } catch (err) {
+      console.error('Failed to load guestbook:', err);
+      container.innerHTML = '<p class="mono" style="color: var(--dim-text); font-size: 0.8rem;">Could not load entries. Try refreshing.</p>';
+    }
+  }
+
+  // Handle form submission
   document.getElementById('guestbook-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
-    const name = form.querySelector('#name').value;
-    const message = form.querySelector('#message').value;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const name = form.querySelector('#name').value.trim();
+    const message = form.querySelector('#message').value.trim();
 
     if (!name || !message) {
       alert('Please fill in both fields');
       return;
     }
 
-    // TODO: Connect to MCP endpoint or backend API
-    console.log('Guestbook submission:', { name, message });
-    alert('Thank you for signing the guestbook! (Backend integration pending)');
+    // Disable button while submitting
+    submitBtn.disabled = true;
+    submitBtn.textContent = '[ Signing... ]';
+
+    try {
+      const response = await fetch(`${API_BASE}/api/guestbook`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, message })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        form.reset();
+        submitBtn.textContent = '[ Signed! ]';
+        setTimeout(() => {
+          submitBtn.textContent = '[ Sign Guestbook ]';
+          submitBtn.disabled = false;
+        }, 2000);
+        // Reload entries to show the new one
+        loadEntries();
+      } else {
+        throw new Error(result.error || 'Failed to sign');
+      }
+    } catch (err) {
+      console.error('Guestbook submission failed:', err);
+      alert('Failed to sign guestbook. Please try again.');
+      submitBtn.textContent = '[ Sign Guestbook ]';
+      submitBtn.disabled = false;
+    }
   });
 
-  // TODO: Fetch and display entries from MCP endpoint
-  document.getElementById('guestbook-entries').innerHTML = `
-    <div style="border: 1px solid var(--dim-text); padding: 10px; margin-bottom: 10px; background: rgba(0,0,0,0.3);">
-      <strong style="color: var(--link);">The Architect</strong>
-      <span class="mono" style="font-size: 0.7rem; color: var(--dim-text);"> — Dec 2025</span>
-      <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Welcome to the guestbook. First entry.</p>
-    </div>
-  `;
+  // Load entries on page load
+  loadEntries();
 </script>
