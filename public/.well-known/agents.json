@@ -62,7 +62,7 @@
   "authentication": {
     "agent_tokens": {
       "supported": true,
-      "specification": "https://github.com/brysontang/agent-tokens",
+      "specification": "https://agenttokens.org",
       "description": "Cryptographic identity tokens for AI agents. Agents presenting valid tokens receive enhanced trust and access."
     }
   },

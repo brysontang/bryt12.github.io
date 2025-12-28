@@ -11,7 +11,7 @@
 #   https://mcp.brysontang.dev
 #
 # Available tools: get_profile, get_projects, get_writing, get_experience, get_skills
-# Agent Tokens accepted: https://github.com/brysontang/agent-tokens
+# Agent Tokens accepted: https://agenttokens.org
 #
 # Additional AI-friendly resources:
 #   /llms.txt - Structured info for LLMs

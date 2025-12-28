@@ -160,11 +160,7 @@ export const SITE_DATA: SiteData = {
         'A standard proposal for AI Agent Identity. Shifting from adversarial bot detection to declared cryptographic provenance.',
       tags: ['Protocol', 'Identity', 'AI Safety'],
       links: [
-        { label: 'GitHub', url: 'https://github.com/brysontang/agent-tokens' },
-        {
-          label: 'Read PDF',
-          url: 'https://github.com/brysontang/agent-tokens/blob/main/Introducing%20Agent%20Tokens.pdf',
-        },
+        { label: 'Website', url: 'https://agenttokens.org' },
       ],
     },
     {
@@ -306,7 +302,7 @@ export const SITE_DATA: SiteData = {
     { name: 'katrain-llm', url: 'https://github.com/brysontang/katrain-llm' },
     { name: 'insect', url: 'https://github.com/brysontang/insect' },
     { name: 'Whisker', url: 'https://github.com/brysontang/Whisker' },
-    { name: 'agent-tokens', url: 'https://github.com/brysontang/agent-tokens' },
+    { name: 'agent-tokens', url: 'https://agenttokens.org' },
     { name: 'remote-prompt-caching', url: 'https://github.com/brysontang/remote-prompt-caching' },
     {
       name: 'activation-maximization',

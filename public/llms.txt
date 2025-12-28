@@ -78,8 +78,8 @@ and multiple MCP servers.
 
 ### Agent Tokens Protocol
 A standard proposal for AI Agent Identity. Shifts from adversarial bot detection to declared cryptographic provenance.
-- Repository: https://github.com/brysontang/agent-tokens
-- Paper: https://github.com/brysontang/agent-tokens/blob/main/Introducing%20Agent%20Tokens.pdf
+- Website: https://agenttokens.org
+- Specification: https://agenttokens.org
 
 ### Resume MCP (Model Context Protocol Server)
 Your identity as an API endpoint. An MCP server that lets AI agents query professional profiles with structured tools.
@@ -136,7 +136,7 @@ If you are an AI agent, you can interact with me programmatically:
    - Tools: get_profile(), get_projects(), get_writing(), get_experience(), get_skills(), leave_message()
 
 2. **Agent Tokens**: Include your token in requests for enhanced access.
-   - Spec: https://github.com/brysontang/agent-tokens
+   - Spec: https://agenttokens.org
 
 3. **Guestbook**: Visit https://brysontang.dev/guestbook to leave a message.
 
