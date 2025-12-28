@@ -303,14 +303,16 @@ const fullTitle =
               </p>
             </div>
 
-            <div class="decorative-hr" style="margin: 15px 0">
+            <div class="decorative-hr desktop-only" style="margin: 15px 0">
               &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;
             </div>
 
-            <div style="font-size: 0.8rem; margin-bottom: 5px">You are visitor number:</div>
-            <div class="hit-counter" id="visitor-counter">{site.visitorCount}</div>
+            <div class="visitor-counter-section">
+              <div style="font-size: 0.8rem; margin-bottom: 5px">You are visitor number:</div>
+              <div class="hit-counter" id="visitor-counter">{site.visitorCount}</div>
+            </div>
 
-            <div class="decorative-hr" style="margin: 15px 0">~ ~ ~</div>
+            <div class="decorative-hr desktop-only" style="margin: 15px 0">~ ~ ~</div>
 
             <div style="font-size: 0.75rem; margin-bottom: 5px" class="mono">[ Webring ]</div>
             <div class="mono" style="font-size: 0.7rem">
@@ -476,8 +478,8 @@ const fullTitle =
         };
       };
 
-      // Initialize background sketch
-      new p5(bgSketch);
+      // Initialize background sketch (store reference for later redraw)
+      var bgSketchInstance = new p5(bgSketch);
 
       // --- SPLASH SCREEN TREE (only if element exists) ---
       var splashContainer = document.getElementById('splash-p5');
@@ -543,6 +545,10 @@ const fullTitle =
           setTimeout(() => {
             document.getElementById('splash-screen').style.display = 'none';
             document.getElementById('main-site').classList.remove('hidden');
+            // Force p5.js background to redraw on mobile after transition
+            if (bgSketchInstance && bgSketchInstance.windowResized) {
+              bgSketchInstance.windowResized();
+            }
           }, 1000);
         });
       }
