@@ -67,7 +67,7 @@
     }
   },
   "content": {
-    "sitemap": "https://brysontang.dev/sitemap.xml",
+    "sitemap": "https://brysontang.dev/sitemap-index.xml",
     "robots": "https://brysontang.dev/robots.txt",
     "llms_txt": "https://brysontang.dev/llms.txt",
     "feed": null

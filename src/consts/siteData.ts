@@ -302,7 +302,7 @@ export const SITE_DATA: SiteData = {
     { name: 'katrain-llm', url: 'https://github.com/brysontang/katrain-llm' },
     { name: 'insect', url: 'https://github.com/brysontang/insect' },
     { name: 'Whisker', url: 'https://github.com/brysontang/Whisker' },
-    { name: 'agent-tokens', url: 'https://agenttokens.org' },
+    { name: 'agent-tokens', url: 'https://github.com/agentokens/agent-tokens' },
     { name: 'remote-prompt-caching', url: 'https://github.com/brysontang/remote-prompt-caching' },
     {
       name: 'activation-maximization',

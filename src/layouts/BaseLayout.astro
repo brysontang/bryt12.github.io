@@ -43,7 +43,6 @@ const jsonLdPerson = {
   description:
     'Systems Architect and Data Artisan building agent identity protocols, ML pipelines, and generative art systems.',
   url: site.website,
-  image: `${site.website}/bryson-tang.jpg`,
   sameAs: [
     site.github,
     site.linkedin,
@@ -62,12 +61,8 @@ const jsonLdPerson = {
     },
     { '@type': 'Thing', '@id': 'https://www.wikidata.org/wiki/Q80006', name: 'Data Science' },
     { '@type': 'Thing', '@id': 'https://www.wikidata.org/wiki/Q189136', name: 'Generative Art' },
-    {
-      '@type': 'Thing',
-      '@id': 'https://www.wikidata.org/wiki/Q131723',
-      name: 'Decentralized Systems',
-    },
-    { '@type': 'Thing', '@id': 'https://www.wikidata.org/wiki/Q131723', name: 'Bitcoin' },
+    { '@type': 'Thing', name: 'Decentralized Systems' },
+    { '@type': 'Thing', '@id': 'https://www.wikidata.org/wiki/Q13479982', name: 'Cryptocurrency' },
     { '@type': 'Thing', name: 'AI Safety' },
     { '@type': 'Thing', name: 'Agent Identity Protocols' },
     { '@type': 'Thing', name: 'MCP Servers' },
@@ -129,11 +124,6 @@ const jsonLdWebsite = {
   inLanguage: 'en-US',
   author: { '@id': `${site.website}/#person` },
   publisher: { '@id': `${site.website}/#person` },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${site.website}/archive?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
 };
 
 // Additional schema for the MCP API endpoint
