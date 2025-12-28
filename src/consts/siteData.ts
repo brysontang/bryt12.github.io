@@ -306,7 +306,13 @@ export const SITE_DATA: SiteData = {
     {
       title: "Your Prompt's Favorite Prompt",
       url: 'https://medium.com/@brysontang/your-prompts-favorite-prompt-fae76a0b0eb0',
-      date: 'Nov 2024',
+      date: 'Nov 2025',
+      platform: 'Medium',
+    },
+    {
+      title: 'p5.js Recursive Inscriptions Guide',
+      url: 'https://medium.com/@brysontang/p5js-inscriptions-guide-8188ab132f58',
+      date: 'Feb 2025',
       platform: 'Medium',
     },
     {
@@ -319,12 +325,6 @@ export const SITE_DATA: SiteData = {
       title: 'Tree of Processing',
       url: 'https://medium.com/@brysontang/tree-of-processing-bd002ca91396',
       date: 'Jun 2023',
-      platform: 'Medium',
-    },
-    {
-      title: 'p5.js Recursive Inscriptions Guide',
-      url: 'https://medium.com/@brysontang/p5js-inscriptions-guide-8188ab132f58',
-      date: 'Feb 2023',
       platform: 'Medium',
     },
   ],
