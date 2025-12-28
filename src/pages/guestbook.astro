@@ -78,7 +78,7 @@ leave_message({
 </BaseLayout>
 
 <script is:inline>
-  const API_BASE = 'https://mcp.brysontang.dev';
+  const API_BASE = 'https://api.brysontang.dev';
 
   // Format date nicely
   function formatDate(timestamp) {
@@ -95,11 +95,11 @@ leave_message({
 
   // Render a single entry
   function renderEntry(entry) {
+    const timestamp = entry.created_at || entry.timestamp;
     return `
       <div style="border: 1px solid var(--dim-text); padding: 10px; margin-bottom: 10px; background: rgba(0,0,0,0.3);">
         <strong style="color: var(--link);">${escapeHtml(entry.name)}</strong>
-        ${entry.agent_id ? '<span class="mono" style="font-size: 0.65rem; color: var(--dim-text); margin-left: 5px;">[AI]</span>' : ''}
-        <span class="mono" style="font-size: 0.7rem; color: var(--dim-text);"> — ${formatDate(entry.timestamp)}</span>
+        <span class="mono" style="font-size: 0.7rem; color: var(--dim-text);"> — ${formatDate(timestamp)}</span>
         <p style="margin: 5px 0 0 0; font-size: 0.9rem;">${escapeHtml(entry.message)}</p>
       </div>
     `;
@@ -110,10 +110,10 @@ leave_message({
     const container = document.getElementById('guestbook-entries');
     try {
       const response = await fetch(`${API_BASE}/api/guestbook`);
-      const data = await response.json();
+      const entries = await response.json();
 
-      if (data.entries && data.entries.length > 0) {
-        container.innerHTML = data.entries.map(renderEntry).join('');
+      if (entries && entries.length > 0) {
+        container.innerHTML = entries.map(renderEntry).join('');
       } else {
         container.innerHTML = '<p class="mono" style="color: var(--dim-text); font-size: 0.8rem;">No entries yet. Be the first to sign!</p>';
       }

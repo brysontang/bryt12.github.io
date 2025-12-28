@@ -66,7 +66,7 @@ async function handleCounter(env, corsHeaders) {
  * Fetch recent guestbook entries
  */
 async function getGuestbookEntries(env, corsHeaders) {
-  const { results } = await env.DB.prepare(
+  const { results } = await env.brysontang_guestbook.prepare(
     `
     SELECT name, message, created_at
     FROM guestbook
@@ -155,7 +155,7 @@ async function postGuestbookEntry(request, env, corsHeaders) {
   const ipHash = await hashIP(ip, env.IP_SALT || 'default-salt');
   const createdAt = new Date().toISOString();
 
-  await env.DB.prepare(
+  await env.brysontang_guestbook.prepare(
     `
     INSERT INTO guestbook (name, message, ip_hash, created_at)
     VALUES (?, ?, ?, ?)
