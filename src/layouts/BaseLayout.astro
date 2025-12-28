@@ -490,10 +490,15 @@ const fullTitle =
       new p5(bgSketch);
 
       // --- SPLASH SCREEN TREE (only if element exists) ---
-      if (document.getElementById('splash-p5')) {
+      var splashContainer = document.getElementById('splash-p5');
+      if (splashContainer) {
         var splashSketch = function (p) {
+          let size;
+
           p.setup = function () {
-            let canvas = p.createCanvas(300, 300);
+            // Get container size for responsive canvas
+            size = Math.min(splashContainer.offsetWidth, splashContainer.offsetHeight) || 300;
+            let canvas = p.createCanvas(size, size);
             canvas.parent('splash-p5');
             p.stroke(201, 176, 55);
             p.noFill();
@@ -504,7 +509,8 @@ const fullTitle =
             let pulse = p.map(p.sin(p.frameCount * 0.05), -1, 1, 0.5, 0.6);
             p.translate(p.width / 2, p.height);
             p.strokeWeight(2);
-            branch(70, pulse);
+            // Scale branch size relative to canvas
+            branch(size * 0.23, pulse);
           };
 
           function branch(h, pulse) {

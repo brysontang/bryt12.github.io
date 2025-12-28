@@ -195,15 +195,15 @@ p {
     transform: rotate(180deg);
   }
 
-  /* Hide profile icon on mobile */
-  .profile-img {
+  /* Hide desktop profile elements on mobile - only show mobile-header + collapsible */
+  .sidebar > .profile-img,
+  .sidebar > h2,
+  .sidebar > .decorative-hr {
     display: none;
   }
 
-  /* Hide tagline + decorative hr on mobile */
-  .sidebar > h2:not(.mobile-header h2),
-  .sidebar > div:nth-child(3),
-  .sidebar > .decorative-hr:first-of-type {
+  /* Hide tagline div (direct child div without specific class) */
+  .sidebar > div:nth-of-type(3) {
     display: none;
   }
 
@@ -349,6 +349,10 @@ p {
   #splash-p5 {
     width: 200px;
     height: 200px;
+  }
+
+  #splash-screen .enter-btn {
+    width: auto; /* Override full-width for splash screen */
   }
 
   /* Form inputs - tactile inset styling */
