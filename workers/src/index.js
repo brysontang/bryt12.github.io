@@ -22,7 +22,7 @@ export default {
     try {
       // --- VISITOR COUNTER ---
       if (url.pathname === '/api/counter') {
-        return await handleCounter(env, corsHeaders);
+        return await handleCounter(request, env, corsHeaders);
       }
 
       // --- GET GUESTBOOK ENTRIES ---
@@ -48,16 +48,48 @@ export default {
 
 /**
  * Increment and return visitor count
+ * Rate limited: 1 increment per IP per 24 hours
+ * Origin restricted: only from brysontang.dev
  */
-async function handleCounter(env, corsHeaders) {
+async function handleCounter(request, env, corsHeaders) {
+  const origin = request.headers.get('Origin') || '';
+  const referer = request.headers.get('Referer') || '';
+
+  // Only allow requests from the actual website
+  const isValidOrigin = origin.includes('brysontang.dev') || referer.includes('brysontang.dev');
+
+  // Get current count first (always return this)
   const currentCount = parseInt((await env.SITE_KV.get('visitor_count')) || '18538');
+  const paddedCount = currentCount.toString().padStart(6, '0');
+
+  // If not from valid origin, just return current count without incrementing
+  if (!isValidOrigin) {
+    return new Response(JSON.stringify({ count: currentCount, display: paddedCount }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
+  }
+
+  // Rate limit by IP - one increment per 24 hours
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+  const ipHash = await hashIP(ip, env.IP_SALT || 'counter-salt');
+  const rateLimitKey = `counter_rate_${ipHash}`;
+
+  const alreadyCounted = await env.SITE_KV.get(rateLimitKey);
+  if (alreadyCounted) {
+    // Already counted this IP today, return current count
+    return new Response(JSON.stringify({ count: currentCount, display: paddedCount }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
+  }
+
+  // New visitor - increment and set rate limit
   const newCount = currentCount + 1;
   await env.SITE_KV.put('visitor_count', newCount.toString());
+  await env.SITE_KV.put(rateLimitKey, '1', { expirationTtl: 86400 }); // 24 hours
 
-  // Pad to 6 digits for that retro counter aesthetic
-  const paddedCount = newCount.toString().padStart(6, '0');
+  const newPaddedCount = newCount.toString().padStart(6, '0');
 
-  return new Response(JSON.stringify({ count: newCount, display: paddedCount }), {
+  return new Response(JSON.stringify({ count: newCount, display: newPaddedCount }), {
     headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   });
 }
