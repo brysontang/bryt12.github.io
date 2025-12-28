@@ -116,6 +116,18 @@ async function getGuestbookEntries(env, corsHeaders) {
  * Add a new guestbook entry with rate limiting and honeypot protection
  */
 async function postGuestbookEntry(request, env, corsHeaders) {
+  // Origin check - only allow from brysontang.dev
+  const origin = request.headers.get('Origin') || '';
+  const referer = request.headers.get('Referer') || '';
+  const isValidOrigin = origin.includes('brysontang.dev') || referer.includes('brysontang.dev');
+
+  if (!isValidOrigin) {
+    return new Response(JSON.stringify({ error: 'Invalid origin' }), {
+      status: 403,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
+  }
+
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
 
   // Rate limit: 1 post per hour per IP
