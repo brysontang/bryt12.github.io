@@ -59,7 +59,13 @@ const AGENT_DATA = {
   ],
 
   skills: {
-    research: ['Hebbian Learning', 'Fast Weights', 'Meta-Learning', 'Mechanistic Interpretability', 'Agent Protocols'],
+    research: [
+      'Hebbian Learning',
+      'Fast Weights',
+      'Meta-Learning',
+      'Mechanistic Interpretability',
+      'Agent Protocols',
+    ],
     languages: ['Python', 'TypeScript', 'JavaScript', 'Rust', 'SQL', 'Bash'],
     ml_ai: ['PyTorch', 'MLX', 'scikit-learn', 'Hugging Face', 'LangChain', 'RAG pipelines'],
     mlops: ['Apache Airflow', 'MLflow', 'Docker', 'Kubernetes', 'GitHub Actions'],
@@ -70,12 +76,14 @@ const AGENT_DATA = {
   projects: [
     {
       name: 'Synapse',
-      description: 'Research spike validating Crystallize + LLM workflow for rapid hypothesis iteration. The loop is the artifact.',
+      description:
+        'Research spike validating Crystallize + LLM workflow for rapid hypothesis iteration. The loop is the artifact.',
       url: 'https://github.com/brysontang/Synapse',
     },
     {
       name: 'crystallize',
-      description: 'Rigorous experimental framework for data science with immutable contexts and statistical verification',
+      description:
+        'Rigorous experimental framework for data science with immutable contexts and statistical verification',
       url: 'https://github.com/brysontang/crystallize',
     },
     {
@@ -95,12 +103,14 @@ const AGENT_DATA = {
     },
     {
       name: 'Kern',
-      description: 'Event-driven ML architecture (525K req/month). Kafka + Redis + FastAPI for long-running agentic workflows.',
+      description:
+        'Event-driven ML architecture (525K req/month). Kafka + Redis + FastAPI for long-running agentic workflows.',
       url: null,
     },
     {
       name: 'Bias in Embedding-Based Hiring',
-      description: 'Research leadership: designed paper curriculum, structured methodology, led intern through AI fairness research.',
+      description:
+        'Research leadership: designed paper curriculum, structured methodology, led intern through AI fairness research.',
       url: null,
     },
   ],

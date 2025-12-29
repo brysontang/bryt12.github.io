@@ -119,11 +119,13 @@ leave_message({
       if (entries && entries.length > 0) {
         container.innerHTML = entries.map(renderEntry).join('');
       } else {
-        container.innerHTML = '<p class="mono" style="color: var(--dim-text); font-size: 0.8rem;">No entries yet. Be the first to sign!</p>';
+        container.innerHTML =
+          '<p class="mono" style="color: var(--dim-text); font-size: 0.8rem;">No entries yet. Be the first to sign!</p>';
       }
     } catch (err) {
       console.error('Failed to load guestbook:', err);
-      container.innerHTML = '<p class="mono" style="color: var(--dim-text); font-size: 0.8rem;">Could not load entries. Try refreshing.</p>';
+      container.innerHTML =
+        '<p class="mono" style="color: var(--dim-text); font-size: 0.8rem;">Could not load entries. Try refreshing.</p>';
     }
   }
 
@@ -149,7 +151,7 @@ leave_message({
       const response = await fetch(`${API_BASE}/api/guestbook`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, message, website })
+        body: JSON.stringify({ name, message, website }),
       });
 
       const result = await response.json();

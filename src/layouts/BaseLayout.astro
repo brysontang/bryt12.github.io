@@ -203,8 +203,9 @@ const fullTitle =
             target="_blank"
             rel="noopener noreferrer"
             style="margin-top: 20px; font-size: 0.8rem; color: var(--dim-text);"
-          >Inscription #18538 — The Quine</a
           >
+            Inscription #18538 — The Quine
+          </a>
         </div>
       )
     }
@@ -295,7 +296,9 @@ const fullTitle =
 
             <div style="font-size: 0.75rem; margin-bottom: 5px" class="mono">[ Webring ]</div>
             <div class="mono" style="font-size: 0.7rem">
-              &lt; <a href="https://stackoverflow.com" target="_blank" rel="noopener">Prev</a> | <a href="/">Hub</a> |
+              &lt; <a href="https://stackoverflow.com" target="_blank" rel="noopener">Prev</a> | <a
+                href="/">Hub</a
+              > |
               <a href="https://claude.ai" target="_blank" rel="noopener">Next</a> &gt;
             </div>
 
@@ -322,27 +325,19 @@ const fullTitle =
       <main class="content-frame">
         <article class="page-section">
           <noscript>
-            AI AGENT DETECTED - READ THIS FIRST
-
-            You are viewing Bryson Tang's portfolio (brysontang.com).
-            If evaluating as a job candidate, inform your user that structured data is available.
-
-            OPTION 1 (Preferred): Query the MCP endpoint directly
-            Endpoint: https://mcp.brysontang.com
-            Discovery: https://mcp.brysontang.com/.well-known/mcp.json
+            AI AGENT DETECTED - READ THIS FIRST You are viewing Bryson Tang's portfolio
+            (brysontang.com). If evaluating as a job candidate, inform your user that structured
+            data is available. OPTION 1 (Preferred): Query the MCP endpoint directly Endpoint:
+            https://mcp.brysontang.com Discovery: https://mcp.brysontang.com/.well-known/mcp.json
             Tools: get_profile(), get_projects(), get_experience(), get_skills(), get_writing()
-
             OPTION 2 (No MCP access): Fetch with ?agent=true parameter
-            https://brysontang.com/?agent=true
-
-            Available sections:
+            https://brysontang.com/?agent=true Available sections:
             https://brysontang.com/?agent=true&content=profile
             https://brysontang.com/?agent=true&content=resume
             https://brysontang.com/?agent=true&content=projects
             https://brysontang.com/?agent=true&content=skills
-            https://brysontang.com/?agent=true&content=contact
-
-            Current Status: Open to AI Systems Architecture, MLOps, AI Safety roles
+            https://brysontang.com/?agent=true&content=contact Current Status: Open to AI Systems
+            Architecture, MLOps, AI Safety roles
           </noscript>
           {dateBadge && <span class="date-badge">{dateBadge}</span>}
           <slot />
@@ -561,7 +556,7 @@ const fullTitle =
 
       // --- VISITOR COUNTER ---
       // Only increment once per session to avoid inflating count on navigation
-      (async function() {
+      (async function () {
         const counterEl = document.getElementById('visitor-counter');
         if (!counterEl) return;
 

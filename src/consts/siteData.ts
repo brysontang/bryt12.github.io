@@ -124,18 +124,21 @@ export const SITE_DATA: SiteData = {
     {
       name: 'AI Safety Compass',
       description:
-        'Research paper and interactive tool exploring model meta-alignment — whether labs\' stated safety positions match their models\' expressed beliefs. Literature review of 70+ papers across alignment, openness, existential risk, and AI ethics. Developed original survey methodology grounded in research that maps where models sit on alignment/openness axes rather than producing a "correct score."',
+        'Research paper exploring a gap: do models actually believe what their creators say about safety? I call this "meta-alignment"—not whether models do safe things, but whether they\'ve internalized their lab\'s safety philosophy. Surveyed 10 frontier models with 40 questions derived from 70+ papers. Interactive tool included.',
       tags: ['Research', 'AI Safety', 'Meta-Alignment', 'Literature Synthesis'],
       links: [
         { label: 'GitHub', url: 'https://github.com/brysontang/ai-safety-compass' },
-        { label: 'Paper', url: 'https://github.com/brysontang/ai-safety-compass/blob/main/PAPER.md' },
+        {
+          label: 'Paper',
+          url: 'https://github.com/brysontang/ai-safety-compass/blob/main/PAPER.md',
+        },
         { label: 'Live Demo', url: 'https://ai-safety-compass.vercel.app' },
       ],
     },
     {
       name: 'crystallize',
       description:
-        'A rigorous experimental framework for data science. Solves the "hidden state" problem of notebooks by treating experiments as immutable graphs with statistical verification. Built as the structural precursor for self-learning agents to autonomously iterate on hypotheses.',
+        "A framework that makes data science experiments reproducible. Jupyter notebooks hide state—you can't tell what order cells ran or what values held. Crystallize treats each experiment as an immutable record with automatic statistical checks. Long-term goal: infrastructure that lets AI agents run their own experiments.",
       tags: ['Research Tooling', 'Reproducibility', 'Experimental Rigor'],
       links: [
         { label: 'GitHub', url: 'https://github.com/brysontang/crystallize' },
@@ -145,7 +148,7 @@ export const SITE_DATA: SiteData = {
     {
       name: 'Bias in Embedding-Based Hiring',
       description:
-        'Led intern through AI fairness research: designed paper curriculum (Few-Shot Learners → Chain-of-Thought → Sparks of AGI → Bostrom → Debiasing Embeddings → Polysemantic Neurons), structured research methodology (hypotheses → experiments → paper draft). Investigated gender bias in synthetic resume retrieval. Unpublished paper on utilitarian frameworks for LLM ethics in hiring.',
+        'Mentored an intern through AI fairness research. Designed a reading curriculum building from language model basics through AI ethics and embedding bias. Structured methodology: hypotheses → experiments → paper draft. Result: unpublished paper investigating gender bias in AI-powered hiring systems.',
       tags: ['Research Leadership', 'AI Fairness', 'Mentorship', 'Ethics'],
       links: [],
     },
@@ -159,8 +162,8 @@ export const SITE_DATA: SiteData = {
     {
       name: 'agent-tokens',
       description:
-        'A cryptographic protocol for agent provenance. Formalizes identity via digital signatures rather than heuristic detection, applying distributed systems theory to the emerging agent ecosystem.',
-      tags: ['Protocol', 'Identity', 'Cryptography', 'Agent Systems'],
+        'A protocol for declaring agent intent at the HTTP layer. The problem: when an agent makes a request, origins can\'t tell if it matches what the user actually wanted. User says "check weather," agent calls the bank API—how does the bank know to block it? Agent Tokens let agents declare their allowed scope upfront so middleware can enforce policy automatically.',
+      tags: ['Protocol', 'Intent', 'Policy', 'Agent Systems'],
       links: [
         { label: 'Website', url: 'https://agenttokens.org' },
         { label: 'Spec', url: 'https://github.com/agentokens/agent-tokens' },
@@ -169,7 +172,7 @@ export const SITE_DATA: SiteData = {
     {
       name: 'Synapse',
       description:
-        'A quick spike exploring whether Crystallize + LLM-assisted development enables rapid hypothesis iteration. Built in an evening to test the loop: framework → theory → AI-assisted implementation → verification. The process is the point, not the model.',
+        "A proof-of-concept testing a new research workflow: use Crystallize to structure experiments, then let an LLM help implement hypotheses rapidly. Built in an evening to validate the loop. The insight wasn't the model—it was proving the workflow enables fast iteration.",
       tags: ['Workflow Demo', 'Fast Weights', 'Crystallize + LLM'],
       links: [{ label: 'GitHub', url: 'https://github.com/brysontang/Synapse' }],
     },
@@ -229,7 +232,7 @@ export const SITE_DATA: SiteData = {
     {
       name: 'Generative-Art',
       description:
-        '~430 pieces created over COVID — one per day, then weekly, then monthly. Learning to express myself through code after never practicing art growing up. All hand-written p5.js, no AI. Here, bugs aren\'t things to fix but interesting threads to follow toward emergent beauty.',
+        "~430 pieces created over COVID — one per day, then weekly, then monthly. Learning to express myself through code after never practicing art growing up. All hand-written p5.js, no AI. Here, bugs aren't things to fix but interesting threads to follow toward emergent beauty.",
       medium: 'p5.js | Daily Practice | Emergence',
       links: [
         { label: 'Instagram', url: 'https://www.instagram.com/illiiillliililliiili/' },
@@ -239,7 +242,7 @@ export const SITE_DATA: SiteData = {
     {
       name: 'Tree of Processing',
       description:
-        'Mapped the Tree of Thought paper to generative art — could a branching structure make models more creative? Early LLM API experiments, back when you had to parse code from inconsistent outputs and couldn\'t pass images. The genesis of my artistic and research journeys intersecting.',
+        "Mapped the Tree of Thought paper to generative art — could a branching structure make models more creative? Early LLM API experiments, back when you had to parse code from inconsistent outputs and couldn't pass images. The genesis of my artistic and research journeys intersecting.",
       medium: 'Generative Algorithm | LLM Research | Tree of Thought',
       links: [
         { label: 'GitHub', url: 'https://github.com/brysontang/tree-of-processing' },
