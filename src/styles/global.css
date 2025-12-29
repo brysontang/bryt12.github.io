@@ -21,7 +21,7 @@ html {
   width: 100%;
   background-color: var(--bg);
   color: var(--text);
-  font-family: 'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', 'Comic Neue', sans-serif;
+  font-family: 'Georgia', 'Times New Roman', serif;
   overflow: hidden;
 }
 

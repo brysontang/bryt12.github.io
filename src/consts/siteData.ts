@@ -94,9 +94,9 @@ export const SITE_DATA: SiteData = {
     sidebar: {
       now: {
         header: 'Currently Investigating',
-        title: 'Fast-Weight Plasticity & Nested Learning',
-        url: 'https://arxiv.org/abs/2007.01434',
-        note: 'Exploring error-modulated Hebbian updates for context-dependent adaptation.',
+        title: 'Superposition & Sparse Feature Decomposition',
+        url: 'https://transformer-circuits.pub/2022/toy_model/index.html',
+        note: 'Investigating how neural networks encode more features than dimensions.',
       },
       quote: {
         header: 'Research Philosophy',
