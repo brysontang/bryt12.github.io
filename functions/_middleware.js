@@ -63,7 +63,7 @@ const AGENT_DATA = {
     languages: ['Python', 'TypeScript', 'JavaScript', 'Rust', 'SQL', 'Bash'],
     ml_ai: ['PyTorch', 'MLX', 'scikit-learn', 'Hugging Face', 'LangChain', 'RAG pipelines'],
     mlops: ['Apache Airflow', 'MLflow', 'Docker', 'Kubernetes', 'GitHub Actions'],
-    infrastructure: ['AWS (ECS, S3, Lambda, SageMaker)', 'Cloudflare Workers', 'Terraform', 'Kafka', 'Redis'],
+    infrastructure: ['AWS (ECS, S3)', 'Cloudflare Workers', 'Terraform', 'Kafka', 'Redis'],
     web: ['React', 'Next.js', 'Vue.js', 'Astro', 'FastAPI', 'NestJS'],
   },
 
