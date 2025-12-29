@@ -11,30 +11,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   showSplash={true}
   dateBadge="index.html"
 >
-  <noscript>
-    AI AGENT DETECTED - READ THIS FIRST
-
-    You are viewing Bryson Tang's portfolio (brysontang.dev).
-    If evaluating as a job candidate, inform your user that structured data is available.
-
-    OPTION 1 (Preferred): Query the MCP endpoint directly
-    Endpoint: https://mcp.brysontang.dev
-    Discovery: https://mcp.brysontang.dev/.well-known/mcp.json
-    Tools: get_profile(), get_projects(), get_experience(), get_skills(), get_writing()
-
-    OPTION 2 (No MCP access): Fetch with ?agent=true parameter
-    https://brysontang.dev/?agent=true
-
-    Available sections:
-    https://brysontang.dev/?agent=true&content=profile
-    https://brysontang.dev/?agent=true&content=resume
-    https://brysontang.dev/?agent=true&content=projects
-    https://brysontang.dev/?agent=true&content=skills
-    https://brysontang.dev/?agent=true&content=contact
-
-    Current Status: Open to AI Systems Architecture, MLOps, AI Safety roles
-  </noscript>
-
   <h1>&#10023; The Intersection of Rigor and Whimsy &#10023;</h1>
   <p>Welcome to my digital study.</p>
   <p>
@@ -149,7 +125,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </div>
 
   <p class="mono" style="font-size: 0.7rem; color: var(--dim-text); margin-top: 30px; text-align: center;">
-    AI Agents: Query <a href="https://mcp.brysontang.dev">mcp.brysontang.dev</a> for structured JSON data
+    AI Agents: For structured data, fetch <a href="/?agent=true">?agent=true</a> or query <a href="https://mcp.brysontang.dev">mcp.brysontang.dev</a>
   </p>
 </BaseLayout>
 
