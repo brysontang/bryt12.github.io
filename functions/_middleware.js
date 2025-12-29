@@ -23,7 +23,7 @@ const AGENT_DATA = {
     },
   },
 
-  summary: `AI Systems Architect and Researcher operating at the intersection of systems engineering and AI theory. Builder of rigorous experimental frameworks (Crystallize) and novel meta-learning architectures (Synapse). Applies distributed systems theory to agent identity (Agent Tokens Protocol). Implements models from first principles—from Hebbian fast-weight updates (ΔW = η(y ⊗ x)) to production retrieval systems (sub-1s search across 300k embeddings). WPI Data Science graduate (3.75 GPA). BlueDot AI Safety Alignment certified.`,
+  summary: `AI Systems Architect who builds infrastructure for ML at scale. Designed Kern (525K requests/month event-driven ML service), Crystallize (rigorous experimental framework), and Synapse (fast-weight plasticity research). Implements from first principles—from Hebbian updates (ΔW = η(y ⊗ x)) to production Kafka pipelines. WPI Data Science graduate (3.75 GPA). BlueDot AI Safety Alignment certified.`,
 
   experience: [
     {
@@ -92,6 +92,11 @@ const AGENT_DATA = {
       name: 'Bloomdesk',
       description: 'AI pipeline converting bug reports into structured technical tickets',
       url: 'https://bloomdesk.dev',
+    },
+    {
+      name: 'Kern',
+      description: 'Event-driven ML architecture (525K req/month). Kafka + Redis + FastAPI for long-running agentic workflows.',
+      url: null,
     },
   ],
 

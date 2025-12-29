@@ -158,6 +158,13 @@ export const SITE_DATA: SiteData = {
         { label: 'Live Demo', url: 'https://ai-safety-compass.vercel.app' },
       ],
     },
+    {
+      name: 'Kern',
+      description:
+        'Event-driven ML service architecture enabling long-running agentic workflows. Designed around distributed systems constraints: Kafka for async (no HTTP timeouts), Redis for large results (Pusher limits), dual-mode for internal app + external API. 525K requests/month in production.',
+      tags: ['Systems Architecture', 'FastAPI', 'Kafka', 'Distributed Systems'],
+      links: [],
+    },
   ],
 
   // ---------------------------------------------------------------------------

@@ -18,16 +18,16 @@
 
 ## Professional Summary
 
-AI Systems Architect and Researcher who bridges the gap between theoretical neuroscience and
-production software. I architect systems that embody rigorous experimental thinking (Crystallize)
-and investigate novel architectures like fast-weight plasticity (Synapse). Unlike typical engineers
-who consume APIs, I implement models from first principles to understand their internal mechanics—
-from Hebbian updates (ΔW = η(y ⊗ x)) to production retrieval systems.
+AI Systems Architect who builds infrastructure for ML at scale. Designed Kern (525K requests/month
+event-driven ML service), Crystallize (rigorous experimental framework), and Synapse (fast-weight
+plasticity research). Unlike typical engineers who consume APIs, I implement from first principles—
+from Hebbian updates (ΔW = η(y ⊗ x)) to production Kafka pipelines.
 
 ## Philosophy
 
-I build microscopes, then look through them. Crystallize was my microscope for experimental
-rigor. Synapse was what I saw when I looked.
+I build microscopes, then look through them. Kern was my microscope for ML infrastructure.
+Crystallize was my microscope for experimental rigor. Synapse was what I saw when I looked
+through both.
 
 ## Research Interests
 
