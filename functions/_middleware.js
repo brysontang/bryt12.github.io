@@ -33,7 +33,7 @@ const AGENT_DATA = {
       highlights: [
         'Founded Palmera Labs (internal R&D) to investigate RAG systems and agentic alignment',
         'Investigating fast-weight plasticity and error-modulated Hebbian updates',
-        'Architected 5-agent pipeline for large-scale code refactoring (50k+ lines)',
+        'Transformed 150k-line legacy codebase into agent-native code (1400 lint → 900 type → 300 tests)',
         'Lead AI architecture for video-based matching (hybrid vector/sparse retrieval)',
       ],
     },

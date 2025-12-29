@@ -43,7 +43,7 @@ through both.
 
 - **Synapse**: Implemented Hebbian fast-weight updates (ΔW = η(y ⊗ x)) for context-dependent adaptation
 - **Scale**: Architected sub-1s semantic search across 300k embeddings
-- **Velocity**: 50k+ lines refactored in 24h via 5-agent pipeline
+- **Agent-Native**: Transformed 150k-line legacy codebase (1400 lint → 900 type → 300 tests) so agentic coding works like greenfield
 - **Optimization**: 10x query performance improvement (4s → 0.4s)
 - **Safety**: 466 safe merge requests delivered with zero regressions
 
