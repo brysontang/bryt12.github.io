@@ -70,7 +70,8 @@ export interface SiteInfo {
 export interface SiteData {
   site: SiteInfo;
   navigation: NavItem[];
-  labProjects: LabProject[];
+  research: LabProject[];
+  engineering: LabProject[];
   studioProjects: StudioProject[];
   writing: WritingPost[];
   allRepos: Repo[];
@@ -82,24 +83,24 @@ export const SITE_DATA: SiteData = {
   // ---------------------------------------------------------------------------
   site: {
     title: 'Bryson Tang',
-    tagline: 'DATA ARTISAN & ARCHITECT',
+    tagline: 'SYSTEMS ARCHITECT & RESEARCHER',
     website: 'https://brysontang.com',
     github: 'https://github.com/brysontang',
     linkedin: 'https://www.linkedin.com/in/bryson-t-datascience/',
     bearblog: 'https://noise2signal.bearblog.dev/',
     email: 'brysontang@gmail.com',
-    lastUpdated: 'Dec 24, 2025',
+    lastUpdated: 'Dec 28, 2025',
     visitorCount: '018538',
     sidebar: {
       now: {
-        header: 'Currently Reading',
-        title: 'Paper: Scaling Laws for Neural Language Models',
-        url: 'https://arxiv.org/abs/2001.08361',
-        note: 'Understanding the empirical laws governing model performance.',
+        header: 'Currently Investigating',
+        title: 'Fast-Weight Plasticity & Nested Learning',
+        url: 'https://arxiv.org/abs/2007.01434',
+        note: 'Exploring error-modulated Hebbian updates for context-dependent adaptation.',
       },
       quote: {
         header: 'Axiom',
-        text: 'Prefer legibility over cleverness.',
+        text: 'The map is not the territory, but the tree is the seed.',
       },
     },
   },
@@ -117,15 +118,68 @@ export const SITE_DATA: SiteData = {
   ],
 
   // ---------------------------------------------------------------------------
-  // Featured Lab Projects (Engineering/Technical)
+  // Research & Foundations (Deep Tech / Theory)
   // ---------------------------------------------------------------------------
-  labProjects: [
+  research: [
+    {
+      name: 'Synapse',
+      description:
+        'A meta-learning architecture exploring fast-weight programmers. Implements error-modulated plasticity where a slow-weight network generates rapid synaptic updates (ΔW = η(y ⊗ x)) for a fast-weight network, enabling context-dependent adaptation without gradient descent at inference time.',
+      tags: ['Research', 'Fast Weights', 'Hebbian Learning', 'Meta-Learning'],
+      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/Synapse' }],
+    },
+    {
+      name: 'crystallize',
+      description:
+        'A rigorous experimental framework for data science. Solves the "hidden state" problem of notebooks by treating experiments as immutable graphs with statistical verification. Built as the structural precursor for self-learning agents to autonomously iterate on hypotheses.',
+      tags: ['Research Tooling', 'Reproducibility', 'Experimental Rigor'],
+      links: [
+        { label: 'GitHub', url: 'https://github.com/brysontang/crystallize' },
+        { label: 'Docs', url: 'https://brysontang.github.io/crystallize/' },
+      ],
+    },
+    {
+      name: 'agent-tokens',
+      description:
+        'A cryptographic protocol for agent provenance. Formalizes identity via digital signatures rather than heuristic detection, applying distributed systems theory to the emerging agent ecosystem.',
+      tags: ['Protocol', 'Identity', 'Cryptography', 'Agent Systems'],
+      links: [
+        { label: 'Website', url: 'https://agenttokens.org' },
+        { label: 'Spec', url: 'https://github.com/agentokens/agent-tokens' },
+      ],
+    },
+    {
+      name: 'ai-safety-compass',
+      description:
+        'An interactive survey of the AI safety landscape, visualizing the topological relationships between divergent alignment frameworks and safety methodologies.',
+      tags: ['AI Safety', 'Visualization', 'Alignment'],
+      links: [
+        { label: 'GitHub', url: 'https://github.com/brysontang/ai-safety-compass' },
+        { label: 'Live Demo', url: 'https://ai-safety-compass.vercel.app' },
+      ],
+    },
+  ],
+
+  // ---------------------------------------------------------------------------
+  // Applied Engineering (Products / Systems)
+  // ---------------------------------------------------------------------------
+  engineering: [
     {
       name: 'Bloomdesk',
       description:
         'Addressing the "Translation Gap" between users and engineers. An intelligent pipeline that converts vague bug reports into structured, high-entropy technical tickets using LLMs.',
-      tags: ['Product', 'AI Pipeline'],
+      tags: ['Product', 'AI Pipeline', 'SaaS'],
       links: [{ label: 'View Project', url: 'https://bloomdesk.dev' }],
+    },
+    {
+      name: 'resume-mcp',
+      description:
+        'Your identity as an API endpoint. An MCP server that lets AI agents query your professional profile with structured tools instead of scraping HTML.',
+      tags: ['MCP', 'Cloudflare Workers', 'API'],
+      links: [
+        { label: 'GitHub', url: 'https://github.com/brysontang/resume-mcp' },
+        { label: 'Live Endpoint', url: 'https://mcp.brysontang.com' },
+      ],
     },
     {
       name: 'DeltaTask',
@@ -133,45 +187,6 @@ export const SITE_DATA: SiteData = {
         'An MCP server that enables AI assistants to manage tasks in Obsidian. Bridges the gap between conversational AI and personal knowledge management.',
       tags: ['MCP', 'Python', 'Obsidian', 'SQLite'],
       links: [{ label: 'GitHub', url: 'https://github.com/brysontang/DeltaTask' }],
-    },
-    {
-      name: 'crystallize',
-      description:
-        'A lightweight framework for rigorous, reproducible data science. Solving the "hidden state" problem of Jupyter notebooks by enforcing a "Pipeline-as-Code" philosophy.',
-      tags: ['Python', 'MLOps', 'Reproducibility'],
-      links: [
-        { label: 'GitHub', url: 'https://github.com/brysontang/crystallize' },
-        { label: 'Docs', url: 'https://brysontang.github.io/crystallize/' },
-      ],
-    },
-    {
-      name: 'ai-safety-compass',
-      description:
-        'An interactive tool for exploring AI safety perspectives and frameworks. Visualize where different approaches fall on the safety landscape.',
-      tags: ['Next.js', 'Python', 'AI Safety'],
-      links: [
-        { label: 'GitHub', url: 'https://github.com/brysontang/ai-safety-compass' },
-        { label: 'Live Demo', url: 'https://ai-safety-compass.vercel.app' },
-      ],
-    },
-    {
-      name: 'agent-tokens',
-      description:
-        'A standard proposal for AI Agent Identity. Shifting from adversarial bot detection to declared cryptographic provenance.',
-      tags: ['Protocol', 'Identity', 'AI Safety'],
-      links: [
-        { label: 'Website', url: 'https://agenttokens.org' },
-      ],
-    },
-    {
-      name: 'resume-mcp',
-      description:
-        'Your identity as an API endpoint. An MCP server that lets AI agents query your professional profile with structured tools instead of scraping HTML.',
-      tags: ['MCP', 'Cloudflare Workers', 'Agent Tokens'],
-      links: [
-        { label: 'GitHub', url: 'https://github.com/brysontang/resume-mcp' },
-        { label: 'Live Endpoint', url: 'https://mcp.brysontang.com' },
-      ],
     },
     {
       name: 'gcomm',
@@ -333,6 +348,7 @@ export const SITE_DATA: SiteData = {
   // All Public Repos (for Archive index)
   // ---------------------------------------------------------------------------
   allRepos: [
+    { name: 'Synapse', url: 'https://github.com/brysontang/Synapse' },
     { name: 'crystallize', url: 'https://github.com/brysontang/crystallize' },
     { name: 'mlx-lab', url: 'https://github.com/brysontang/mlx-lab' },
     { name: 'code2prompt', url: 'https://github.com/brysontang/code2prompt' },
@@ -385,7 +401,7 @@ export const SITE_DATA: SiteData = {
 
 // Helper function to generate LLM-friendly markdown export
 export function generateLLMExport(): string {
-  const { site, labProjects, studioProjects, writing } = SITE_DATA;
+  const { site, research, engineering, studioProjects, writing } = SITE_DATA;
 
   let md = `# ${site.title}\n`;
   md += `**${site.tagline}**\n\n`;
@@ -397,11 +413,22 @@ export function generateLLMExport(): string {
   md += `- Email: ${site.email}\n\n`;
 
   md += `## About\n`;
-  md += `Systems Architect and Data Artisan working at the intersection of Data Science, Generative Art, and Decentralized Protocols. `;
-  md += `Focused on building reproducible ML pipelines, architecting identity protocols for AI agents, and inscribing recursive algorithms on Bitcoin.\n\n`;
+  md += `Systems Architect and Researcher working at the intersection of AI theory and production systems. `;
+  md += `Building rigorous experimental frameworks, investigating fast-weight plasticity, and architecting identity protocols for AI agents.\n\n`;
 
-  md += `## Engineering Projects (The Lab)\n\n`;
-  labProjects.forEach((project) => {
+  md += `## Research & Foundations\n\n`;
+  research.forEach((project) => {
+    md += `### ${project.name}\n`;
+    md += `${project.description}\n`;
+    md += `- Tags: ${project.tags.join(', ')}\n`;
+    project.links.forEach((link) => {
+      md += `- ${link.label}: ${link.url}\n`;
+    });
+    md += `\n`;
+  });
+
+  md += `## Applied Engineering\n\n`;
+  engineering.forEach((project) => {
     md += `### ${project.name}\n`;
     md += `${project.description}\n`;
     md += `- Tags: ${project.tags.join(', ')}\n`;
@@ -432,7 +459,7 @@ export function generateLLMExport(): string {
   md += `\n`;
 
   if (site.sidebar?.now) {
-    md += `## Currently Reading\n`;
+    md += `## Currently Investigating\n`;
     md += `${site.sidebar.now.title}\n`;
     if (site.sidebar.now.url) md += `${site.sidebar.now.url}\n`;
     if (site.sidebar.now.note) md += `*${site.sidebar.now.note}*\n`;

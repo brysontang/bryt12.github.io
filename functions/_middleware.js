@@ -7,9 +7,9 @@
 const AGENT_DATA = {
   profile: {
     name: 'Bryson Tang',
-    tagline: 'Chief AI Officer | AI Systems Architect | MLOps Engineer',
+    tagline: 'AI Systems Architect & Research Engineer',
     location: 'Nashua, NH (Remote/Relocation Ready)',
-    status: 'Open to AI Systems Architecture, MLOps, AI Safety, and Product roles',
+    status: 'Open to Research Engineering, AI Systems Architecture, and AI Safety roles',
     availability: 'Hybrid (3 days/week) or Remote | US Work Authorized',
     links: {
       website: 'https://brysontang.com',
@@ -23,7 +23,7 @@ const AGENT_DATA = {
     },
   },
 
-  summary: `Builder & AI Engineer shipping production AI systems since 2021. Architected sub-1s semantic search across 300k documents using vector embeddings + MongoDB hybrid queries. Created Agent Tokens Protocol (open standard for AI agent identity). Built 5-agent orchestration pipeline handling 150k+ line edits with zero regressions. WPI Data Science graduate (3.75 GPA, High Distinction). BlueDot AI Safety Alignment certified.`,
+  summary: `AI Systems Architect and Researcher operating at the intersection of systems engineering and AI theory. Builder of rigorous experimental frameworks (Crystallize) and novel meta-learning architectures (Synapse). Applies distributed systems theory to agent identity (Agent Tokens Protocol). Implements models from first principles—from Hebbian fast-weight updates (ΔW = η(y ⊗ x)) to production retrieval systems (sub-1s search across 300k embeddings). WPI Data Science graduate (3.75 GPA). BlueDot AI Safety Alignment certified.`,
 
   experience: [
     {
@@ -31,11 +31,10 @@ const AGENT_DATA = {
       company: 'CazVid LLC',
       dates: 'May 2025 - Present',
       highlights: [
-        'Lead AI architecture for video-based job matching platform processing 100k+ candidate profiles',
-        'Founded Palmera Labs (internal R&D): RAG systems, agent frameworks, alignment research',
-        'Executed 50k+ line refactor across 800 files in 24 hours using 5-agent pipeline',
-        'Reduced idea-to-prototype cycle from 14 days to 2 days',
-        '466 merge requests with zero production regressions',
+        'Founded Palmera Labs (internal R&D) to investigate RAG systems and agentic alignment',
+        'Investigating fast-weight plasticity and error-modulated Hebbian updates',
+        'Architected 5-agent pipeline for large-scale code refactoring (50k+ lines)',
+        'Lead AI architecture for video-based matching (hybrid vector/sparse retrieval)',
       ],
     },
     {
@@ -43,9 +42,9 @@ const AGENT_DATA = {
       company: 'CazVid LLC',
       dates: 'Sep 2024 - May 2025',
       highlights: [
-        'Sub-1s full-text search across 300k resume chunks via LLM/RAG + MongoDB hybrid filters',
-        'Architected Kern ML service: FastAPI → Kafka → Redis → NestJS/Pusher',
-        'Built universal matching algorithm using triplet loss embeddings',
+        'Architected retrieval system using hybrid vector/sparse search strategies',
+        'Delivered sub-1s search across 300k resume chunks',
+        'Built Kern ML service event-driven architecture',
       ],
     },
     {
@@ -53,27 +52,35 @@ const AGENT_DATA = {
       company: 'CazVid LLC',
       dates: 'Aug 2023 - Oct 2024',
       highlights: [
-        'Integrated ChatGPT API reducing response latency by 60%',
-        'Built RAG-powered support desk handling 500+ daily queries with 94% resolution rate',
-        'FAISS + MongoDB matching algorithms improving accuracy 35%',
+        'Integrated LLM reasoning loops into automated client workflows',
+        'Built RAG-powered support desk with 94% resolution rate',
       ],
     },
   ],
 
   skills: {
+    research: ['Hebbian Learning', 'Fast Weights', 'Meta-Learning', 'Mechanistic Interpretability', 'Agent Protocols'],
     languages: ['Python', 'TypeScript', 'JavaScript', 'Rust', 'SQL', 'Bash'],
     ml_ai: ['PyTorch', 'MLX', 'scikit-learn', 'Hugging Face', 'LangChain', 'FAISS', 'RAG pipelines'],
     mlops: ['Apache Airflow', 'MLflow', 'Docker', 'Kubernetes', 'GitHub Actions'],
     infrastructure: ['AWS (ECS, S3, Lambda, SageMaker)', 'Cloudflare Workers', 'Terraform', 'Kafka', 'Redis'],
-    databases: ['PostgreSQL', 'MongoDB', 'Typesense', 'Pinecone', 'SQLite'],
     web: ['React', 'Next.js', 'Vue.js', 'Astro', 'FastAPI', 'NestJS'],
-    protocols: ['MCP', 'Agent Tokens', 'REST', 'GraphQL', 'WebSocket', 'Nostr'],
   },
 
   projects: [
     {
+      name: 'Synapse',
+      description: 'Meta-learning architecture exploring fast-weight programmers and error-modulated plasticity (ΔW = η(y ⊗ x))',
+      url: 'https://github.com/brysontang/Synapse',
+    },
+    {
+      name: 'crystallize',
+      description: 'Rigorous experimental framework for data science with immutable contexts and statistical verification',
+      url: 'https://github.com/brysontang/crystallize',
+    },
+    {
       name: 'Agent Tokens Protocol',
-      description: 'Open standard for AI agent identity via cryptographic provenance',
+      description: 'Cryptographic standard for agent provenance and identity',
       url: 'https://agenttokens.org',
     },
     {
@@ -85,16 +92,6 @@ const AGENT_DATA = {
       name: 'Bloomdesk',
       description: 'AI pipeline converting bug reports into structured technical tickets',
       url: 'https://bloomdesk.dev',
-    },
-    {
-      name: 'DeltaTask',
-      description: 'MCP server for Obsidian task management',
-      url: 'https://github.com/brysontang/DeltaTask',
-    },
-    {
-      name: 'crystallize',
-      description: 'Framework for reproducible ML pipelines',
-      url: 'https://github.com/brysontang/crystallize',
     },
   ],
 
@@ -138,11 +135,11 @@ Current Status: ${AGENT_DATA.profile.status}
 Location: ${AGENT_DATA.profile.location}
 
 Quick Summary:
-- ${AGENT_DATA.experience[0].role} at ${AGENT_DATA.experience[0].company}
+- AI Systems Architect & Research Engineer
+- Creator of Synapse (Fast-Weight Architecture) & Agent Tokens Protocol
+- Builder of Crystallize (Experimental Framework)
 - WPI Data Science (3.75 GPA, High Distinction)
 - BlueDot AI Safety Alignment certified
-- Created Agent Tokens Protocol
-- IEEE published researcher
 
 Fetch any section URL above for detailed data.
 </pre>
@@ -250,6 +247,8 @@ function generateSkills() {
   return `BRYSON TANG - SKILLS
 ====================
 
+Research Interests: ${s.research.join(', ')}
+
 Languages: ${s.languages.join(', ')}
 
 ML/AI: ${s.ml_ai.join(', ')}
@@ -258,11 +257,7 @@ MLOps: ${s.mlops.join(', ')}
 
 Infrastructure: ${s.infrastructure.join(', ')}
 
-Databases: ${s.databases.join(', ')}
-
 Web: ${s.web.join(', ')}
-
-Protocols: ${s.protocols.join(', ')}
 
 ---
 Other sections:

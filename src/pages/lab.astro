@@ -1,27 +1,62 @@
 ---
 /**
- * lab.astro - The Lab (Engineering Projects)
+ * lab.astro - The Lab (Research + Engineering)
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_DATA } from '../consts/siteData';
 
-const { labProjects } = SITE_DATA;
+const { research, engineering } = SITE_DATA;
 ---
 
 <BaseLayout
   title="The Lab"
-  description="Engineering and technical projects focused on Applied Intelligence, ML pipelines, and AI safety protocols."
-  dateBadge="/sys/engineering"
+  description="Research and engineering projects focused on fast-weight architectures, experimental frameworks, and production AI systems."
+  dateBadge="/sys/research"
 >
   <h1>[ The Lab ]</h1>
   <p>
     The domain of Applied Intelligence. Here, I build the systems that make AI function reliably in
-    the real world.
+    the real world, and the research tools to understand why.
+  </p>
+
+  <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
+
+  <h3>Research & Foundations</h3>
+  <p class="mono" style="font-size: 0.85rem; color: var(--dim-text); margin-bottom: 25px;">
+    Experimental architectures, protocols, and rigorous frameworks.
   </p>
 
   <div class="project-grid">
     {
-      labProjects.map((project) => (
+      research.map((project) => (
+        <div class="project-card research-card">
+          <h4>{project.name}</h4>
+          <p class="mono" style="font-size: 0.8rem; color: var(--dim-text)">
+            {project.tags.join(' | ')}
+          </p>
+          <p>{project.description}</p>
+          <div class="project-links">
+            {project.links.map((link) => (
+              <a href={link.url} target="_blank" rel="noopener noreferrer">
+                [ {link.label} ]
+              </a>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="decorative-hr">~ ~ ~</div>
+
+  <h3>Applied Engineering</h3>
+  <p class="mono" style="font-size: 0.85rem; color: var(--dim-text); margin-bottom: 25px;">
+    Production systems, tools, and deployed products.
+  </p>
+
+  <div class="project-grid">
+    {
+      engineering.map((project) => (
         <div class="project-card">
           <h4>{project.name}</h4>
           <p class="mono" style="font-size: 0.8rem; color: var(--dim-text)">
@@ -40,3 +75,17 @@ const { labProjects } = SITE_DATA;
     }
   </div>
 </BaseLayout>
+
+<style>
+  .decorative-hr {
+    text-align: center;
+    color: var(--dim-text);
+    margin: 40px 0 30px 0;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+  }
+
+  .research-card {
+    border-left: 2px solid var(--link);
+  }
+</style>

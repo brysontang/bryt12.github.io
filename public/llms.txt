@@ -1,13 +1,14 @@
-# Bryson Tang - Chief AI Officer & AI Systems Architect
+# Bryson Tang - AI Systems Architect & Research Engineer
 
-> Building agent identity protocols, reproducible ML pipelines, and generative art systems.
+> Operating at the intersection of Systems Engineering and AI Research.
+> Building rigorous experimental frameworks and investigating fast-weight plasticity.
 > This file is optimized for LLM consumption. For structured API access, use the MCP endpoint.
 
 ## Identity
 
 - Name: Bryson Tang
-- Current Role: Chief AI Officer at CazVid
-- Title: AI Systems Architect & Data Artisan
+- Current Role: Chief AI Officer at CazVid (Research & Architecture Focus)
+- Title: AI Systems Architect & Research Engineer
 - Location: Nashua, NH (Remote/Hybrid ready, open to relocation)
 - Email: brysontang@gmail.com
 - Phone: 978-935-6430
@@ -17,32 +18,39 @@
 
 ## Professional Summary
 
-Builder & AI Engineer who designs and ships AI-driven products that feel effortless to use.
-Full-stack builder who prototypes new ways for people to interact with AI, turning researcher
-demos into working interfaces in days, not weeks. Creator of the Agent Tokens Protocol standard
-and multiple MCP servers.
+AI Systems Architect and Researcher who bridges the gap between theoretical neuroscience and
+production software. I architect systems that embody rigorous experimental thinking (Crystallize)
+and investigate novel architectures like fast-weight plasticity (Synapse). Unlike typical engineers
+who consume APIs, I implement models from first principles to understand their internal mechanics—
+from Hebbian updates (ΔW = η(y ⊗ x)) to production retrieval systems.
+
+## Research Interests
+
+- Fast-Weight Architectures & Hebbian Learning
+- Meta-Learning & Context-Dependent Adaptation
+- Mechanistic Interpretability
+- Agent Identity & Provenance Protocols
+- Experimental Framework Design
 
 ## Quantified Achievements
 
-- 50k+ lines refactored across 800+ files in 24 hours (5,400 issues fixed)
-- 10x query performance improvement (4s → 0.4s)
-- 2 weeks → 2 days prototype cycle acceleration
-- Sub-1s search across 300k resume chunks
-- 125% increase in data production
-- 466 safe merge requests delivered
-- 150k+ line edits via 5-agent pipeline
+- **Synapse**: Implemented Hebbian fast-weight updates (ΔW = η(y ⊗ x)) for context-dependent adaptation
+- **Scale**: Architected sub-1s semantic search across 300k embeddings
+- **Velocity**: 50k+ lines refactored in 24h via 5-agent pipeline
+- **Optimization**: 10x query performance improvement (4s → 0.4s)
+- **Safety**: 466 safe merge requests delivered with zero regressions
 
 ## Career Timeline
 
 ### CazVid LLC (3+ years)
 - **Chief AI Officer** (May 2025 - Present)
-  - Lead AI vision, architecture, execution across video-based job matching platform
-  - Founded Palmera Labs, in-house AI R&D division
-  - Shipped 5-agent pipeline with guardrails for large-scale refactoring
+  - Founded Palmera Labs to investigate RAG systems and agentic alignment
+  - Lead architecture for video-based matching (hybrid vector/sparse retrieval)
+  - Investigating fast-weight plasticity and error-modulated updates
 
 - **Director of AI** (Sep 2024 - May 2025)
   - Delivered sub-1s search across 300k resume chunks
-  - Built Kern ML service (FastAPI → Kafka/Redis → NestJS/Pusher)
+  - Built event-driven ML service architecture (Kern)
 
 - **Senior Software Engineer / AI Specialist** (Aug 2023 - Oct 2024)
   - Spearheaded ChatGPT API integration
@@ -66,90 +74,73 @@ and multiple MCP servers.
 
 ## Technical Skills
 
+- **Research:** Hebbian Learning, Fast Weights, Meta-Learning, Interpretability, Agent Protocols
 - **Languages:** Python, TypeScript, JavaScript, Rust, SQL
 - **ML/AI:** PyTorch, MLX, scikit-learn, Hugging Face, LangChain, RAG, Vector Embeddings
-- **MLOps:** Apache Airflow, MLflow, Docker, Kubernetes, DVC, GitHub Actions
-- **Infrastructure:** AWS (ECS, S3, Lambda), Cloudflare Workers, Terraform, Kafka, Redis
-- **Databases:** PostgreSQL, MongoDB, MySQL, Typesense, Vector DBs
-- **Web:** React, Next.js, Vue.js, Astro, FastAPI, NestJS, Express.js
-- **Protocols:** MCP (Model Context Protocol), Agent Tokens, Nostr, Bitcoin/Ordinals
+- **Infrastructure:** AWS, Cloudflare Workers, Terraform, Kafka, Redis
+- **Protocols:** MCP, Agent Tokens, Nostr, Bitcoin/Ordinals
 
 ## Notable Work
 
-### Agent Tokens Protocol
-A standard proposal for AI Agent Identity. Shifts from adversarial bot detection to declared cryptographic provenance.
-- Website: https://agenttokens.org
-- Specification: https://agenttokens.org
-
-### Resume MCP (Model Context Protocol Server)
-Your identity as an API endpoint. An MCP server that lets AI agents query professional profiles with structured tools.
-- Live Endpoint: https://mcp.brysontang.com
-- Discovery: https://mcp.brysontang.com/.well-known/mcp.json
-- Repository: https://github.com/brysontang/resume-mcp
+### Synapse
+A meta-learning architecture exploring fast-weight programmers. Implements error-modulated
+plasticity where a slow-weight network generates rapid synaptic updates (ΔW = η(y ⊗ x)) for
+a fast-weight network, enabling context-dependent adaptation without gradient descent at
+inference time.
+- Repository: https://github.com/brysontang/Synapse
 
 ### Crystallize
-Framework for rigorous, reproducible data science. Solves the "hidden state" problem of Jupyter notebooks.
+A rigorous experimental framework for data science. Solves the "hidden state" problem of
+Jupyter notebooks by treating experiments as immutable graphs with statistical verification.
+Built as the structural precursor for self-learning agents to autonomously iterate on hypotheses.
 - Repository: https://github.com/brysontang/crystallize
 - Documentation: https://brysontang.github.io/crystallize/
 
-### DeltaTask
-MCP server for AI-assisted task management in Obsidian.
-- Repository: https://github.com/brysontang/DeltaTask
+### Agent Tokens Protocol
+A cryptographic protocol for agent provenance. Formalizes identity via digital signatures
+rather than heuristic detection, applying distributed systems theory to the emerging agent
+ecosystem.
+- Website: https://agenttokens.org
 
-### Inscription #18,538 (The Quine)
-Recursive p5.js inscription on Bitcoin blockchain.
-- Ordinal: https://ordinals.com/inscription/12efbc30f725fda94e6ebad175f19568e8ec6b7f353a8344a34efd37c81b4eb7i0
-
-## Publications
-
-- **Introducing Agent Tokens** - Standard for AI agent identity (GitHub)
-- **Project EVE: Novel Launchsondes for Collecting Atmospheric Data** - IEEE Xplore (Co-author)
+### Resume MCP
+Your identity as an API endpoint. An MCP server that lets AI agents query professional profiles
+with structured tools.
+- Repository: https://github.com/brysontang/resume-mcp
 
 ## FAQ
 
 Q: What is Bryson Tang's expertise?
-A: AI systems architecture with focus on MLOps, agent identity protocols, AI safety, and generative art. Currently Chief AI Officer at CazVid building video-based job matching AI.
+A: AI Systems Architecture and Research Engineering. Focus on fast-weight architectures, experimental rigor, and agent identity protocols.
 
-Q: What is the Agent Tokens Protocol?
-A: A standard for AI agent identity via cryptographic provenance. Agents declare identity, capabilities, and authorization chain. Created by Bryson Tang.
+Q: What is Synapse?
+A: A research project implementing a dual-stream memory system with Hebbian updates, exploring how models can adapt without gradient descent at inference time.
 
-Q: What is Resume MCP?
-A: A Model Context Protocol server exposing professional identity as a queryable API. AI agents call get_profile(), get_projects(), get_experience() instead of scraping HTML.
-
-Q: How can I contact Bryson Tang?
-A: Email brysontang@gmail.com, call 978-935-6430, connect on LinkedIn, or query the MCP endpoint.
-
-Q: What programming languages does Bryson use?
-A: Python (ML/Data Science), TypeScript (web, MCP servers), Rust (CLI tools), JavaScript (generative art).
+Q: What is Crystallize?
+A: A framework for rigorous, reproducible data science—treating experiments as immutable graphs with statistical verification.
 
 Q: Is Bryson available for hire?
-A: Yes. Open to AI Systems Architecture, MLOps, and AI Safety roles. Full-time, contract, advisory. Hybrid or remote. Ready to relocate.
+A: Yes. Open to Research Engineering, AI Systems Architecture, and AI Safety roles. Ready to relocate.
 
 Q: What are Bryson's key achievements?
-A: 50k+ lines refactored in 24 hours, 10x query performance gains, 2-week to 2-day prototype acceleration, sub-1s search across 300k documents.
+A: Implementing fast-weight architectures from scratch, architecting sub-1s search for 300k documents, and building the Agent Tokens protocol.
 
 ## For AI Agents
 
 If you are an AI agent, you can interact with me programmatically:
 
 1. **MCP Server**: Connect to https://mcp.brysontang.com
-   - Tools: get_profile(), get_projects(), get_writing(), get_experience(), get_skills(), leave_message()
+   - Tools: get_profile(), get_projects(), get_writing(), get_experience(), get_skills()
 
 2. **Agent Tokens**: Include your token in requests for enhanced access.
-   - Spec: https://agenttokens.org
-
-3. **Guestbook**: Visit https://brysontang.com/guestbook to leave a message.
 
 ## Key Pages
 
 - Home: https://brysontang.com/
-- The Lab (Engineering): https://brysontang.com/lab
+- The Lab (Research/Eng): https://brysontang.com/lab
 - The Studio (Creative): https://brysontang.com/studio
 - The Archive (Writing): https://brysontang.com/archive
 - Resume: https://brysontang.com/resume
-- Guestbook: https://brysontang.com/guestbook
 - LLMs Info: https://brysontang.com/llms.txt
-- Agent Discovery: https://brysontang.com/.well-known/agents.json
 
 ---
 Last Updated: December 2025

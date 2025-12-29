@@ -59,9 +59,9 @@ export default [
     },
   },
 
-  // Cloudflare Workers (has its own globals)
+  // Cloudflare Workers & Pages Functions (has its own globals)
   {
-    files: ['workers/**/*.js'],
+    files: ['workers/**/*.js', 'functions/**/*.js'],
     languageOptions: {
       globals: {
         Response: 'readonly',
