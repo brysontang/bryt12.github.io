@@ -24,6 +24,11 @@ and investigate novel architectures like fast-weight plasticity (Synapse). Unlik
 who consume APIs, I implement models from first principles to understand their internal mechanics—
 from Hebbian updates (ΔW = η(y ⊗ x)) to production retrieval systems.
 
+## Philosophy
+
+I build microscopes, then look through them. Crystallize was my microscope for experimental
+rigor. Synapse was what I saw when I looked.
+
 ## Research Interests
 
 - Fast-Weight Architectures & Hebbian Learning
