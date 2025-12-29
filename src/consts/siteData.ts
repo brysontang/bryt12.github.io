@@ -124,8 +124,8 @@ export const SITE_DATA: SiteData = {
     {
       name: 'Synapse',
       description:
-        'A meta-learning architecture exploring fast-weight programmers. Implements error-modulated plasticity where a slow-weight network generates rapid synaptic updates (ΔW = η(y ⊗ x)) for a fast-weight network, enabling context-dependent adaptation without gradient descent at inference time.',
-      tags: ['Research', 'Fast Weights', 'Hebbian Learning', 'Meta-Learning'],
+        'A research spike exploring fast-weight plasticity, built to validate that Crystallize + LLM-assisted development enables rapid hypothesis iteration. The architecture implements error-modulated Hebbian updates (ΔW = η(y ⊗ x)) — but the real artifact is the workflow: framework → theory → AI-assisted implementation → verification → next cycle.',
+      tags: ['Research', 'Fast Weights', 'Meta-Tooling', 'LLM-Assisted'],
       links: [{ label: 'GitHub', url: 'https://github.com/brysontang/Synapse' }],
     },
     {

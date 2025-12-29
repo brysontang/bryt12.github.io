@@ -70,7 +70,7 @@ const AGENT_DATA = {
   projects: [
     {
       name: 'Synapse',
-      description: 'Meta-learning architecture exploring fast-weight programmers and error-modulated plasticity (ΔW = η(y ⊗ x))',
+      description: 'Research spike validating Crystallize + LLM workflow for rapid hypothesis iteration. The loop is the artifact.',
       url: 'https://github.com/brysontang/Synapse',
     },
     {
