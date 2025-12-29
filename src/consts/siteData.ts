@@ -229,10 +229,10 @@ export const SITE_DATA: SiteData = {
     {
       name: 'Generative-Art',
       description:
-        '~500 pieces created over COVID — one per day, then weekly, then monthly. Learning to express myself through code after never practicing art growing up. All hand-written p5.js, no AI. Here, bugs aren\'t things to fix but interesting threads to follow toward emergent beauty.',
+        '~430 pieces created over COVID — one per day, then weekly, then monthly. Learning to express myself through code after never practicing art growing up. All hand-written p5.js, no AI. Here, bugs aren\'t things to fix but interesting threads to follow toward emergent beauty.',
       medium: 'p5.js | Daily Practice | Emergence',
       links: [
-        { label: 'Instagram', url: 'https://www.instagram.com/brysontang/' },
+        { label: 'Instagram', url: 'https://www.instagram.com/illiiillliililliiili/' },
         { label: 'GitHub', url: 'https://github.com/brysontang/Generative-Art' },
       ],
     },
