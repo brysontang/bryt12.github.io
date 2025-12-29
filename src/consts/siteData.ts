@@ -172,6 +172,13 @@ export const SITE_DATA: SiteData = {
       tags: ['Research Leadership', 'AI Fairness', 'Mentorship', 'Ethics'],
       links: [],
     },
+    {
+      name: 'Backprop Paper Replication',
+      description:
+        'Implemented backpropagation from scratch following the original 1986 Rumelhart paper. Hand-derived gradients using chain rule (∂E/∂w via ∂E/∂y → ∂E/∂x), implemented momentum updates (Δw(t) = -ε∂E/∂w + αΔw(t-1)), built MLP on Apple MLX. No AI assistance — just the paper and framework docs. Includes weight matrix evolution visualizations.',
+      tags: ['Paper Implementation', 'MLX', 'Foundations', 'From Scratch'],
+      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/mlx-lab' }],
+    },
   ],
 
   // ---------------------------------------------------------------------------

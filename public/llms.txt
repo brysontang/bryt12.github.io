@@ -120,6 +120,11 @@ Chain-of-Thought → Sparks of AGI → Bostrom → Debiasing Embeddings → Poly
 Structured methodology (hypotheses → experiments → paper draft). Investigated gender bias
 in synthetic resume retrieval. Unpublished paper on utilitarian frameworks for LLM ethics.
 
+### Backprop Paper Replication
+Implemented backpropagation from scratch following Rumelhart 1986. Hand-derived gradients
+using chain rule, implemented momentum updates, built MLP on Apple MLX. No AI assistance —
+just the paper and framework docs. Paper → math → code workflow.
+
 ## FAQ
 
 Q: What is Bryson Tang's expertise?
