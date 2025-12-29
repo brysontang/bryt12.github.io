@@ -99,8 +99,8 @@ export const SITE_DATA: SiteData = {
         note: 'Exploring error-modulated Hebbian updates for context-dependent adaptation.',
       },
       quote: {
-        header: 'Axiom',
-        text: 'The map is not the territory, but the tree is the seed.',
+        header: 'Research Philosophy',
+        text: 'Teach her how to steer, not just how to row.',
       },
     },
   },
@@ -163,6 +163,13 @@ export const SITE_DATA: SiteData = {
       description:
         'Event-driven ML service architecture enabling long-running agentic workflows. Designed around distributed systems constraints: Kafka for async (no HTTP timeouts), Redis for large results (Pusher limits), dual-mode for internal app + external API. 525K requests/month in production.',
       tags: ['Systems Architecture', 'FastAPI', 'Kafka', 'Distributed Systems'],
+      links: [],
+    },
+    {
+      name: 'Bias in Embedding-Based Hiring',
+      description:
+        'Led intern through AI fairness research: designed paper curriculum (Few-Shot Learners → Chain-of-Thought → Sparks of AGI → Bostrom → Debiasing Embeddings → Polysemantic Neurons), structured research methodology (hypotheses → experiments → paper draft). Investigated gender bias in synthetic resume retrieval. Unpublished paper on utilitarian frameworks for LLM ethics in hiring.',
+      tags: ['Research Leadership', 'AI Fairness', 'Mentorship', 'Ethics'],
       links: [],
     },
   ],

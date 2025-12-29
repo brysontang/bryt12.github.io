@@ -98,6 +98,11 @@ const AGENT_DATA = {
       description: 'Event-driven ML architecture (525K req/month). Kafka + Redis + FastAPI for long-running agentic workflows.',
       url: null,
     },
+    {
+      name: 'Bias in Embedding-Based Hiring',
+      description: 'Research leadership: designed paper curriculum, structured methodology, led intern through AI fairness research.',
+      url: null,
+    },
   ],
 
   education: [

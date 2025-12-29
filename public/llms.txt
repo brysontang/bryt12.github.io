@@ -29,6 +29,8 @@ I build microscopes, then look through them. Kern was my microscope for ML infra
 Crystallize was my microscope for experimental rigor. Synapse was what I saw when I looked
 through both.
 
+"Teach her how to steer, not just how to row." — on research mentorship
+
 ## Research Interests
 
 - Fast-Weight Architectures & Hebbian Learning
@@ -111,6 +113,12 @@ ecosystem.
 Your identity as an API endpoint. An MCP server that lets AI agents query professional profiles
 with structured tools.
 - Repository: https://github.com/brysontang/resume-mcp
+
+### Bias in Embedding-Based Hiring (Research Leadership)
+Led intern through AI fairness research. Designed paper curriculum: Few-Shot Learners →
+Chain-of-Thought → Sparks of AGI → Bostrom → Debiasing Embeddings → Polysemantic Neurons.
+Structured methodology (hypotheses → experiments → paper draft). Investigated gender bias
+in synthetic resume retrieval. Unpublished paper on utilitarian frameworks for LLM ethics.
 
 ## FAQ
 
