@@ -227,11 +227,34 @@ export const SITE_DATA: SiteData = {
   // ---------------------------------------------------------------------------
   studioProjects: [
     {
+      name: 'Generative-Art',
+      description:
+        '~500 pieces created over COVID — one per day, then weekly, then monthly. Learning to express myself through code after never practicing art growing up. All hand-written p5.js, no AI. Here, bugs aren\'t things to fix but interesting threads to follow toward emergent beauty.',
+      medium: 'p5.js | Daily Practice | Emergence',
+      links: [
+        { label: 'Instagram', url: 'https://www.instagram.com/brysontang/' },
+        { label: 'GitHub', url: 'https://github.com/brysontang/Generative-Art' },
+      ],
+    },
+    {
+      name: 'Tree of Processing',
+      description:
+        'Mapped the Tree of Thought paper to generative art — could a branching structure make models more creative? Early LLM API experiments, back when you had to parse code from inconsistent outputs and couldn\'t pass images. The genesis of my artistic and research journeys intersecting.',
+      medium: 'Generative Algorithm | LLM Research | Tree of Thought',
+      links: [
+        { label: 'GitHub', url: 'https://github.com/brysontang/tree-of-processing' },
+        {
+          label: 'Write-up',
+          url: 'https://medium.com/@brysontang/tree-of-processing-bd002ca91396',
+        },
+      ],
+    },
+    {
       name: 'Inscription #18,538 (The Quine)',
       description:
-        'A recursive inscription created using a barebones node setup. No APIs, just raw CLI. It is a Quine—a program that outputs its own source code. It lives on every node in the network.',
+        'A recursive Quine — a program that outputs its own source code — inscribed permanently on Bitcoin. Downloaded the entire blockchain locally to inscribe via CLI. Started when there were <100 inscriptions, hoping for under 1,000. Got 18,538. There are now ~100,000,000. It lives on every node in the network.',
       date: 'Jan 2023',
-      medium: 'Bitcoin Blockchain',
+      medium: 'Bitcoin Blockchain | Ordinals',
       links: [
         {
           label: 'View on Ordinals',
@@ -249,42 +272,6 @@ export const SITE_DATA: SiteData = {
         'A decentralized curation client for generative art. Built on Nostr to separate identity from storage. Implements Kind 95 events to render p5.js sketches live in the browser, ensuring the art is a performance, not a recording.',
       medium: 'TypeScript | Nostr Protocol',
       links: [{ label: 'GitHub', url: 'https://github.com/brysontang/matroid' }],
-    },
-    {
-      name: 'Tree of Processing',
-      description:
-        'The genesis of my artistic journey. Using recursive logic to generate organic forms. "The map is not the territory, but the tree is the seed."',
-      medium: 'Generative Algorithm',
-      links: [
-        { label: 'GitHub', url: 'https://github.com/brysontang/tree-of-processing' },
-        {
-          label: 'Write-up',
-          url: 'https://medium.com/@brysontang/tree-of-processing-bd002ca91396',
-        },
-      ],
-    },
-    {
-      name: 'Whisker',
-      description:
-        'A recipe discovery and management app. Clean, fast, and focused on the cooking experience.',
-      medium: 'Web App',
-      links: [
-        { label: 'GitHub', url: 'https://github.com/brysontang/Whisker' },
-        { label: 'Live', url: 'https://whisker.recipes' },
-      ],
-    },
-    {
-      name: 'Generative-Art',
-      description:
-        'A collection of generative art experiments and explorations in algorithmic aesthetics.',
-      medium: 'p5.js | Processing',
-      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/Generative-Art' }],
-    },
-    {
-      name: 'p5js-webxr',
-      description: 'Experiments bridging p5.js with WebXR for immersive generative experiences.',
-      medium: 'WebXR | p5.js',
-      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/p5js-webxr' }],
     },
   ],
 
