@@ -122,11 +122,15 @@ export const SITE_DATA: SiteData = {
   // ---------------------------------------------------------------------------
   research: [
     {
-      name: 'Synapse',
+      name: 'AI Safety Compass',
       description:
-        'A research spike exploring fast-weight plasticity, built to validate that Crystallize + LLM-assisted development enables rapid hypothesis iteration. The architecture implements error-modulated Hebbian updates (ΔW = η(y ⊗ x)) — but the real artifact is the workflow: framework → theory → AI-assisted implementation → verification → next cycle.',
-      tags: ['Research', 'Fast Weights', 'Meta-Tooling', 'LLM-Assisted'],
-      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/Synapse' }],
+        'Research paper and interactive tool exploring model meta-alignment — whether labs\' stated safety positions match their models\' expressed beliefs. Literature review of 70+ papers across alignment, openness, existential risk, and AI ethics. Developed original survey methodology grounded in research that maps where models sit on alignment/openness axes rather than producing a "correct score."',
+      tags: ['Research', 'AI Safety', 'Meta-Alignment', 'Literature Synthesis'],
+      links: [
+        { label: 'GitHub', url: 'https://github.com/brysontang/ai-safety-compass' },
+        { label: 'Paper', url: 'https://github.com/brysontang/ai-safety-compass/blob/main/PAPER.md' },
+        { label: 'Live Demo', url: 'https://ai-safety-compass.vercel.app' },
+      ],
     },
     {
       name: 'crystallize',
@@ -137,33 +141,6 @@ export const SITE_DATA: SiteData = {
         { label: 'GitHub', url: 'https://github.com/brysontang/crystallize' },
         { label: 'Docs', url: 'https://brysontang.github.io/crystallize/' },
       ],
-    },
-    {
-      name: 'agent-tokens',
-      description:
-        'A cryptographic protocol for agent provenance. Formalizes identity via digital signatures rather than heuristic detection, applying distributed systems theory to the emerging agent ecosystem.',
-      tags: ['Protocol', 'Identity', 'Cryptography', 'Agent Systems'],
-      links: [
-        { label: 'Website', url: 'https://agenttokens.org' },
-        { label: 'Spec', url: 'https://github.com/agentokens/agent-tokens' },
-      ],
-    },
-    {
-      name: 'ai-safety-compass',
-      description:
-        'An interactive survey of the AI safety landscape, visualizing the topological relationships between divergent alignment frameworks and safety methodologies.',
-      tags: ['AI Safety', 'Visualization', 'Alignment'],
-      links: [
-        { label: 'GitHub', url: 'https://github.com/brysontang/ai-safety-compass' },
-        { label: 'Live Demo', url: 'https://ai-safety-compass.vercel.app' },
-      ],
-    },
-    {
-      name: 'Kern',
-      description:
-        'Event-driven ML service architecture enabling long-running agentic workflows. Designed around distributed systems constraints: Kafka for async (no HTTP timeouts), Redis for large results (Pusher limits), dual-mode for internal app + external API. 525K requests/month in production.',
-      tags: ['Systems Architecture', 'FastAPI', 'Kafka', 'Distributed Systems'],
-      links: [],
     },
     {
       name: 'Bias in Embedding-Based Hiring',
@@ -179,12 +156,36 @@ export const SITE_DATA: SiteData = {
       tags: ['Paper Implementation', 'MLX', 'Foundations', 'From Scratch'],
       links: [{ label: 'GitHub', url: 'https://github.com/brysontang/mlx-lab' }],
     },
+    {
+      name: 'agent-tokens',
+      description:
+        'A cryptographic protocol for agent provenance. Formalizes identity via digital signatures rather than heuristic detection, applying distributed systems theory to the emerging agent ecosystem.',
+      tags: ['Protocol', 'Identity', 'Cryptography', 'Agent Systems'],
+      links: [
+        { label: 'Website', url: 'https://agenttokens.org' },
+        { label: 'Spec', url: 'https://github.com/agentokens/agent-tokens' },
+      ],
+    },
+    {
+      name: 'Synapse',
+      description:
+        'A quick spike exploring whether Crystallize + LLM-assisted development enables rapid hypothesis iteration. Built in an evening to test the loop: framework → theory → AI-assisted implementation → verification. The process is the point, not the model.',
+      tags: ['Workflow Demo', 'Fast Weights', 'Crystallize + LLM'],
+      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/Synapse' }],
+    },
   ],
 
   // ---------------------------------------------------------------------------
   // Applied Engineering (Products / Systems)
   // ---------------------------------------------------------------------------
   engineering: [
+    {
+      name: 'Kern',
+      description:
+        'Event-driven ML service architecture enabling long-running agentic workflows. Designed around distributed systems constraints: Kafka for async (no HTTP timeouts), Redis for large results (Pusher limits), dual-mode for internal app + external API. 525K requests/month in production.',
+      tags: ['Systems Architecture', 'FastAPI', 'Kafka', 'Distributed Systems'],
+      links: [],
+    },
     {
       name: 'Bloomdesk',
       description:
