@@ -99,8 +99,8 @@ export const SITE_DATA: SiteData = {
         note: 'Investigating how neural networks encode more features than dimensions.',
       },
       quote: {
-        header: 'Research Philosophy',
-        text: 'Teach her how to steer, not just how to row.',
+        header: 'Motto',
+        text: 'I want to leave things better than I found them.',
       },
     },
   },
