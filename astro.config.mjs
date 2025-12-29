@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 // Cloudflare Pages adapter for SSG (Static Site Generation)
 // Using static output since the site doesn't need SSR
 export default defineConfig({
-  site: 'https://brysontang.dev',
+  site: 'https://brysontang.com',
 
   // Integrations
   integrations: [sitemap()],

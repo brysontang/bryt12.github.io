@@ -83,7 +83,7 @@ export const SITE_DATA: SiteData = {
   site: {
     title: 'Bryson Tang',
     tagline: 'DATA ARTISAN & ARCHITECT',
-    website: 'https://brysontang.dev',
+    website: 'https://brysontang.com',
     github: 'https://github.com/brysontang',
     linkedin: 'https://www.linkedin.com/in/bryson-t-datascience/',
     bearblog: 'https://noise2signal.bearblog.dev/',
@@ -170,7 +170,7 @@ export const SITE_DATA: SiteData = {
       tags: ['MCP', 'Cloudflare Workers', 'Agent Tokens'],
       links: [
         { label: 'GitHub', url: 'https://github.com/brysontang/resume-mcp' },
-        { label: 'Live Endpoint', url: 'https://mcp.brysontang.dev' },
+        { label: 'Live Endpoint', url: 'https://mcp.brysontang.com' },
       ],
     },
     {

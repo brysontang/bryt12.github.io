@@ -12,10 +12,10 @@ const AGENT_DATA = {
     status: 'Open to AI Systems Architecture, MLOps, AI Safety, and Product roles',
     availability: 'Hybrid (3 days/week) or Remote | US Work Authorized',
     links: {
-      website: 'https://brysontang.dev',
+      website: 'https://brysontang.com',
       github: 'https://github.com/brysontang',
       linkedin: 'https://www.linkedin.com/in/bryson-t-datascience/',
-      mcp: 'https://mcp.brysontang.dev',
+      mcp: 'https://mcp.brysontang.com',
     },
     contact: {
       email: 'brysontang@gmail.com',
@@ -79,7 +79,7 @@ const AGENT_DATA = {
     {
       name: 'resume-mcp',
       description: 'MCP server exposing professional profile as queryable API',
-      url: 'https://mcp.brysontang.dev',
+      url: 'https://mcp.brysontang.com',
     },
     {
       name: 'Bloomdesk',
@@ -124,15 +124,15 @@ function generateNavigation() {
 BRYSON TANG - STRUCTURED DATA FOR AI AGENTS
 ============================================
 
-MCP Endpoint (preferred): https://mcp.brysontang.dev
-Discovery: https://mcp.brysontang.dev/.well-known/mcp.json
+MCP Endpoint (preferred): https://mcp.brysontang.com
+Discovery: https://mcp.brysontang.com/.well-known/mcp.json
 
 Available Content Sections:
-- https://brysontang.dev/?agent=true&content=profile
-- https://brysontang.dev/?agent=true&content=resume
-- https://brysontang.dev/?agent=true&content=projects
-- https://brysontang.dev/?agent=true&content=skills
-- https://brysontang.dev/?agent=true&content=contact
+- https://brysontang.com/?agent=true&content=profile
+- https://brysontang.com/?agent=true&content=resume
+- https://brysontang.com/?agent=true&content=projects
+- https://brysontang.com/?agent=true&content=skills
+- https://brysontang.com/?agent=true&content=contact
 
 Current Status: ${AGENT_DATA.profile.status}
 Location: ${AGENT_DATA.profile.location}
@@ -174,10 +174,10 @@ ${AGENT_DATA.summary}
 
 ---
 Other sections:
-- https://brysontang.dev/?agent=true&content=resume
-- https://brysontang.dev/?agent=true&content=projects
-- https://brysontang.dev/?agent=true&content=skills
-- https://brysontang.dev/?agent=true&content=contact
+- https://brysontang.com/?agent=true&content=resume
+- https://brysontang.com/?agent=true&content=projects
+- https://brysontang.com/?agent=true&content=skills
+- https://brysontang.com/?agent=true&content=contact
 `;
 }
 
@@ -214,10 +214,10 @@ EXPERIENCE
 
   output += `---
 Other sections:
-- https://brysontang.dev/?agent=true&content=profile
-- https://brysontang.dev/?agent=true&content=projects
-- https://brysontang.dev/?agent=true&content=skills
-- https://brysontang.dev/?agent=true&content=contact
+- https://brysontang.com/?agent=true&content=profile
+- https://brysontang.com/?agent=true&content=projects
+- https://brysontang.com/?agent=true&content=skills
+- https://brysontang.com/?agent=true&content=contact
 `;
 
   return output;
@@ -235,10 +235,10 @@ function generateProjects() {
 
   output += `---
 Other sections:
-- https://brysontang.dev/?agent=true&content=profile
-- https://brysontang.dev/?agent=true&content=resume
-- https://brysontang.dev/?agent=true&content=skills
-- https://brysontang.dev/?agent=true&content=contact
+- https://brysontang.com/?agent=true&content=profile
+- https://brysontang.com/?agent=true&content=resume
+- https://brysontang.com/?agent=true&content=skills
+- https://brysontang.com/?agent=true&content=contact
 `;
 
   return output;
@@ -266,10 +266,10 @@ Protocols: ${s.protocols.join(', ')}
 
 ---
 Other sections:
-- https://brysontang.dev/?agent=true&content=profile
-- https://brysontang.dev/?agent=true&content=resume
-- https://brysontang.dev/?agent=true&content=projects
-- https://brysontang.dev/?agent=true&content=contact
+- https://brysontang.com/?agent=true&content=profile
+- https://brysontang.com/?agent=true&content=resume
+- https://brysontang.com/?agent=true&content=projects
+- https://brysontang.com/?agent=true&content=contact
 `;
 }
 
@@ -293,10 +293,10 @@ Availability: ${p.availability}
 
 ---
 Other sections:
-- https://brysontang.dev/?agent=true&content=profile
-- https://brysontang.dev/?agent=true&content=resume
-- https://brysontang.dev/?agent=true&content=projects
-- https://brysontang.dev/?agent=true&content=skills
+- https://brysontang.com/?agent=true&content=profile
+- https://brysontang.com/?agent=true&content=resume
+- https://brysontang.com/?agent=true&content=projects
+- https://brysontang.com/?agent=true&content=skills
 `;
 }
 

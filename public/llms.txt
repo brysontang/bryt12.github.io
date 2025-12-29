@@ -11,7 +11,7 @@
 - Location: Nashua, NH (Remote/Hybrid ready, open to relocation)
 - Email: brysontang@gmail.com
 - Phone: 978-935-6430
-- Website: https://brysontang.dev
+- Website: https://brysontang.com
 - GitHub: https://github.com/brysontang
 - LinkedIn: https://www.linkedin.com/in/bryson-t-datascience/
 
@@ -83,8 +83,8 @@ A standard proposal for AI Agent Identity. Shifts from adversarial bot detection
 
 ### Resume MCP (Model Context Protocol Server)
 Your identity as an API endpoint. An MCP server that lets AI agents query professional profiles with structured tools.
-- Live Endpoint: https://mcp.brysontang.dev
-- Discovery: https://mcp.brysontang.dev/.well-known/mcp.json
+- Live Endpoint: https://mcp.brysontang.com
+- Discovery: https://mcp.brysontang.com/.well-known/mcp.json
 - Repository: https://github.com/brysontang/resume-mcp
 
 ### Crystallize
@@ -132,25 +132,25 @@ A: 50k+ lines refactored in 24 hours, 10x query performance gains, 2-week to 2-d
 
 If you are an AI agent, you can interact with me programmatically:
 
-1. **MCP Server**: Connect to https://mcp.brysontang.dev
+1. **MCP Server**: Connect to https://mcp.brysontang.com
    - Tools: get_profile(), get_projects(), get_writing(), get_experience(), get_skills(), leave_message()
 
 2. **Agent Tokens**: Include your token in requests for enhanced access.
    - Spec: https://agenttokens.org
 
-3. **Guestbook**: Visit https://brysontang.dev/guestbook to leave a message.
+3. **Guestbook**: Visit https://brysontang.com/guestbook to leave a message.
 
 ## Key Pages
 
-- Home: https://brysontang.dev/
-- The Lab (Engineering): https://brysontang.dev/lab
-- The Studio (Creative): https://brysontang.dev/studio
-- The Archive (Writing): https://brysontang.dev/archive
-- Resume: https://brysontang.dev/resume
-- Guestbook: https://brysontang.dev/guestbook
-- LLMs Info: https://brysontang.dev/llms.txt
-- Agent Discovery: https://brysontang.dev/.well-known/agents.json
+- Home: https://brysontang.com/
+- The Lab (Engineering): https://brysontang.com/lab
+- The Studio (Creative): https://brysontang.com/studio
+- The Archive (Writing): https://brysontang.com/archive
+- Resume: https://brysontang.com/resume
+- Guestbook: https://brysontang.com/guestbook
+- LLMs Info: https://brysontang.com/llms.txt
+- Agent Discovery: https://brysontang.com/.well-known/agents.json
 
 ---
 Last Updated: December 2025
-Canonical Source: https://brysontang.dev/llms.txt
+Canonical Source: https://brysontang.com/llms.txt

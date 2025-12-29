@@ -1,4 +1,4 @@
--- Guestbook table for brysontang.dev
+-- Guestbook table for brysontang.com
 -- Run with: wrangler d1 execute guestbook-db --file=./schema.sql
 
 CREATE TABLE IF NOT EXISTS guestbook (

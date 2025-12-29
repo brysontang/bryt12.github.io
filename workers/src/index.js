@@ -1,5 +1,5 @@
 /**
- * Cloudflare Worker for brysontang.dev
+ * Cloudflare Worker for brysontang.com
  * Handles visitor counter and guestbook API
  */
 
@@ -49,14 +49,14 @@ export default {
 /**
  * Increment and return visitor count
  * Rate limited: 1 increment per IP per 24 hours
- * Origin restricted: only from brysontang.dev
+ * Origin restricted: only from brysontang.com
  */
 async function handleCounter(request, env, corsHeaders) {
   const origin = request.headers.get('Origin') || '';
   const referer = request.headers.get('Referer') || '';
 
   // Only allow requests from the actual website
-  const isValidOrigin = origin.includes('brysontang.dev') || referer.includes('brysontang.dev');
+  const isValidOrigin = origin.includes('brysontang.com') || referer.includes('brysontang.com');
 
   // Get current count first (always return this)
   const currentCount = parseInt((await env.SITE_KV.get('visitor_count')) || '18538');
@@ -116,10 +116,10 @@ async function getGuestbookEntries(env, corsHeaders) {
  * Add a new guestbook entry with rate limiting and honeypot protection
  */
 async function postGuestbookEntry(request, env, corsHeaders) {
-  // Origin check - only allow from brysontang.dev
+  // Origin check - only allow from brysontang.com
   const origin = request.headers.get('Origin') || '';
   const referer = request.headers.get('Referer') || '';
-  const isValidOrigin = origin.includes('brysontang.dev') || referer.includes('brysontang.dev');
+  const isValidOrigin = origin.includes('brysontang.com') || referer.includes('brysontang.com');
 
   if (!isValidOrigin) {
     return new Response(JSON.stringify({ error: 'Invalid origin' }), {

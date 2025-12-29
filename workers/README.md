@@ -1,6 +1,6 @@
 # Cloudflare Workers - API Backend
 
-This directory contains the Cloudflare Worker that powers the visitor counter and guestbook for [brysontang.dev](https://brysontang.dev).
+This directory contains the Cloudflare Worker that powers the visitor counter and guestbook for [brysontang.com](https://brysontang.com).
 
 ## Features
 
@@ -14,7 +14,7 @@ This directory contains the Cloudflare Worker that powers the visitor counter an
 
 ```
 ┌─────────────────┐     ┌──────────────────────┐
-│  brysontang.dev │────▶│  Cloudflare Worker   │
+│  brysontang.com │────▶│  Cloudflare Worker   │
 │  (GitHub Pages) │     │  /api/counter        │
 └─────────────────┘     │  /api/guestbook      │
                         └──────────┬───────────┘

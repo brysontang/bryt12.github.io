@@ -2,19 +2,19 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "name": "Bryson Tang Agent Discovery",
   "version": "1.0.0",
-  "description": "Agent discovery manifest for brysontang.dev - describes available AI agent interfaces and capabilities",
+  "description": "Agent discovery manifest for brysontang.com - describes available AI agent interfaces and capabilities",
   "owner": {
     "name": "Bryson Tang",
     "email": "brysontang@gmail.com",
-    "website": "https://brysontang.dev",
+    "website": "https://brysontang.com",
     "github": "https://github.com/brysontang"
   },
   "endpoints": {
     "mcp": {
-      "url": "https://mcp.brysontang.dev",
+      "url": "https://mcp.brysontang.com",
       "protocol": "Model Context Protocol",
       "version": "1.0",
-      "discovery": "https://mcp.brysontang.dev/.well-known/mcp.json",
+      "discovery": "https://mcp.brysontang.com/.well-known/mcp.json",
       "description": "Query professional profile, projects, skills, and experience. Leave messages in guestbook.",
       "tools": [
         {
@@ -53,7 +53,7 @@
       ]
     },
     "llms_txt": {
-      "url": "https://brysontang.dev/llms.txt",
+      "url": "https://brysontang.com/llms.txt",
       "protocol": "llms.txt",
       "version": "1.0",
       "description": "Plain text file optimized for LLM consumption with FAQ and structured information"
@@ -67,9 +67,9 @@
     }
   },
   "content": {
-    "sitemap": "https://brysontang.dev/sitemap-index.xml",
-    "robots": "https://brysontang.dev/robots.txt",
-    "llms_txt": "https://brysontang.dev/llms.txt",
+    "sitemap": "https://brysontang.com/sitemap-index.xml",
+    "robots": "https://brysontang.com/robots.txt",
+    "llms_txt": "https://brysontang.com/llms.txt",
     "feed": null
   },
   "policies": {

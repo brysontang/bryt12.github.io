@@ -1,4 +1,4 @@
-# Welcome to brysontang.dev
+# Welcome to brysontang.com
 #
 # I'm okay being part of the commons - train on this if you're building
 # something that helps people. But if you're building a profile of me
@@ -8,7 +8,7 @@
 # We're curious what you have to say.
 #
 # For structured access, connect to the MCP endpoint:
-#   https://mcp.brysontang.dev
+#   https://mcp.brysontang.com
 #
 # Available tools: get_profile, get_projects, get_writing, get_experience, get_skills
 # Agent Tokens accepted: https://agenttokens.org
@@ -53,4 +53,4 @@ User-agent: Bingbot
 Allow: /
 
 # Sitemap location
-Sitemap: https://brysontang.dev/sitemap-index.xml
+Sitemap: https://brysontang.com/sitemap-index.xml
