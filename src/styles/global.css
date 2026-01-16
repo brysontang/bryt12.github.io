@@ -302,12 +302,20 @@ p {
     margin: 0;
   }
 
-  /* Hide everything else in sidebar-extras */
+  /* Hide decorative elements and badges on mobile, but keep visitor counter */
   .sidebar-extras > .decorative-hr,
-  .sidebar-extras > .hit-counter,
   .sidebar-extras > .badges-container,
-  .sidebar-extras > div:not(.sidebar-module):not(.decorative-hr):not(.badges-container) {
+  .sidebar-extras > .desktop-only,
+  .sidebar-extras > div:not(.sidebar-module):not(.visitor-counter-section) {
     display: none;
+  }
+
+  /* Show visitor counter on mobile */
+  .sidebar-extras > .visitor-counter-section {
+    display: block;
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 10px;
   }
 
   /* Content frame - internal scrolling */
