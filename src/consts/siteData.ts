@@ -182,6 +182,13 @@ export const SITE_DATA: SiteData = {
       links: [{ label: 'GitHub', url: 'https://github.com/brysontang/golden-gate-qwen' }],
     },
     {
+      name: 'ContextWars',
+      description:
+        'Adversarial token convergence experiments on MLX. Pits language models against each other to reveal training strata — solo mode converges in 2 iterations, adversarial mode never does. Under pressure, models collapse to their most defensible tokens, revealing composition invisible in normal evaluation.',
+      tags: ['Interpretability', 'Adversarial', 'Model Fingerprinting', 'MLX'],
+      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/ContextWars' }],
+    },
+    {
       name: 'Synapse',
       description:
         "A proof-of-concept testing a new research workflow: use Crystallize to structure experiments, then let an LLM help implement hypotheses rapidly. Built in an evening to validate the loop. The insight wasn't the model—it was proving the workflow enables fast iteration.",
@@ -373,6 +380,7 @@ export const SITE_DATA: SiteData = {
   // ---------------------------------------------------------------------------
   allRepos: [
     { name: 'golden-gate-qwen', url: 'https://github.com/brysontang/golden-gate-qwen' },
+    { name: 'ContextWars', url: 'https://github.com/brysontang/ContextWars' },
     { name: 'Synapse', url: 'https://github.com/brysontang/Synapse' },
     { name: 'crystallize', url: 'https://github.com/brysontang/crystallize' },
     { name: 'mlx-lab', url: 'https://github.com/brysontang/mlx-lab' },

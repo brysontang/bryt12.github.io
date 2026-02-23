@@ -102,6 +102,13 @@ all on an RTX 3070 Ti. Demonstrates that mechanistic interpretability research i
 beyond frontier-scale compute.
 - Repository: https://github.com/brysontang/golden-gate-qwen
 
+### ContextWars
+Adversarial token convergence experiments on MLX. Pits language models against each other
+to reveal training strata — solo mode converges in 2 iterations, adversarial mode never does.
+Under pressure, models collapse to their most defensible tokens, revealing composition
+invisible in normal evaluation. Model fingerprinting through adversarial pressure.
+- Repository: https://github.com/brysontang/ContextWars
+
 ### Synapse
 A research spike exploring fast-weight plasticity, built to validate that Crystallize +
 LLM-assisted development enables rapid hypothesis iteration. The architecture implements

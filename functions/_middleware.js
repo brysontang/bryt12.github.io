@@ -92,6 +92,12 @@ const AGENT_DATA = {
       url: 'https://github.com/brysontang/golden-gate-qwen',
     },
     {
+      name: 'ContextWars',
+      description:
+        'Adversarial token convergence experiments. Pits models against each other to reveal training strata. Model fingerprinting through adversarial pressure.',
+      url: 'https://github.com/brysontang/ContextWars',
+    },
+    {
       name: 'Synapse',
       description:
         'Research spike validating Crystallize + LLM workflow for rapid hypothesis iteration. The loop is the artifact.',
