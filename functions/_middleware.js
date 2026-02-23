@@ -32,7 +32,7 @@ const AGENT_DATA = {
       dates: 'Jan 2026 - Present',
       highlights: [
         'AI infrastructure company: shared authentication, payments, and LLM tooling across product portfolio',
-        'Independent research: replicating Anthropic\'s Golden Gate Claude on consumer hardware — sparse autoencoders for mechanistic interpretability',
+        "Independent research: replicating Anthropic's Golden Gate Claude on consumer hardware — sparse autoencoders for mechanistic interpretability",
         'Go backend architecture designed to scale with users, not ideas',
       ],
     },

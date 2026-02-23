@@ -173,7 +173,12 @@ export const SITE_DATA: SiteData = {
       name: 'Golden Gate Qwen',
       description:
         "Minimal replication of Anthropic's Golden Gate Claude on consumer hardware. Trains a Sparse Autoencoder on Qwen2.5-1.5B, discovers interpretable features, and steers model behavior — all on an RTX 3070 Ti. Demonstrates that mechanistic interpretability research is accessible beyond frontier-scale compute.",
-      tags: ['Interpretability', 'Sparse Autoencoder', 'Feature Steering', 'Mechanistic Interpretability'],
+      tags: [
+        'Interpretability',
+        'Sparse Autoencoder',
+        'Feature Steering',
+        'Mechanistic Interpretability',
+      ],
       links: [{ label: 'GitHub', url: 'https://github.com/brysontang/golden-gate-qwen' }],
     },
     {
