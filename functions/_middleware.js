@@ -27,9 +27,19 @@ const AGENT_DATA = {
 
   experience: [
     {
+      role: 'Founder',
+      company: 'Syntropy Systems (Tang Tensor Trends LLC)',
+      dates: 'Jan 2026 - Present',
+      highlights: [
+        'AI infrastructure company: shared authentication, payments, and LLM tooling across product portfolio',
+        'Independent research: replicating Anthropic\'s Golden Gate Claude on consumer hardware — sparse autoencoders for mechanistic interpretability',
+        'Go backend architecture designed to scale with users, not ideas',
+      ],
+    },
+    {
       role: 'Chief AI Officer',
       company: 'CazVid LLC',
-      dates: 'May 2025 - Present',
+      dates: 'May 2025 - Dec 2025',
       highlights: [
         'Founded Palmera Labs (internal R&D) to investigate RAG systems and agentic alignment',
         'Investigating fast-weight plasticity and error-modulated Hebbian updates',
@@ -60,10 +70,11 @@ const AGENT_DATA = {
 
   skills: {
     research: [
+      'Mechanistic Interpretability',
+      'Sparse Autoencoders',
       'Hebbian Learning',
       'Fast Weights',
       'Meta-Learning',
-      'Mechanistic Interpretability',
       'Agent Protocols',
     ],
     languages: ['Python', 'TypeScript', 'JavaScript', 'Rust', 'SQL', 'Bash'],
@@ -74,6 +85,12 @@ const AGENT_DATA = {
   },
 
   projects: [
+    {
+      name: 'Golden Gate Qwen',
+      description:
+        "Replication of Anthropic's Golden Gate Claude on consumer hardware. Trains sparse autoencoders on Qwen2.5-1.5B for interpretable feature discovery and steering.",
+      url: 'https://github.com/brysontang/golden-gate-qwen',
+    },
     {
       name: 'Synapse',
       description:

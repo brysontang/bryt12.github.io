@@ -89,7 +89,7 @@ export const SITE_DATA: SiteData = {
     linkedin: 'https://www.linkedin.com/in/bryson-t-datascience/',
     bearblog: 'https://noise2signal.bearblog.dev/',
     email: 'brysontang@gmail.com',
-    lastUpdated: 'Dec 28, 2025',
+    lastUpdated: 'Feb 23, 2026',
     visitorCount: '018538',
     sidebar: {
       now: {
@@ -168,6 +168,13 @@ export const SITE_DATA: SiteData = {
         { label: 'Website', url: 'https://agenttokens.org' },
         { label: 'Spec', url: 'https://github.com/agentokens/agent-tokens' },
       ],
+    },
+    {
+      name: 'Golden Gate Qwen',
+      description:
+        "Minimal replication of Anthropic's Golden Gate Claude on consumer hardware. Trains a Sparse Autoencoder on Qwen2.5-1.5B, discovers interpretable features, and steers model behavior — all on an RTX 3070 Ti. Demonstrates that mechanistic interpretability research is accessible beyond frontier-scale compute.",
+      tags: ['Interpretability', 'Sparse Autoencoder', 'Feature Steering', 'Mechanistic Interpretability'],
+      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/golden-gate-qwen' }],
     },
     {
       name: 'Synapse',
@@ -360,6 +367,7 @@ export const SITE_DATA: SiteData = {
   // All Public Repos (for Archive index)
   // ---------------------------------------------------------------------------
   allRepos: [
+    { name: 'golden-gate-qwen', url: 'https://github.com/brysontang/golden-gate-qwen' },
     { name: 'Synapse', url: 'https://github.com/brysontang/Synapse' },
     { name: 'crystallize', url: 'https://github.com/brysontang/crystallize' },
     { name: 'mlx-lab', url: 'https://github.com/brysontang/mlx-lab' },
