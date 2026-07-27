@@ -471,6 +471,7 @@ export const SITE_DATA: SiteData = {
   // All Public Repos (for Archive index)
   // ---------------------------------------------------------------------------
   allRepos: [
+    { name: 'windtunnel', url: 'https://github.com/syntropy-systems-oss/windtunnel' },
     { name: 'golden-gate-qwen', url: 'https://github.com/brysontang/golden-gate-qwen' },
     { name: 'ContextWars', url: 'https://github.com/brysontang/ContextWars' },
     { name: 'Synapse', url: 'https://github.com/brysontang/Synapse' },
