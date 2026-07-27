@@ -6,7 +6,7 @@
  *
  * All data is driven from SITE_DATA.resume (single source of truth)
  */
-import BaseLayout from '../layouts/BaseLayout.astro';
+import ProLayout from '../layouts/ProLayout.astro';
 import { SITE_DATA } from '../consts/siteData';
 
 const { site, resume } = SITE_DATA;
@@ -14,124 +14,95 @@ const mainExperience = resume.experience.filter((e) => e.section === 'main');
 const earlyExperience = resume.experience.filter((e) => e.section === 'early');
 ---
 
-<BaseLayout
+<ProLayout
   title="Resume of Bryson Tang | AI Systems Architect"
   description="Bryson Tang - Founder, Syntropy Systems. AI Systems Architect & Research Engineer. Resume and CV for Interpretability, AI Safety, MLOps, and Research Engineering positions. Sparse autoencoders, mechanistic interpretability, sub-1s search across 300k documents."
-  dateBadge="/career/resume"
 >
-  <h1>Resume of Bryson Tang</h1>
-
-  <div class="resume-header" style="margin-bottom: 20px;">
-    <p class="mono" style="font-size: 0.95rem; color: var(--link);">
-      {resume.headline}
+  <header class="resume-header">
+    <h1>Resume of Bryson Tang</h1>
+    <p class="headline">{resume.headline}</p>
+    <p class="contact-line">
+      {resume.location} · <a href={`mailto:${site.email}`}>{site.email}</a> ·
+      <a href={`tel:${site.phone}`}>{site.phone}</a> ·
+      <a href={site.linkedin}>LinkedIn</a> ·
+      <a href={site.github}>GitHub</a>
     </p>
-    <p style="font-size: 0.85rem;">
-      {resume.location} |
-      <a href={`mailto:${site.email}`}>{site.email}</a> |
-      <a href={`tel:${site.phone}`}>{site.phone}</a> |
-      <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a> |
-      <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub</a>
-    </p>
-  </div>
+  </header>
 
   <!-- QUANTIFIED ACHIEVEMENTS - FIRST for ATS/AI parsing priority -->
-  <section>
-    <h3>Quantified Impact</h3>
-    <div
-      class="achievement-grid"
-      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 15px 0;"
-    >
+  <section aria-labelledby="impact-heading">
+    <h2 id="impact-heading">Quantified Impact</h2>
+    <div class="stats">
       {
         resume.achievements.map((a) => (
-          <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
-            <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">{a.value}</div>
-            <div style="font-size: 0.8rem;" set:html={a.description} />
+          <div class="stat">
+            <span class="stat-value">{a.value}</span>
+            <span class="stat-desc" set:html={a.description} />
           </div>
         ))
       }
     </div>
   </section>
 
-  <div class="decorative-hr">~ ~ ~</div>
-
-  <section>
-    <h3>Summary</h3>
-    <p>{resume.summary}</p>
+  <section aria-labelledby="summary-heading">
+    <h2 id="summary-heading">Summary</h2>
+    <p class="summary">{resume.summary}</p>
   </section>
 
-  <div class="decorative-hr">~ ~ ~</div>
-
-  <section>
-    <h3>Experience</h3>
-
-    {
-      mainExperience.map((job) => (
-        <div class="job" style="margin-bottom: 25px;">
-          <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;">
-            <strong style="color: var(--link); font-size: 1.1rem;">{job.role}</strong>
-            <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);">
-              {job.dateDisplay}
-            </span>
+  <section aria-labelledby="experience-heading">
+    <h2 id="experience-heading">Experience</h2>
+    <div class="timeline">
+      {
+        mainExperience.map((job) => (
+          <div class="job">
+            <div class="job-dates">{job.dateDisplay}</div>
+            <div class="job-body">
+              <h3>
+                {job.role} ·{' '}
+                {job.companyUrl ? <a href={job.companyUrl}>{job.company}</a> : job.company}
+                {job.companyNote && <span class="company-note"> {job.companyNote}</span>}
+              </h3>
+              <div class="job-location">{job.location}</div>
+              <ul>
+                {job.highlights.map((h) => (
+                  <li set:html={h} />
+                ))}
+              </ul>
+            </div>
           </div>
-          <div style="font-size: 0.9rem; margin-bottom: 8px;">
-            {job.companyUrl ? (
-              <a href={job.companyUrl} target="_blank" rel="noopener noreferrer">
-                {job.company}
-              </a>
-            ) : (
-              job.company
-            )}
-            {job.companyNote ? ` ${job.companyNote}` : ''} | {job.location}
-          </div>
-          <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
-            {job.highlights.map((h) => (
-              <li set:html={h} />
-            ))}
-          </ul>
-        </div>
-      ))
-    }
+        ))
+      }
+    </div>
   </section>
 
-  <div class="decorative-hr">~ ~ ~</div>
-
-  <section>
-    <h3>Early Experience</h3>
-
-    {
-      earlyExperience.map((job) => (
-        <div class="job" style="margin-bottom: 20px;">
-          <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;">
-            <strong style="color: var(--link);">{job.role}</strong>
-            <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);">
-              {job.dateDisplay}
-            </span>
+  <section aria-labelledby="early-heading">
+    <h2 id="early-heading">Early Experience</h2>
+    <div class="timeline">
+      {
+        earlyExperience.map((job) => (
+          <div class="job">
+            <div class="job-dates">{job.dateDisplay}</div>
+            <div class="job-body">
+              <h3>
+                {job.role} ·{' '}
+                {job.companyUrl ? <a href={job.companyUrl}>{job.company}</a> : job.company}
+              </h3>
+              <div class="job-location">{job.location}</div>
+              <p class="early-summary">{job.highlights.join(' ')}</p>
+            </div>
           </div>
-          <div style="font-size: 0.9rem; margin-bottom: 8px;">
-            {job.companyUrl ? (
-              <a href={job.companyUrl} target="_blank" rel="noopener noreferrer">
-                {job.company}
-              </a>
-            ) : (
-              job.company
-            )}{' '}
-            | {job.location}
-          </div>
-          <p style="font-size: 0.85rem; margin: 0;">{job.highlights.join(' ')}</p>
-        </div>
-      ))
-    }
+        ))
+      }
+    </div>
   </section>
 
-  <div class="decorative-hr">~ ~ ~</div>
-
-  <section>
-    <h3>Technical Skills</h3>
-    <div style="display: grid; grid-template-columns: auto 1fr; gap: 6px 20px; font-size: 0.85rem;">
+  <section aria-labelledby="skills-heading">
+    <h2 id="skills-heading">Technical Skills</h2>
+    <div class="skills-grid">
       {
         resume.skills.map((cat) => (
           <>
-            <strong>{cat.label}:</strong>
+            <strong>{cat.label}</strong>
             <span>{cat.items.join(', ')}</span>
           </>
         ))
@@ -139,91 +110,78 @@ const earlyExperience = resume.experience.filter((e) => e.section === 'early');
     </div>
   </section>
 
-  <div class="decorative-hr">~ ~ ~</div>
-
-  <section>
-    <h3>Education</h3>
+  <section aria-labelledby="education-heading">
+    <h2 id="education-heading">Education</h2>
     {
       resume.education.map((edu) => (
-        <div style="margin-bottom: 15px;">
-          <strong style="color: var(--link);">{edu.institution}</strong>
-          <span class="mono" style="font-size: 0.75rem; color: var(--dim-text); margin-left: 10px;">
-            {edu.graduationDisplay}
-          </span>
-          <div style="font-size: 0.9rem;">
-            {edu.degree}
-            {edu.minor ? `, Minor in ${edu.minor}` : ''}
+        <div class="edu">
+          <div class="edu-title">
+            <strong>{edu.institution}</strong>
+            <span class="edu-date">{edu.graduationDisplay}</span>
           </div>
+          <div>{`${edu.degree}${edu.minor ? `, Minor in ${edu.minor}` : ''}`}</div>
           {(edu.gpa || edu.honors) && (
-            <div style="font-size: 0.85rem; color: var(--dim-text);">
+            <div class="edu-detail">
               {edu.gpa ? `GPA: ${edu.gpa}` : ''}
-              {edu.gpa && edu.honors ? ' | ' : ''}
+              {edu.gpa && edu.honors ? ' · ' : ''}
               {edu.honors || ''}
             </div>
           )}
-          {edu.details && <div style="font-size: 0.9rem;">{edu.details}</div>}
+          {edu.details && <div>{edu.details}</div>}
         </div>
       ))
     }
   </section>
 
-  <div class="decorative-hr">~ ~ ~</div>
-
-  <section>
-    <h3>Publications & Research</h3>
-    <ul style="font-size: 0.9rem;">
+  <section aria-labelledby="pubs-heading">
+    <h2 id="pubs-heading">Publications &amp; Research</h2>
+    <ul class="flat-list">
       {
         resume.publications.map((pub) => (
           <li>
-            <strong>{pub.title}</strong> - {pub.description}
-            {pub.url && (
-              <a href={pub.url} target="_blank" rel="noopener noreferrer">
-                [{pub.urlLabel || 'Link'}]
-              </a>
-            )}
+            <strong>{pub.title}</strong> — {pub.description}
+            {pub.url && <a href={pub.url}>[{pub.urlLabel || 'Link'}]</a>}
           </li>
         ))
       }
     </ul>
   </section>
 
-  <div class="decorative-hr">~ ~ ~</div>
-
-  <section>
-    <h3>Research Mentorship</h3>
-    <p style="font-size: 0.9rem; margin-bottom: 10px;">
-      <strong style="color: var(--link);">{resume.mentorship.period}</strong> — {
-        resume.mentorship.summary
-      }
+  <section aria-labelledby="mentorship-heading">
+    <h2 id="mentorship-heading">Research Mentorship</h2>
+    <p class="mentorship-summary">
+      <strong>{resume.mentorship.period}</strong> — {resume.mentorship.summary}
     </p>
 
-    <details style="margin-bottom: 15px;">
-      <summary style="cursor: pointer; color: var(--link); font-size: 0.9rem;">
-        [ View Paper Curriculum I Designed ]
-      </summary>
-      <ol style="font-size: 0.85rem; margin-top: 10px; padding-left: 25px;">
+    <details>
+      <summary>View the paper curriculum I designed</summary>
+      <ol>
         {resume.mentorship.curriculum.map((paper) => <li>{paper}</li>)}
       </ol>
     </details>
 
-    <p style="font-size: 0.85rem;">
+    <p class="mentorship-detail">
       <strong>Methodology:</strong>
       {resume.mentorship.methodology}
     </p>
-    <p style="font-size: 0.85rem;">
+    <p class="mentorship-detail">
       <strong>Output:</strong>
       {resume.mentorship.output}
     </p>
   </section>
 
-  <div class="decorative-hr">~ ~ ~</div>
-
-  <section>
-    <h3>Open Source Projects</h3>
-    <ul style="font-size: 0.9rem;">
+  <section aria-labelledby="oss-heading">
+    <h2 id="oss-heading">Open Source Projects</h2>
+    <ul class="flat-list">
       {
         (() => {
           const osProjects = [
+            {
+              name: 'Wind Tunnel',
+              desc: 'Reliability bench for tool-using LLM agents — reproducible scenarios scoring outcome, trajectory, constraints, and robustness. Open source from Syntropy Systems.',
+              linkLabel: 'GitHub',
+              linkUrl: 'https://github.com/syntropy-systems-oss/windtunnel',
+            },
             {
               name: 'Golden Gate Qwen',
               desc: "Replication of Anthropic's Golden Gate Claude on consumer hardware. Sparse autoencoders on Qwen2.5-1.5B for interpretable feature discovery and steering.",
@@ -263,7 +221,7 @@ const earlyExperience = resume.experience.filter((e) => e.section === 'early');
           ];
           return osProjects.map((p) => (
             <li>
-              <strong>{p.name}</strong> - {p.desc}
+              <strong>{p.name}</strong> — {p.desc}
               <a href={p.linkUrl}>[{p.linkLabel}]</a>
             </li>
           ));
@@ -272,41 +230,172 @@ const earlyExperience = resume.experience.filter((e) => e.section === 'early');
     </ul>
   </section>
 
-  <div class="decorative-hr">~ ~ ~</div>
-
-  <section>
-    <h3>Leadership</h3>
-    <ul style="font-size: 0.9rem;">
+  <section aria-labelledby="leadership-heading">
+    <h2 id="leadership-heading">Leadership</h2>
+    <ul class="flat-list">
       {
         resume.leadership.map((l) => (
           <li>
-            <strong>{l.title}</strong> - {l.detail}
+            <strong>{l.title}</strong> — {l.detail}
           </li>
         ))
       }
     </ul>
   </section>
 
-  <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
-
-  <div style="text-align: center; margin-top: 30px;">
-    <p style="font-size: 0.9rem;">
+  <section class="closing" aria-label="Status and contact">
+    <p>
       <strong>Status:</strong>
       {resume.status}<br />
-      <span style="color: var(--dim-text);">{resume.availability}</span>
+      <span class="availability">{resume.availability}</span>
     </p>
-    <p style="font-size: 0.85rem; margin-top: 15px;">
-      <a
-        href={`mailto:${site.email}`}
-        class="enter-btn"
-        style="font-size: 0.85rem; padding: 8px 16px;"
-      >
-        [ Contact Me ]
-      </a>
+    <p class="contact-cta">
+      <a href={`mailto:${site.email}`}>Contact me →</a>
     </p>
-    <p class="mono" style="font-size: 0.7rem; color: var(--dim-text); margin-top: 20px;">
-      AI Agents: Query <a href="https://mcp.brysontang.com">mcp.brysontang.com</a> for structured JSON
+    <p class="agent-note">
+      AI agents: query <a href="https://mcp.brysontang.com">mcp.brysontang.com</a> for structured JSON
       data
     </p>
-  </div>
-</BaseLayout>
+  </section>
+</ProLayout>
+
+<style>
+  .resume-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .headline {
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+  }
+
+  .contact-line {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-top: 0.75rem;
+  }
+
+  .summary {
+    font-size: 1.05rem;
+  }
+
+  .job-location {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .early-summary {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.4rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 600px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+
+    .skills-grid span {
+      margin-bottom: 0.6rem;
+      color: var(--muted);
+    }
+  }
+
+  .edu {
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .edu-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .edu-date {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .edu-detail {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .flat-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .flat-list a {
+    margin-left: 0.4rem;
+    font-size: 0.85rem;
+  }
+
+  .mentorship-summary {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+
+  details {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+
+  details summary {
+    cursor: pointer;
+    color: var(--accent);
+  }
+
+  details ol {
+    margin-top: 0.6rem;
+    padding-left: 1.5rem;
+    color: var(--muted);
+  }
+
+  .mentorship-detail {
+    font-size: 0.9rem;
+    margin-top: 0.4rem;
+  }
+
+  .closing {
+    text-align: center;
+    border-top: 1px solid var(--faint);
+    padding-top: 2rem;
+  }
+
+  .availability {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .contact-cta {
+    margin-top: 1rem;
+    font-size: 1.05rem;
+  }
+
+  .agent-note {
+    margin-top: 1.25rem;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+</style>

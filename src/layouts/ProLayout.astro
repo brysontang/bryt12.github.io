@@ -1,0 +1,303 @@
+---
+/**
+ * ProLayout.astro
+ * Shared shell for the professional pages (/ and /resume): head, design
+ * tokens, shared section styles, and footer. The vintage site uses
+ * BaseLayout instead.
+ */
+import { SITE_DATA } from '../consts/siteData';
+import { jsonLdPerson, buildJsonLdWebsite, jsonLdApi } from '../consts/jsonld';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const { site } = SITE_DATA;
+const currentPath = Astro.url.pathname;
+
+const jsonLdWebsite = buildJsonLdWebsite(description);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+
+    <meta name="description" content={description} />
+    <meta name="author" content={site.title} />
+    <link rel="canonical" href={`${site.website}${currentPath}`} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={`${site.website}${currentPath}`} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdPerson)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdWebsite)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdApi)} />
+
+    <link rel="author" href={`${site.website}/llms.txt`} type="text/plain" />
+    <link rel="mcp-server" href="https://mcp.brysontang.com" />
+    <meta name="mcp-discovery" content="https://mcp.brysontang.com/.well-known/mcp.json" />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>"
+    />
+  </head>
+
+  <body>
+    <div class="page">
+      <nav class="topline">
+        <a href="/" class="mark" title="Home">◈</a>
+        <a href="/vintage" class="vintage-link" title="Enter the vintage study">vintage mode</a>
+      </nav>
+
+      <slot />
+
+      <footer>
+        <p>
+          This page, <a href="/llms.txt">llms.txt</a>, and the
+          <a href="https://mcp.brysontang.com"> MCP server</a> that AI agents can query are all generated
+          from one source of truth.
+        </p>
+        <p class="vintage-invite">
+          <a href="/vintage">◈ Prefer the 1997 version? Enter the vintage study →</a>
+        </p>
+        <p class="copyright">&copy; 2026 {site.title}</p>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #faf9f7;
+    --ink: #1c1917;
+    --muted: #6f6a63;
+    --faint: #e5e1da;
+    --accent: #8a6d1d;
+    --card: #ffffff;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131217;
+      --ink: #e8e6e1;
+      --muted: #9d9890;
+      --faint: #2a2830;
+      --accent: #c9b037;
+      --card: #1a1920;
+    }
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    background: var(--bg);
+  }
+
+  body {
+    font-family:
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, 'Helvetica Neue', sans-serif;
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 1.0625rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+  }
+
+  a:hover {
+    color: var(--accent);
+  }
+
+  section {
+    margin-top: 3.5rem;
+  }
+
+  h2 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--faint);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .topline {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2.5rem;
+  }
+
+  .mark {
+    color: var(--accent);
+    font-size: 1.4rem;
+    text-decoration: none;
+  }
+
+  .vintage-link {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration-color: var(--faint);
+  }
+
+  /* --- Stats (shared by landing + resume) --- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--faint);
+    border: 1px solid var(--faint);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .stat {
+    background: var(--card);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .stat-value {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .stat-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 600px) {
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* --- Experience timeline (shared by landing + resume) --- */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .job {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .job {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+
+  .job-dates {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding-top: 0.25rem;
+    white-space: nowrap;
+  }
+
+  .job-body h3 {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .company-note {
+    font-weight: 400;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .job-body ul {
+    list-style: none;
+    margin-top: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .job-body li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .job-body li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .more-link {
+    margin-top: 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  /* --- Footer --- */
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--faint);
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .vintage-invite a {
+    color: var(--muted);
+  }
+
+  .copyright {
+    font-size: 0.8rem;
+  }
+
+  @media print {
+    .topline,
+    footer {
+      display: none;
+    }
+
+    .page {
+      padding: 0;
+    }
+  }
+</style>

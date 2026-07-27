@@ -5,8 +5,8 @@
  * Clean, single-scroll rendering of SITE_DATA for recruiters and cold traffic.
  * The original site lives on at /vintage.
  */
+import ProLayout from '../layouts/ProLayout.astro';
 import { SITE_DATA } from '../consts/siteData';
-import { jsonLdPerson, buildJsonLdWebsite, jsonLdApi } from '../consts/jsonld';
 
 const { site, research, engineering, writing, resume } = SITE_DATA;
 
@@ -17,278 +17,135 @@ const featuredProjects = [...research, ...engineering].filter((p) => p.featured)
 const mainExperience = resume.experience.filter((e) => e.section === 'main');
 const recentWriting = writing.slice(0, 5);
 
-const jsonLdWebsite = buildJsonLdWebsite(description);
-
 function stripTags(html: string): string {
   return html.replace(/<[^>]+>/g, '');
 }
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bryson Tang — AI Systems Architect & Research Engineer</title>
+<ProLayout title="Bryson Tang — AI Systems Architect & Research Engineer" {description}>
+  <header class="hero">
+    <h1>{site.title}</h1>
+    <p class="role">AI Systems Architect &amp; Research Engineer</p>
+    <p class="status">
+      Founder, <a href="https://syntropysystems.com">Syntropy Systems</a> · {
+        resume.location.replace('(Relocation Ready)', '')
+      } · {resume.status}
+    </p>
 
-    <meta name="description" content={description} />
-    <meta name="author" content={site.title} />
-    <link rel="canonical" href={`${site.website}/`} />
+    <ul class="contact-row">
+      <li><a href={site.github}>GitHub</a></li>
+      <li><a href={site.linkedin}>LinkedIn</a></li>
+      <li><a href={site.bearblog}>Blog</a></li>
+      <li><a href={`mailto:${site.email}`}>Email</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+  </header>
 
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Bryson Tang — AI Systems Architect & Research Engineer" />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={`${site.website}/`} />
+  <section aria-label="Summary">
+    <p class="summary">{resume.summary}</p>
+  </section>
 
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLdPerson)} />
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLdWebsite)} />
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLdApi)} />
-
-    <link rel="author" href={`${site.website}/llms.txt`} type="text/plain" />
-    <link rel="mcp-server" href="https://mcp.brysontang.com" />
-    <meta name="mcp-discovery" content="https://mcp.brysontang.com/.well-known/mcp.json" />
-
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>"
-    />
-  </head>
-
-  <body>
-    <div class="page">
-      <header class="hero">
-        <nav class="topline">
-          <span class="mark">◈</span>
-          <a href="/vintage" class="vintage-link" title="Enter the vintage study">vintage mode</a>
-        </nav>
-
-        <h1>{site.title}</h1>
-        <p class="role">AI Systems Architect &amp; Research Engineer</p>
-        <p class="status">
-          Founder, <a href="https://syntropysystems.com">Syntropy Systems</a> · {
-            resume.location.replace('(Relocation Ready)', '')
-          } · {resume.status}
-        </p>
-
-        <ul class="contact-row">
-          <li><a href={site.github}>GitHub</a></li>
-          <li><a href={site.linkedin}>LinkedIn</a></li>
-          <li><a href={site.bearblog}>Blog</a></li>
-          <li><a href={`mailto:${site.email}`}>Email</a></li>
-          <li><a href="/resume">Resume</a></li>
-        </ul>
-      </header>
-
-      <section aria-label="Summary">
-        <p class="summary">{resume.summary}</p>
-      </section>
-
-      <section aria-label="Key numbers">
-        <div class="stats">
-          {
-            resume.achievements.map((a) => (
-              <div class="stat">
-                <span class="stat-value">{a.value}</span>
-                <span class="stat-desc">{a.description}</span>
-              </div>
-            ))
-          }
-        </div>
-      </section>
-
-      <section aria-labelledby="work-heading">
-        <h2 id="work-heading">Selected Work</h2>
-        <div class="projects">
-          {
-            featuredProjects.map((p) => (
-              <article class="project">
-                <h3>{p.links[0] ? <a href={p.links[0].url}>{p.name}</a> : p.name}</h3>
-                <p>{p.description}</p>
-                <div class="project-meta">
-                  <span class="tags">{p.tags.slice(0, 3).join(' · ')}</span>
-                  {p.links.length > 1 && (
-                    <span class="extra-links">
-                      {p.links.slice(1).map((l) => (
-                        <a href={l.url}>{l.label}</a>
-                      ))}
-                    </span>
-                  )}
-                </div>
-              </article>
-            ))
-          }
-        </div>
-      </section>
-
-      <section aria-labelledby="exp-heading">
-        <h2 id="exp-heading">Experience</h2>
-        <div class="timeline">
-          {
-            mainExperience.map((e) => (
-              <div class="job">
-                <div class="job-dates">{e.dateDisplay}</div>
-                <div class="job-body">
-                  <h3>
-                    {e.role} · {e.companyUrl ? <a href={e.companyUrl}>{e.company}</a> : e.company}
-                    {e.companyNote && <span class="company-note"> {e.companyNote}</span>}
-                  </h3>
-                  <ul>
-                    {e.highlights.slice(0, 2).map((h) => (
-                      <li>{stripTags(h)}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-        <p class="more-link"><a href="/resume">Full resume →</a></p>
-      </section>
-
-      <section aria-labelledby="writing-heading">
-        <h2 id="writing-heading">Writing</h2>
-        <ul class="writing-list">
-          {
-            recentWriting.map((w) => (
-              <li>
-                <a href={w.url}>{w.title}</a>
-                <span class="writing-meta">
-                  {w.date} · {w.platform}
-                </span>
-              </li>
-            ))
-          }
-        </ul>
-        <p class="more-link"><a href="/vintage/archive">All writing &amp; repositories →</a></p>
-      </section>
-
-      <section aria-labelledby="edu-heading">
-        <h2 id="edu-heading">Education</h2>
-        <ul class="edu-list">
-          {
-            resume.education.map((e) => (
-              <li>
-                <strong>{e.institution}</strong> —{' '}
-                {`${e.degree}${e.minor ? `, Minor in ${e.minor}` : ''}`}
-                {e.gpa && (
-                  <span class="edu-detail">
-                    {' '}
-                    · {e.gpa} GPA{e.honors && `, ${e.honors}`}
-                  </span>
-                )}
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-
-      <footer>
-        <p>
-          This page, <a href="/llms.txt">llms.txt</a>, and the
-          <a href="https://mcp.brysontang.com"> MCP server</a> that AI agents can query are all generated
-          from one source of truth.
-        </p>
-        <p class="vintage-invite">
-          <a href="/vintage">◈ Prefer the 1997 version? Enter the vintage study →</a>
-        </p>
-        <p class="copyright">&copy; 2026 {site.title}</p>
-      </footer>
+  <section aria-label="Key numbers">
+    <div class="stats">
+      {
+        resume.achievements.map((a) => (
+          <div class="stat">
+            <span class="stat-value">{a.value}</span>
+            <span class="stat-desc">{a.description}</span>
+          </div>
+        ))
+      }
     </div>
-  </body>
-</html>
+  </section>
+
+  <section aria-labelledby="work-heading">
+    <h2 id="work-heading">Selected Work</h2>
+    <div class="projects">
+      {
+        featuredProjects.map((p) => (
+          <article class="project">
+            <h3>{p.links[0] ? <a href={p.links[0].url}>{p.name}</a> : p.name}</h3>
+            <p>{p.description}</p>
+            <div class="project-meta">
+              <span class="tags">{p.tags.slice(0, 3).join(' · ')}</span>
+              {p.links.length > 1 && (
+                <span class="extra-links">
+                  {p.links.slice(1).map((l) => (
+                    <a href={l.url}>{l.label}</a>
+                  ))}
+                </span>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section aria-labelledby="exp-heading">
+    <h2 id="exp-heading">Experience</h2>
+    <div class="timeline">
+      {
+        mainExperience.map((e) => (
+          <div class="job">
+            <div class="job-dates">{e.dateDisplay}</div>
+            <div class="job-body">
+              <h3>
+                {e.role} · {e.companyUrl ? <a href={e.companyUrl}>{e.company}</a> : e.company}
+                {e.companyNote && <span class="company-note"> {e.companyNote}</span>}
+              </h3>
+              <ul>
+                {e.highlights.slice(0, 2).map((h) => (
+                  <li>{stripTags(h)}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <p class="more-link"><a href="/resume">Full resume →</a></p>
+  </section>
+
+  <section aria-labelledby="writing-heading">
+    <h2 id="writing-heading">Writing</h2>
+    <ul class="writing-list">
+      {
+        recentWriting.map((w) => (
+          <li>
+            <a href={w.url}>{w.title}</a>
+            <span class="writing-meta">
+              {w.date} · {w.platform}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="more-link"><a href="/vintage/archive">All writing &amp; repositories →</a></p>
+  </section>
+
+  <section aria-labelledby="edu-heading">
+    <h2 id="edu-heading">Education</h2>
+    <ul class="edu-list">
+      {
+        resume.education.map((e) => (
+          <li>
+            <strong>{e.institution}</strong> —{' '}
+            {`${e.degree}${e.minor ? `, Minor in ${e.minor}` : ''}`}
+            {e.gpa && (
+              <span class="edu-detail">
+                {' '}
+                · {e.gpa} GPA{e.honors && `, ${e.honors}`}
+              </span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</ProLayout>
 
 <style>
-  :root {
-    --bg: #faf9f7;
-    --ink: #1c1917;
-    --muted: #6f6a63;
-    --faint: #e5e1da;
-    --accent: #8a6d1d;
-    --card: #ffffff;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #131217;
-      --ink: #e8e6e1;
-      --muted: #9d9890;
-      --faint: #2a2830;
-      --accent: #c9b037;
-      --card: #1a1920;
-    }
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html {
-    background: var(--bg);
-  }
-
-  body {
-    font-family:
-      -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, 'Helvetica Neue', sans-serif;
-    color: var(--ink);
-    line-height: 1.65;
-    font-size: 1.0625rem;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .page {
-    max-width: 46rem;
-    margin: 0 auto;
-    padding: 3rem 1.5rem 4rem;
-  }
-
-  a {
-    color: var(--ink);
-    text-decoration: underline;
-    text-decoration-color: var(--accent);
-    text-underline-offset: 3px;
-  }
-
-  a:hover {
-    color: var(--accent);
-  }
-
-  section {
-    margin-top: 3.5rem;
-  }
-
-  h2 {
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    border-bottom: 1px solid var(--faint);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  /* --- Hero --- */
-  .topline {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 2.5rem;
-  }
-
-  .mark {
-    color: var(--accent);
-    font-size: 1.4rem;
-  }
-
-  .vintage-link {
-    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-    font-size: 0.8rem;
-    color: var(--muted);
-    text-decoration-color: var(--faint);
-  }
-
   .hero h1 {
     font-size: 2.4rem;
     font-weight: 700;
@@ -317,47 +174,8 @@ function stripTags(html: string): string {
     font-size: 0.95rem;
   }
 
-  /* --- Summary --- */
   .summary {
     font-size: 1.05rem;
-  }
-
-  /* --- Stats --- */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--faint);
-    border: 1px solid var(--faint);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .stat {
-    background: var(--card);
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  .stat-value {
-    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: var(--accent);
-  }
-
-  .stat-desc {
-    font-size: 0.8rem;
-    color: var(--muted);
-    line-height: 1.4;
-  }
-
-  @media (max-width: 600px) {
-    .stats {
-      grid-template-columns: repeat(2, 1fr);
-    }
   }
 
   /* --- Projects --- */
@@ -414,67 +232,6 @@ function stripTags(html: string): string {
     font-size: 0.8rem;
   }
 
-  /* --- Experience --- */
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
-  }
-
-  .job {
-    display: grid;
-    grid-template-columns: 9.5rem 1fr;
-    gap: 1rem;
-  }
-
-  @media (max-width: 600px) {
-    .job {
-      grid-template-columns: 1fr;
-      gap: 0.25rem;
-    }
-  }
-
-  .job-dates {
-    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-    font-size: 0.8rem;
-    color: var(--muted);
-    padding-top: 0.25rem;
-    white-space: nowrap;
-  }
-
-  .job-body h3 {
-    font-size: 1rem;
-    font-weight: 600;
-  }
-
-  .company-note {
-    font-weight: 400;
-    color: var(--muted);
-    font-size: 0.85rem;
-  }
-
-  .job-body ul {
-    list-style: none;
-    margin-top: 0.4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .job-body li {
-    font-size: 0.9rem;
-    color: var(--muted);
-    padding-left: 1rem;
-    position: relative;
-  }
-
-  .job-body li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-  }
-
   /* --- Writing --- */
   .writing-list {
     list-style: none;
@@ -502,30 +259,5 @@ function stripTags(html: string): string {
 
   .edu-detail {
     color: var(--muted);
-  }
-
-  .more-link {
-    margin-top: 1.25rem;
-    font-size: 0.9rem;
-  }
-
-  /* --- Footer --- */
-  footer {
-    margin-top: 4rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--faint);
-    font-size: 0.85rem;
-    color: var(--muted);
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  .vintage-invite a {
-    color: var(--muted);
-  }
-
-  .copyright {
-    font-size: 0.8rem;
   }
 </style>
