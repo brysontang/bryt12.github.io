@@ -24,6 +24,10 @@ pnpm-debug.log*
 # Astro
 .astro/
 
+# Generated data files (from prebuild)
+public/data/
+functions/_generated/
+
 # Cloudflare Workers (contains account/resource IDs)
 workers/wrangler.toml
 .wrangler/

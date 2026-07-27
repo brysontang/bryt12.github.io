@@ -75,6 +75,20 @@ export default [
     },
   },
 
+  // Build scripts (run under Node via tsx)
+  {
+    files: ['scripts/**/*.ts'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+      },
+    },
+    rules: {
+      'no-console': 'off',
+    },
+  },
+
   // Ignore patterns
   {
     ignores: ['dist/**', 'node_modules/**', '.astro/**', 'src/env.d.ts'],

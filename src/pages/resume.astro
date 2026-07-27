@@ -3,11 +3,15 @@
  * resume.astro - Resume/CV page optimized for recruiter X-Ray searches
  * Title intentionally includes "Resume of [Name]" for boolean search discovery
  * Quantified Achievements placed FIRST for AI/ATS parsing priority
+ *
+ * All data is driven from SITE_DATA.resume (single source of truth)
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_DATA } from '../consts/siteData';
 
-const { site } = SITE_DATA;
+const { site, resume } = SITE_DATA;
+const mainExperience = resume.experience.filter((e) => e.section === 'main');
+const earlyExperience = resume.experience.filter((e) => e.section === 'early');
 ---
 
 <BaseLayout
@@ -19,12 +23,12 @@ const { site } = SITE_DATA;
 
   <div class="resume-header" style="margin-bottom: 20px;">
     <p class="mono" style="font-size: 0.95rem; color: var(--link);">
-      Research Engineer | AI Systems Architect | MLOps | Agent Identity Protocols
+      {resume.headline}
     </p>
     <p style="font-size: 0.85rem;">
-      Nashua, NH (Relocation Ready) |
+      {resume.location} |
       <a href={`mailto:${site.email}`}>{site.email}</a> |
-      <a href="tel:978-935-6430">978-935-6430</a> |
+      <a href={`tel:${site.phone}`}>{site.phone}</a> |
       <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a> |
       <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub</a>
     </p>
@@ -37,30 +41,14 @@ const { site } = SITE_DATA;
       class="achievement-grid"
       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 15px 0;"
     >
-      <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
-        <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">525K</div>
-        <div style="font-size: 0.8rem;">requests/month on production ML infrastructure</div>
-      </div>
-      <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
-        <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">150k</div>
-        <div style="font-size: 0.8rem;">lines → agent-native codebase</div>
-      </div>
-      <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
-        <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">10x</div>
-        <div style="font-size: 0.8rem;">query latency reduction (4s → 0.4s)</div>
-      </div>
-      <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
-        <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">300k</div>
-        <div style="font-size: 0.8rem;">resume chunks searchable in &lt;1s via RAG</div>
-      </div>
-      <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
-        <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">466</div>
-        <div style="font-size: 0.8rem;">safe merge requests shipped without regressions</div>
-      </div>
-      <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
-        <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">2wks→2d</div>
-        <div style="font-size: 0.8rem;">prototype cycle acceleration via agent workflows</div>
-      </div>
+      {
+        resume.achievements.map((a) => (
+          <div style="background: rgba(0,0,0,0.4); padding: 15px; border: 1px solid var(--dim-text);">
+            <div style="font-size: 1.5rem; color: var(--link); font-weight: bold;">{a.value}</div>
+            <div style="font-size: 0.8rem;" set:html={a.description} />
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -68,16 +56,7 @@ const { site } = SITE_DATA;
 
   <section>
     <h3>Summary</h3>
-    <p>
-      10 years building data and ML systems — from high school SQL dashboards to production
-      infrastructure handling 525K requests/month. Research background: 70-paper literature
-      synthesis on AI safety, backpropagation implementation from 1986 Rumelhart paper, research
-      mentorship designing paper curricula. Architected sub-1s semantic search across 300k documents
-      using vector embeddings + MongoDB hybrid queries. Created Agent Tokens Protocol (open standard
-      for AI agent identity). Built 5-agent orchestration pipeline handling 150k+ line edits with
-      zero regressions. WPI Data Science graduate (3.75 GPA, High Distinction). BlueDot AI Safety
-      Alignment certified.
-    </p>
+    <p>{resume.summary}</p>
   </section>
 
   <div class="decorative-hr">~ ~ ~</div>
@@ -85,205 +64,33 @@ const { site } = SITE_DATA;
   <section>
     <h3>Experience</h3>
 
-    <div class="job" style="margin-bottom: 25px;">
-      <div
-        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
-      >
-        <strong style="color: var(--link); font-size: 1.1rem;">Founder</strong>
-        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
-          >Jan 2026 - Present</span
-        >
-      </div>
-      <div style="font-size: 0.9rem; margin-bottom: 8px;">
-        <a href="https://syntropysystems.com" target="_blank" rel="noopener noreferrer"
-          >Syntropy Systems</a
-        >
-        (Tang Tensor Trends LLC) | Nashua, NH
-      </div>
-      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
-        <li>
-          Building AI infrastructure company: shared authentication, payments, and LLM tooling
-          across product portfolio
-        </li>
-        <li>
-          Independent research: replicating Anthropic's <strong>Golden Gate Claude</strong> on consumer
-          hardware — training sparse autoencoders on Qwen2.5-1.5B for mechanistic interpretability
-        </li>
-        <li>
-          Go backend architecture designed to scale with users, not ideas — hosting 100+ products on
-          minimal infrastructure
-        </li>
-      </ul>
-    </div>
-
-    <div class="job" style="margin-bottom: 25px;">
-      <div
-        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
-      >
-        <strong style="color: var(--link); font-size: 1.1rem;">Chief AI Officer</strong>
-        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
-          >May 2025 - Dec 2025</span
-        >
-      </div>
-      <div style="font-size: 0.9rem; margin-bottom: 8px;">
-        <a href="https://cazvid.com" target="_blank" rel="noopener noreferrer">CazVid LLC</a> (Bootstrapped,
-        ~20 employees) | Nashua, NH (Remote)
-      </div>
-      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
-        <li>
-          Architect <strong>Kern</strong> ML infrastructure (525K requests/month): event-driven pipelines,
-          probabilistic classification, embedding systems, evaluation frameworks
-        </li>
-        <li>
-          Design AI systems using frontier models; evaluate tradeoffs between approaches (cost,
-          latency, accuracy) and select architectures that match business constraints
-        </li>
-        <li>
-          Transformed 150k-line legacy codebase into agent-native code: 1400 lint fixes → 900 type
-          resolutions → 300-test suite. Agentic coding now works like greenfield.
-        </li>
-        <li>
-          Founded <strong>Palmera Labs</strong> (internal R&D): RAG systems, agent frameworks, fast-weight
-          plasticity research
-        </li>
-        <li>
-          Technical leadership: onboard 7-engineer team on AI coding agents, translate CEO/COO
-          requirements into technical roadmaps
-        </li>
-        <li>Drove 466 merge requests with zero production regressions via automated guardrails</li>
-      </ul>
-    </div>
-
-    <div class="job" style="margin-bottom: 25px;">
-      <div
-        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
-      >
-        <strong style="color: var(--link); font-size: 1.1rem;">Director of AI</strong>
-        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
-          >Sep 2024 - May 2025</span
-        >
-      </div>
-      <div style="font-size: 0.9rem; margin-bottom: 8px;">
-        CazVid LLC (Bootstrapped, ~20 employees) | Nashua, NH
-      </div>
-      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
-        <li>
-          Achieved sub-1s full-text search across 300k resume chunks via LLM/RAG + MongoDB hybrid
-          filters
-        </li>
-        <li>
-          Architected <strong>Kern ML service</strong>: FastAPI intake → Kafka queue → Redis state →
-          NestJS/Pusher delivery
-        </li>
-        <li>
-          Built universal matching algorithm using triplet loss embeddings + hybrid vector/text
-          search
-        </li>
-        <li>
-          Created no-code interface enabling non-engineers to deploy Codex-generated branches to
-          production
-        </li>
-        <li>Synced GitLab CI/CD with GitHub Actions enabling repo-level context for AI agents</li>
-      </ul>
-    </div>
-
-    <div class="job" style="margin-bottom: 25px;">
-      <div
-        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
-      >
-        <strong style="color: var(--link); font-size: 1.1rem;"
-          >Senior Software Engineer / AI Specialist</strong
-        >
-        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
-          >Aug 2023 - Oct 2024</span
-        >
-      </div>
-      <div style="font-size: 0.9rem; margin-bottom: 8px;">
-        CazVid LLC (Bootstrapped, ~20 employees) | Phoenix, AZ
-      </div>
-      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
-        <li>
-          Integrated ChatGPT API for automated client workflows, reducing response latency by 60%
-        </li>
-        <li>Built RAG-powered support desk handling 500+ daily queries with 94% resolution rate</li>
-        <li>
-          Designed vector-based matching algorithms using MongoDB Atlas Vector Search, improving
-          match accuracy 35%
-        </li>
-        <li>
-          Managed Apache Airflow pipelines processing 10k+ documents/day with 99.9% data consistency
-        </li>
-        <li>
-          Maintained AWS ECS/Terraform infrastructure supporting $50k/mo cloud budget at 99.5%
-          uptime
-        </li>
-      </ul>
-    </div>
-
-    <div class="job" style="margin-bottom: 25px;">
-      <div
-        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
-      >
-        <strong style="color: var(--link); font-size: 1.1rem;"
-          >Software Engineer / Data Scientist</strong
-        >
-        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
-          >Jun 2022 - Aug 2023</span
-        >
-      </div>
-      <div style="font-size: 0.9rem; margin-bottom: 8px;">
-        CazVid LLC (Bootstrapped, ~20 employees) | Phoenix, AZ
-      </div>
-      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
-        <li>Engineered AWS infrastructure (ECS, S3) supporting 10k+ DAU with auto-scaling</li>
-        <li>Architected web platform extending mobile app, increasing user engagement 40%</li>
-        <li>
-          Led post-acquisition technical integration: unified CI/CD, consolidated 3 codebases into 1
-        </li>
-      </ul>
-    </div>
-
-    <div class="job" style="margin-bottom: 25px;">
-      <div
-        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
-      >
-        <strong style="color: var(--link); font-size: 1.1rem;"
-          >Full Stack Engineer / Junior Data Scientist</strong
-        >
-        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
-          >Sep 2021 - Jun 2022</span
-        >
-      </div>
-      <div style="font-size: 0.9rem; margin-bottom: 8px;">Agency Leads | Manchester, NH</div>
-      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
-        <li>Built Vue.js + Express.js data entry platform from scratch, processing 50k+ records</li>
-        <li>Reduced Typesense query latency from 4s to 0.4s (10x improvement) via index tuning</li>
-        <li>Increased data production 125% by implementing work classification specializations</li>
-        <li>Deployed AWS ECS infrastructure with Terraform enabling zero-downtime deployments</li>
-        <li>Created Tableau dashboards driving $2M+ in data-informed sales decisions</li>
-      </ul>
-    </div>
-
-    <div class="job" style="margin-bottom: 25px;">
-      <div
-        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
-      >
-        <strong style="color: var(--link); font-size: 1.1rem;">AI/ML Capstone Project (MQP)</strong>
-        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
-          >Sep 2020 - May 2021</span
-        >
-      </div>
-      <div style="font-size: 0.9rem; margin-bottom: 8px;">Dell EMC | Worcester, MA</div>
-      <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
-        <li>
-          Built predictive model for hardware failure detection using deep learning on log data
-        </li>
-        <li>
-          Applied Chi-Squared + Pearson correlation for feature selection across 500+ variables
-        </li>
-        <li>Presented weekly to Dell engineers; model deployed for internal diagnostic testing</li>
-      </ul>
-    </div>
+    {
+      mainExperience.map((job) => (
+        <div class="job" style="margin-bottom: 25px;">
+          <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;">
+            <strong style="color: var(--link); font-size: 1.1rem;">{job.role}</strong>
+            <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);">
+              {job.dateDisplay}
+            </span>
+          </div>
+          <div style="font-size: 0.9rem; margin-bottom: 8px;">
+            {job.companyUrl ? (
+              <a href={job.companyUrl} target="_blank" rel="noopener noreferrer">
+                {job.company}
+              </a>
+            ) : (
+              job.company
+            )}
+            {job.companyNote ? ` ${job.companyNote}` : ''} | {job.location}
+          </div>
+          <ul style="font-size: 0.85rem; margin: 0; padding-left: 20px;">
+            {job.highlights.map((h) => (
+              <li set:html={h} />
+            ))}
+          </ul>
+        </div>
+      ))
+    }
   </section>
 
   <div class="decorative-hr">~ ~ ~</div>
@@ -291,55 +98,29 @@ const { site } = SITE_DATA;
   <section>
     <h3>Early Experience</h3>
 
-    <div class="job" style="margin-bottom: 20px;">
-      <div
-        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
-      >
-        <strong style="color: var(--link);">Research Intern</strong>
-        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
-          >Jun 2020 - Aug 2020</span
-        >
-      </div>
-      <div style="font-size: 0.9rem; margin-bottom: 8px;">
-        WPI Computer Science Dept | Worcester, MA
-      </div>
-      <p style="font-size: 0.85rem; margin: 0;">
-        Built COVID-19 demographic dataset aggregating UN, WHO, and Johns Hopkins data. Wrote Python
-        pipelines, hosted on MySQL, published to Kaggle for research community.
-      </p>
-    </div>
-
-    <div class="job" style="margin-bottom: 20px;">
-      <div
-        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
-      >
-        <strong style="color: var(--link);">Software Engineering Intern</strong>
-        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
-          >Aug 2017 - Jan 2020 (2.5 years)</span
-        >
-      </div>
-      <div style="font-size: 0.9rem; margin-bottom: 8px;">CyberSN | Boston, MA</div>
-      <p style="font-size: 0.85rem; margin: 0;">
-        Full stack development on internal sales tooling (Blitz). Rapid prototyping, documented
-        codebase architecture. Attended DEF CON 2019 (company-sponsored).
-      </p>
-    </div>
-
-    <div class="job" style="margin-bottom: 20px;">
-      <div
-        style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;"
-      >
-        <strong style="color: var(--link);">Data Intern</strong>
-        <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);"
-          >May 2015 - Jul 2017 (2 years)</span
-        >
-      </div>
-      <div style="font-size: 0.9rem; margin-bottom: 8px;">Biscom | Westford, MA</div>
-      <p style="font-size: 0.85rem; margin: 0;">
-        First technical role at age 16. SQL queries on production databases, built user analytics
-        dashboards in Excel, presented findings to company president and engineering team.
-      </p>
-    </div>
+    {
+      earlyExperience.map((job) => (
+        <div class="job" style="margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;">
+            <strong style="color: var(--link);">{job.role}</strong>
+            <span class="mono" style="font-size: 0.75rem; color: var(--dim-text);">
+              {job.dateDisplay}
+            </span>
+          </div>
+          <div style="font-size: 0.9rem; margin-bottom: 8px;">
+            {job.companyUrl ? (
+              <a href={job.companyUrl} target="_blank" rel="noopener noreferrer">
+                {job.company}
+              </a>
+            ) : (
+              job.company
+            )}{' '}
+            | {job.location}
+          </div>
+          <p style="font-size: 0.85rem; margin: 0;">{job.highlights.join(' ')}</p>
+        </div>
+      ))
+    }
   </section>
 
   <div class="decorative-hr">~ ~ ~</div>
@@ -347,31 +128,14 @@ const { site } = SITE_DATA;
   <section>
     <h3>Technical Skills</h3>
     <div style="display: grid; grid-template-columns: auto 1fr; gap: 6px 20px; font-size: 0.85rem;">
-      <strong>Research:</strong>
-      <span
-        >PyTorch, MLX, NumPy, scikit-learn, Hugging Face, distilabel, Jupyter, matplotlib, LaTeX</span
-      >
-
-      <strong>Languages:</strong>
-      <span>Python, TypeScript, JavaScript, Rust, SQL, Bash</span>
-
-      <strong>ML/AI:</strong>
-      <span>LangChain, RAG pipelines, Vector Embeddings, Triplet Loss</span>
-
-      <strong>MLOps:</strong>
-      <span>Apache Airflow, MLflow, Docker, Kubernetes, Weights & Biases, GitHub Actions</span>
-
-      <strong>Infrastructure:</strong>
-      <span>AWS (ECS, S3), Cloudflare Workers, Terraform, Kafka, Redis</span>
-
-      <strong>Databases:</strong>
-      <span>PostgreSQL, MongoDB, Typesense, Pinecone, SQLite</span>
-
-      <strong>Web:</strong>
-      <span>FastAPI, React, Next.js, Astro</span>
-
-      <strong>Protocols:</strong>
-      <span>MCP (Model Context Protocol), Agent Tokens, REST, GraphQL, Nostr</span>
+      {
+        resume.skills.map((cat) => (
+          <>
+            <strong>{cat.label}:</strong>
+            <span>{cat.items.join(', ')}</span>
+          </>
+        ))
+      }
     </div>
   </section>
 
@@ -379,25 +143,28 @@ const { site } = SITE_DATA;
 
   <section>
     <h3>Education</h3>
-    <div style="margin-bottom: 15px;">
-      <strong style="color: var(--link);">Worcester Polytechnic Institute (WPI)</strong>
-      <span class="mono" style="font-size: 0.75rem; color: var(--dim-text); margin-left: 10px;"
-        >May 2021</span
-      >
-      <div style="font-size: 0.9rem;">B.S. Data Science, Minor in Mathematical Sciences</div>
-      <div style="font-size: 0.85rem; color: var(--dim-text);">
-        GPA: 3.75/4.0 | Graduated with High Distinction
-      </div>
-    </div>
-    <div style="margin-bottom: 15px;">
-      <strong style="color: var(--link);">BlueDot Impact</strong>
-      <span class="mono" style="font-size: 0.75rem; color: var(--dim-text); margin-left: 10px;"
-        >June 2024</span
-      >
-      <div style="font-size: 0.9rem;">
-        AI Safety Fundamentals: Alignment (12-week certification)
-      </div>
-    </div>
+    {
+      resume.education.map((edu) => (
+        <div style="margin-bottom: 15px;">
+          <strong style="color: var(--link);">{edu.institution}</strong>
+          <span class="mono" style="font-size: 0.75rem; color: var(--dim-text); margin-left: 10px;">
+            {edu.graduationDisplay}
+          </span>
+          <div style="font-size: 0.9rem;">
+            {edu.degree}
+            {edu.minor ? `, Minor in ${edu.minor}` : ''}
+          </div>
+          {(edu.gpa || edu.honors) && (
+            <div style="font-size: 0.85rem; color: var(--dim-text);">
+              {edu.gpa ? `GPA: ${edu.gpa}` : ''}
+              {edu.gpa && edu.honors ? ' | ' : ''}
+              {edu.honors || ''}
+            </div>
+          )}
+          {edu.details && <div style="font-size: 0.9rem;">{edu.details}</div>}
+        </div>
+      ))
+    }
   </section>
 
   <div class="decorative-hr">~ ~ ~</div>
@@ -405,39 +172,18 @@ const { site } = SITE_DATA;
   <section>
     <h3>Publications & Research</h3>
     <ul style="font-size: 0.9rem;">
-      <li>
-        <strong>AI Safety Compass</strong> - 70-paper literature review exploring model meta-alignment.
-        Original survey methodology mapping where models sit on alignment/openness axes.
-        <a
-          href="https://github.com/brysontang/ai-safety-compass/blob/main/PAPER.md"
-          target="_blank"
-          rel="noopener noreferrer">[Paper]</a
-        >
-        <a href="https://ai-safety-compass.vercel.app" target="_blank" rel="noopener noreferrer"
-          >[Demo]</a
-        >
-      </li>
-      <li>
-        <strong>Backprop Paper Replication</strong> - Hand-derived gradients from Rumelhart et al. 1986,
-        implemented on Apple MLX. No AI assistance — just the paper and framework docs.
-        <a href="https://github.com/brysontang/mlx-lab" target="_blank" rel="noopener noreferrer"
-          >[GitHub]</a
-        >
-      </li>
-      <li>
-        <strong>Introducing Agent Tokens</strong> - Open standard for AI agent identity via cryptographic
-        provenance. 50+ GitHub stars.
-        <a href="https://agenttokens.org" target="_blank" rel="noopener noreferrer">[Website]</a>
-      </li>
-      <li>
-        <strong>Project EVE: Novel Launchsondes for Atmospheric Data</strong> - IEEE Xplore published.
-        Co-author on environmental sensor network paper.
-        <a
-          href="https://ieeexplore.ieee.org/document/9705814"
-          target="_blank"
-          rel="noopener noreferrer">[Paper]</a
-        >
-      </li>
+      {
+        resume.publications.map((pub) => (
+          <li>
+            <strong>{pub.title}</strong> - {pub.description}
+            {pub.url && (
+              <a href={pub.url} target="_blank" rel="noopener noreferrer">
+                [{pub.urlLabel || 'Link'}]
+              </a>
+            )}
+          </li>
+        ))
+      }
     </ul>
   </section>
 
@@ -446,8 +192,9 @@ const { site } = SITE_DATA;
   <section>
     <h3>Research Mentorship</h3>
     <p style="font-size: 0.9rem; margin-bottom: 10px;">
-      <strong style="color: var(--link);">Summer 2025</strong> — Designed and led intern research project
-      investigating bias in embedding-based hiring systems.
+      <strong style="color: var(--link);">{resume.mentorship.period}</strong> — {
+        resume.mentorship.summary
+      }
     </p>
 
     <details style="margin-bottom: 15px;">
@@ -455,27 +202,17 @@ const { site } = SITE_DATA;
         [ View Paper Curriculum I Designed ]
       </summary>
       <ol style="font-size: 0.85rem; margin-top: 10px; padding-left: 25px;">
-        <li>Language Models are Few-Shot Learners (GPT-3)</li>
-        <li>Chain-of-Thought Prompting Elicits Reasoning</li>
-        <li>ReAct: Synergizing Reasoning and Acting</li>
-        <li>Sparks of AGI: Early Experiments with GPT-4</li>
-        <li>Core Views on AI Safety: When, Why, What, How</li>
-        <li>Constitutional AI: Harmlessness from AI Feedback</li>
-        <li>The Superintelligent Will (Bostrom 2012)</li>
-        <li>Man is to Computer as Woman is to Homemaker? Debiasing Embeddings</li>
-        <li>Synthetic Data Generation: A Survey</li>
-        <li>Demystifying Embedding Spaces using LLMs</li>
-        <li>What are polysemantic neurons?</li>
+        {resume.mentorship.curriculum.map((paper) => <li>{paper}</li>)}
       </ol>
     </details>
 
     <p style="font-size: 0.85rem;">
-      <strong>Methodology:</strong> Structured research board (hypotheses → experiments → paper draft),
-      weekly syncs, "stay one week ahead" cadence.
+      <strong>Methodology:</strong>
+      {resume.mentorship.methodology}
     </p>
     <p style="font-size: 0.85rem;">
-      <strong>Output:</strong> Unpublished paper applying utilitarian frameworks to LLM ethics, investigating
-      gender bias in synthetic resume retrieval systems.
+      <strong>Output:</strong>
+      {resume.mentorship.output}
     </p>
   </section>
 
@@ -484,33 +221,54 @@ const { site } = SITE_DATA;
   <section>
     <h3>Open Source Projects</h3>
     <ul style="font-size: 0.9rem;">
-      <li>
-        <strong>Golden Gate Qwen</strong> - Replication of Anthropic's Golden Gate Claude on consumer
-        hardware. Sparse autoencoders on Qwen2.5-1.5B for interpretable feature discovery and steering.
-        <a href="https://github.com/brysontang/golden-gate-qwen">[GitHub]</a>
-      </li>
-      <li>
-        <strong>Agent Tokens Protocol</strong> - Cryptographic identity standard for AI agents. Production-ready
-        spec.
-        <a href="https://agenttokens.org">[Website]</a>
-      </li>
-      <li>
-        <strong>Resume MCP</strong> - Model Context Protocol server exposing identity as queryable API.
-        Deployed on Cloudflare Workers.
-        <a href="https://mcp.brysontang.com">[Live]</a>
-      </li>
-      <li>
-        <strong>Crystallize</strong> - Python framework for reproducible ML pipelines. 100+ downloads.
-        <a href="https://github.com/brysontang/crystallize">[GitHub]</a>
-      </li>
-      <li>
-        <strong>DeltaTask</strong> - MCP server for Obsidian task management. SQLite-backed.
-        <a href="https://github.com/brysontang/DeltaTask">[GitHub]</a>
-      </li>
-      <li>
-        <strong>gcomm</strong> - Rust CLI for Ollama. Published on crates.io.
-        <a href="https://crates.io/crates/gcomm">[crates.io]</a>
-      </li>
+      {
+        (() => {
+          const osProjects = [
+            {
+              name: 'Golden Gate Qwen',
+              desc: "Replication of Anthropic's Golden Gate Claude on consumer hardware. Sparse autoencoders on Qwen2.5-1.5B for interpretable feature discovery and steering.",
+              linkLabel: 'GitHub',
+              linkUrl: 'https://github.com/brysontang/golden-gate-qwen',
+            },
+            {
+              name: 'Agent Tokens Protocol',
+              desc: 'Cryptographic identity standard for AI agents. Production-ready spec.',
+              linkLabel: 'Website',
+              linkUrl: 'https://agenttokens.org',
+            },
+            {
+              name: 'Resume MCP',
+              desc: 'Model Context Protocol server exposing identity as queryable API. Deployed on Cloudflare Workers.',
+              linkLabel: 'Live',
+              linkUrl: 'https://mcp.brysontang.com',
+            },
+            {
+              name: 'Crystallize',
+              desc: 'Python framework for reproducible ML pipelines. 100+ downloads.',
+              linkLabel: 'GitHub',
+              linkUrl: 'https://github.com/brysontang/crystallize',
+            },
+            {
+              name: 'DeltaTask',
+              desc: 'MCP server for Obsidian task management. SQLite-backed.',
+              linkLabel: 'GitHub',
+              linkUrl: 'https://github.com/brysontang/DeltaTask',
+            },
+            {
+              name: 'gcomm',
+              desc: 'Rust CLI for Ollama. Published on crates.io.',
+              linkLabel: 'crates.io',
+              linkUrl: 'https://crates.io/crates/gcomm',
+            },
+          ];
+          return osProjects.map((p) => (
+            <li>
+              <strong>{p.name}</strong> - {p.desc}
+              <a href={p.linkUrl}>[{p.linkLabel}]</a>
+            </li>
+          ));
+        })()
+      }
     </ul>
   </section>
 
@@ -519,17 +277,13 @@ const { site } = SITE_DATA;
   <section>
     <h3>Leadership</h3>
     <ul style="font-size: 0.9rem;">
-      <li>
-        <strong>Founder, Palmera Labs</strong> - Internal AI R&D division at CazVid (2025)
-      </li>
-      <li>
-        <strong>Founder, Syntropy Systems</strong> (Tang Tensor Trends LLC) - AI infrastructure and research
-        (2024-Present)
-      </li>
-      <li><strong>President, Phi Sigma Kappa</strong> - WPI Chapter, 50+ members (2019)</li>
-      <li>
-        <strong>Secretary, SIAM</strong> - Society of Industrial and Applied Mathematics (2018)
-      </li>
+      {
+        resume.leadership.map((l) => (
+          <li>
+            <strong>{l.title}</strong> - {l.detail}
+          </li>
+        ))
+      }
     </ul>
   </section>
 
@@ -537,11 +291,9 @@ const { site } = SITE_DATA;
 
   <div style="text-align: center; margin-top: 30px;">
     <p style="font-size: 0.9rem;">
-      <strong>Status:</strong> Open to AI Systems Architecture, MLOps, AI Safety, and Product roles<br
-      />
-      <span style="color: var(--dim-text);"
-        >Hybrid (3 days/week) or Remote | Relocation Ready | US Work Authorized</span
-      >
+      <strong>Status:</strong>
+      {resume.status}<br />
+      <span style="color: var(--dim-text);">{resume.availability}</span>
     </p>
     <p style="font-size: 0.85rem; margin-top: 15px;">
       <a

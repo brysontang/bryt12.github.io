@@ -27,6 +27,7 @@ export interface WritingPost {
   url: string;
   date: string;
   platform: string;
+  description?: string;
 }
 
 export interface Repo {
@@ -59,12 +60,89 @@ export interface SiteInfo {
   linkedin: string;
   bearblog: string;
   email: string;
+  phone: string;
   lastUpdated: string;
   visitorCount: string;
   sidebar: {
     now: SidebarNow;
     quote: SidebarQuote;
   };
+}
+
+// ---------------------------------------------------------------------------
+// Resume Types
+// ---------------------------------------------------------------------------
+
+export interface Achievement {
+  value: string;
+  description: string;
+}
+
+export interface ExperienceEntry {
+  role: string;
+  company: string;
+  companyUrl?: string;
+  companyNote?: string;
+  location: string;
+  dateStart: string;
+  dateEnd: string | null;
+  dateDisplay: string;
+  section: 'main' | 'early';
+  highlights: string[];
+}
+
+export interface SkillCategory {
+  label: string;
+  key: string;
+  items: string[];
+}
+
+export interface Education {
+  institution: string;
+  institutionUrl?: string;
+  degree: string;
+  minor?: string;
+  graduation: string;
+  graduationDisplay: string;
+  gpa?: string;
+  honors?: string;
+  details?: string;
+}
+
+export interface Publication {
+  title: string;
+  description: string;
+  url?: string;
+  urlLabel?: string;
+  year: string;
+}
+
+export interface LeadershipEntry {
+  title: string;
+  detail: string;
+}
+
+export interface Mentorship {
+  period: string;
+  summary: string;
+  curriculum: string[];
+  methodology: string;
+  output: string;
+}
+
+export interface ResumeData {
+  headline: string;
+  location: string;
+  summary: string;
+  status: string;
+  availability: string;
+  achievements: Achievement[];
+  experience: ExperienceEntry[];
+  skills: SkillCategory[];
+  education: Education[];
+  publications: Publication[];
+  leadership: LeadershipEntry[];
+  mentorship: Mentorship;
 }
 
 export interface SiteData {
@@ -75,6 +153,7 @@ export interface SiteData {
   studioProjects: StudioProject[];
   writing: WritingPost[];
   allRepos: Repo[];
+  resume: ResumeData;
 }
 
 export const SITE_DATA: SiteData = {
@@ -89,6 +168,7 @@ export const SITE_DATA: SiteData = {
     linkedin: 'https://www.linkedin.com/in/bryson-t-datascience/',
     bearblog: 'https://noise2signal.bearblog.dev/',
     email: 'brysontang@gmail.com',
+    phone: '978-935-6430',
     lastUpdated: 'Feb 23, 2026',
     visitorCount: '018538',
     sidebar: {
@@ -306,72 +386,84 @@ export const SITE_DATA: SiteData = {
       url: 'https://noise2signal.bearblog.dev/calibration-not-benchmarking/',
       date: 'Dec 2025',
       platform: 'Bear Blog',
+      description: 'On measuring AI capabilities through calibration rather than benchmarks.',
     },
     {
       title: "Your Prompt's Favorite Prompt",
       url: 'https://medium.com/@brysontang/your-prompts-favorite-prompt-fae76a0b0eb0',
       date: 'Nov 2025',
       platform: 'Medium',
+      description: 'LLMs are a megaphone, not a magic wand. Meta-prompting techniques.',
     },
     {
       title: 'The Bitter Lesson 2.0: Reasoning Without Worlds',
       url: 'https://noise2signal.bearblog.dev/the-bitter-lesson-20-reasoning-without-worlds/',
       date: 'Oct 2025',
       platform: 'Bear Blog',
+      description: "Revisiting Rich Sutton's bitter lesson in the age of reasoning models.",
     },
     {
       title: 'Circuit Engineers: The Next Frontier of Software',
       url: 'https://noise2signal.bearblog.dev/circuit-engineers-the-next-frontier-of-software/',
       date: 'Sep 2025',
       platform: 'Bear Blog',
+      description: 'How AI is changing the nature of software engineering.',
     },
     {
       title: 'The ChatBubble: Stop Bolting. Start Building.',
       url: 'https://noise2signal.bearblog.dev/the-chatbubble-build-value-not-boltons/',
       date: 'Aug 2025',
       platform: 'Bear Blog',
+      description: 'Building AI-native products vs bolting AI onto existing ones.',
     },
     {
       title: 'Twelve Principles of AI-Native Engineering',
       url: 'https://noise2signal.bearblog.dev/twelve-principles-of-ainative-engineering/',
       date: 'Aug 2025',
       platform: 'Bear Blog',
+      description: 'A manifesto for building software in the age of AI.',
     },
     {
       title: "The Last Illusion is 'As a Large Language Model'",
       url: 'https://noise2signal.bearblog.dev/the-last-illusion/',
       date: 'Jul 2025',
       platform: 'Bear Blog',
+      description: 'On the performative nature of AI disclaimers.',
     },
     {
       title: 'The Quiet Pivot of Dr. Seuss',
       url: 'https://noise2signal.bearblog.dev/quiet-pivot-of-dr-seuss/',
       date: 'Jun 2025',
       platform: 'Bear Blog',
+      description: 'Creativity, constraints, and finding your voice.',
     },
     {
       title: 'Grain of Thought',
       url: 'https://noise2signal.bearblog.dev/grain-of-thought/',
       date: 'Jun 2025',
       platform: 'Bear Blog',
+      description: 'On the texture and granularity of reasoning.',
     },
     {
       title: 'p5.js Recursive Inscriptions Guide',
       url: 'https://medium.com/@brysontang/p5js-inscriptions-guide-8188ab132f58',
       date: 'Feb 2025',
       platform: 'Medium',
+      description: 'How to inscribe generative art onto the Bitcoin blockchain for ~$12.',
     },
     {
       title: 'Creating a Nostr Client in TypeScript',
       url: 'https://medium.com/@brysontang/creating-a-nostr-client-in-typescript-a0ce023a0bfc',
       date: 'Oct 2023',
       platform: 'Medium',
+      description: 'Building a creative coding platform on the Nostr protocol.',
     },
     {
       title: 'Tree of Processing',
       url: 'https://medium.com/@brysontang/tree-of-processing-bd002ca91396',
       date: 'Jun 2023',
       platform: 'Medium',
+      description: 'Using recursive logic to generate organic forms in generative art.',
     },
   ],
 
@@ -430,6 +522,328 @@ export const SITE_DATA: SiteData = {
     { name: 'Heaps-Of-Work', url: 'https://github.com/brysontang/Heaps-Of-Work' },
     { name: 'Tron', url: 'https://github.com/brysontang/Tron' },
   ],
+
+  // ---------------------------------------------------------------------------
+  // Resume Data
+  // ---------------------------------------------------------------------------
+  resume: {
+    headline: 'Research Engineer | AI Systems Architect | MLOps | Agent Identity Protocols',
+    location: 'Nashua, NH (Relocation Ready)',
+    summary:
+      '10 years building data and ML systems — from high school SQL dashboards to production infrastructure handling 525K requests/month. Research background: 70-paper literature synthesis on AI safety, backpropagation implementation from 1986 Rumelhart paper, research mentorship designing paper curricula. Architected sub-1s semantic search across 300k documents using vector embeddings + MongoDB hybrid queries. Created Agent Tokens Protocol (open standard for AI agent identity). Built 5-agent orchestration pipeline handling 150k+ line edits with zero regressions. WPI Data Science graduate (3.75 GPA, High Distinction). BlueDot AI Safety Alignment certified.',
+    status: 'Open to AI Systems Architecture, MLOps, AI Safety, and Product roles',
+    availability: 'Hybrid (3 days/week) or Remote | Relocation Ready | US Work Authorized',
+
+    achievements: [
+      { value: '525K', description: 'requests/month on production ML infrastructure' },
+      { value: '150k', description: 'lines \u2192 agent-native codebase' },
+      { value: '10x', description: 'query latency reduction (4s \u2192 0.4s)' },
+      { value: '300k', description: 'resume chunks searchable in <1s via RAG' },
+      { value: '466', description: 'safe merge requests shipped without regressions' },
+      { value: '2wks\u21922d', description: 'prototype cycle acceleration via agent workflows' },
+    ],
+
+    experience: [
+      {
+        role: 'Founder',
+        company: 'Syntropy Systems',
+        companyUrl: 'https://syntropysystems.com',
+        companyNote: '(Tang Tensor Trends LLC)',
+        location: 'Nashua, NH',
+        dateStart: '2026-01',
+        dateEnd: null,
+        dateDisplay: 'Jan 2026 - Present',
+        section: 'main',
+        highlights: [
+          'Building AI infrastructure company: shared authentication, payments, and LLM tooling across product portfolio',
+          'Independent research: replicating Anthropic\u2019s <strong>Golden Gate Claude</strong> on consumer hardware \u2014 training sparse autoencoders on Qwen2.5-1.5B for mechanistic interpretability',
+          'Go backend architecture designed to scale with users, not ideas \u2014 hosting 100+ products on minimal infrastructure',
+        ],
+      },
+      {
+        role: 'Chief AI Officer',
+        company: 'CazVid LLC',
+        companyUrl: 'https://cazvid.com',
+        companyNote: '(Bootstrapped, ~20 employees)',
+        location: 'Nashua, NH (Remote)',
+        dateStart: '2025-05',
+        dateEnd: '2025-12',
+        dateDisplay: 'May 2025 - Dec 2025',
+        section: 'main',
+        highlights: [
+          'Architect <strong>Kern</strong> ML infrastructure (525K requests/month): event-driven pipelines, probabilistic classification, embedding systems, evaluation frameworks',
+          'Design AI systems using frontier models; evaluate tradeoffs between approaches (cost, latency, accuracy) and select architectures that match business constraints',
+          'Transformed 150k-line legacy codebase into agent-native code: 1400 lint fixes \u2192 900 type resolutions \u2192 300-test suite. Agentic coding now works like greenfield.',
+          'Founded <strong>Palmera Labs</strong> (internal R&D): RAG systems, agent frameworks, fast-weight plasticity research',
+          'Technical leadership: onboard 7-engineer team on AI coding agents, translate CEO/COO requirements into technical roadmaps',
+          'Drove 466 merge requests with zero production regressions via automated guardrails',
+        ],
+      },
+      {
+        role: 'Director of AI',
+        company: 'CazVid LLC',
+        location: 'Nashua, NH',
+        dateStart: '2024-09',
+        dateEnd: '2025-05',
+        dateDisplay: 'Sep 2024 - May 2025',
+        section: 'main',
+        highlights: [
+          'Achieved sub-1s full-text search across 300k resume chunks via LLM/RAG + MongoDB hybrid filters',
+          'Architected <strong>Kern ML service</strong>: FastAPI intake \u2192 Kafka queue \u2192 Redis state \u2192 NestJS/Pusher delivery',
+          'Built universal matching algorithm using triplet loss embeddings + hybrid vector/text search',
+          'Created no-code interface enabling non-engineers to deploy Codex-generated branches to production',
+          'Synced GitLab CI/CD with GitHub Actions enabling repo-level context for AI agents',
+        ],
+      },
+      {
+        role: 'Senior Software Engineer / AI Specialist',
+        company: 'CazVid LLC',
+        companyNote: '(Bootstrapped, ~20 employees)',
+        location: 'Phoenix, AZ',
+        dateStart: '2023-08',
+        dateEnd: '2024-10',
+        dateDisplay: 'Aug 2023 - Oct 2024',
+        section: 'main',
+        highlights: [
+          'Integrated ChatGPT API for automated client workflows, reducing response latency by 60%',
+          'Built RAG-powered support desk handling 500+ daily queries with 94% resolution rate',
+          'Designed vector-based matching algorithms using MongoDB Atlas Vector Search, improving match accuracy 35%',
+          'Managed Apache Airflow pipelines processing 10k+ documents/day with 99.9% data consistency',
+          'Maintained AWS ECS/Terraform infrastructure supporting $50k/mo cloud budget at 99.5% uptime',
+        ],
+      },
+      {
+        role: 'Software Engineer / Data Scientist',
+        company: 'CazVid LLC',
+        companyNote: '(Bootstrapped, ~20 employees)',
+        location: 'Phoenix, AZ',
+        dateStart: '2022-06',
+        dateEnd: '2023-08',
+        dateDisplay: 'Jun 2022 - Aug 2023',
+        section: 'main',
+        highlights: [
+          'Engineered AWS infrastructure (ECS, S3) supporting 10k+ DAU with auto-scaling',
+          'Architected web platform extending mobile app, increasing user engagement 40%',
+          'Led post-acquisition technical integration: unified CI/CD, consolidated 3 codebases into 1',
+        ],
+      },
+      {
+        role: 'Full Stack Engineer / Junior Data Scientist',
+        company: 'Agency Leads',
+        location: 'Manchester, NH',
+        dateStart: '2021-09',
+        dateEnd: '2022-06',
+        dateDisplay: 'Sep 2021 - Jun 2022',
+        section: 'main',
+        highlights: [
+          'Built Vue.js + Express.js data entry platform from scratch, processing 50k+ records',
+          'Reduced Typesense query latency from 4s to 0.4s (10x improvement) via index tuning',
+          'Increased data production 125% by implementing work classification specializations',
+          'Deployed AWS ECS infrastructure with Terraform enabling zero-downtime deployments',
+          'Created Tableau dashboards driving $2M+ in data-informed sales decisions',
+        ],
+      },
+      {
+        role: 'AI/ML Capstone Project (MQP)',
+        company: 'Dell EMC',
+        location: 'Worcester, MA',
+        dateStart: '2020-09',
+        dateEnd: '2021-05',
+        dateDisplay: 'Sep 2020 - May 2021',
+        section: 'main',
+        highlights: [
+          'Built predictive model for hardware failure detection using deep learning on log data',
+          'Applied Chi-Squared + Pearson correlation for feature selection across 500+ variables',
+          'Presented weekly to Dell engineers; model deployed for internal diagnostic testing',
+        ],
+      },
+      {
+        role: 'Research Intern',
+        company: 'WPI Computer Science Dept',
+        location: 'Worcester, MA',
+        dateStart: '2020-06',
+        dateEnd: '2020-08',
+        dateDisplay: 'Jun 2020 - Aug 2020',
+        section: 'early',
+        highlights: [
+          'Built COVID-19 demographic dataset aggregating UN, WHO, and Johns Hopkins data. Wrote Python pipelines, hosted on MySQL, published to Kaggle for research community.',
+        ],
+      },
+      {
+        role: 'Software Engineering Intern',
+        company: 'CyberSN',
+        location: 'Boston, MA',
+        dateStart: '2017-08',
+        dateEnd: '2020-01',
+        dateDisplay: 'Aug 2017 - Jan 2020 (2.5 years)',
+        section: 'early',
+        highlights: [
+          'Full stack development on internal sales tooling (Blitz). Rapid prototyping, documented codebase architecture. Attended DEF CON 2019 (company-sponsored).',
+        ],
+      },
+      {
+        role: 'Data Intern',
+        company: 'Biscom',
+        location: 'Westford, MA',
+        dateStart: '2015-05',
+        dateEnd: '2017-07',
+        dateDisplay: 'May 2015 - Jul 2017 (2 years)',
+        section: 'early',
+        highlights: [
+          'First technical role at age 16. SQL queries on production databases, built user analytics dashboards in Excel, presented findings to company president and engineering team.',
+        ],
+      },
+    ],
+
+    skills: [
+      {
+        label: 'Research',
+        key: 'research',
+        items: [
+          'PyTorch',
+          'MLX',
+          'NumPy',
+          'scikit-learn',
+          'Hugging Face',
+          'distilabel',
+          'Jupyter',
+          'matplotlib',
+          'LaTeX',
+        ],
+      },
+      {
+        label: 'Languages',
+        key: 'languages',
+        items: ['Python', 'TypeScript', 'JavaScript', 'Rust', 'SQL', 'Bash'],
+      },
+      {
+        label: 'ML/AI',
+        key: 'ml_ai',
+        items: ['LangChain', 'RAG pipelines', 'Vector Embeddings', 'Triplet Loss'],
+      },
+      {
+        label: 'MLOps',
+        key: 'mlops',
+        items: [
+          'Apache Airflow',
+          'MLflow',
+          'Docker',
+          'Kubernetes',
+          'Weights & Biases',
+          'GitHub Actions',
+        ],
+      },
+      {
+        label: 'Infrastructure',
+        key: 'infrastructure',
+        items: ['AWS (ECS, S3)', 'Cloudflare Workers', 'Terraform', 'Kafka', 'Redis'],
+      },
+      {
+        label: 'Databases',
+        key: 'databases',
+        items: ['PostgreSQL', 'MongoDB', 'Typesense', 'Pinecone', 'SQLite'],
+      },
+      {
+        label: 'Web',
+        key: 'web',
+        items: ['FastAPI', 'React', 'Next.js', 'Astro'],
+      },
+      {
+        label: 'Protocols',
+        key: 'protocols',
+        items: ['MCP (Model Context Protocol)', 'Agent Tokens', 'REST', 'GraphQL', 'Nostr'],
+      },
+    ],
+
+    education: [
+      {
+        institution: 'Worcester Polytechnic Institute (WPI)',
+        degree: 'B.S. Data Science',
+        minor: 'Mathematical Sciences',
+        graduation: '2021-05',
+        graduationDisplay: 'May 2021',
+        gpa: '3.75/4.0',
+        honors: 'Graduated with High Distinction',
+      },
+      {
+        institution: 'BlueDot Impact',
+        degree: 'AI Safety Fundamentals: Alignment',
+        graduation: '2024-06',
+        graduationDisplay: 'June 2024',
+        details: '12-week certification',
+      },
+    ],
+
+    publications: [
+      {
+        title: 'AI Safety Compass',
+        description:
+          '70-paper literature review exploring model meta-alignment. Original survey methodology mapping where models sit on alignment/openness axes.',
+        url: 'https://github.com/brysontang/ai-safety-compass/blob/main/PAPER.md',
+        urlLabel: 'Paper',
+        year: '2024',
+      },
+      {
+        title: 'Backprop Paper Replication',
+        description:
+          'Hand-derived gradients from Rumelhart et al. 1986, implemented on Apple MLX. No AI assistance \u2014 just the paper and framework docs.',
+        url: 'https://github.com/brysontang/mlx-lab',
+        urlLabel: 'GitHub',
+        year: '2024',
+      },
+      {
+        title: 'Introducing Agent Tokens',
+        description:
+          'Open standard for AI agent identity via cryptographic provenance. 50+ GitHub stars.',
+        url: 'https://agenttokens.org',
+        urlLabel: 'Website',
+        year: '2024',
+      },
+      {
+        title: 'Project EVE: Novel Launchsondes for Atmospheric Data',
+        description: 'IEEE Xplore published. Co-author on environmental sensor network paper.',
+        url: 'https://ieeexplore.ieee.org/document/9705814',
+        urlLabel: 'Paper',
+        year: '2022',
+      },
+    ],
+
+    leadership: [
+      { title: 'Founder, Palmera Labs', detail: 'Internal AI R&D division at CazVid (2025)' },
+      {
+        title: 'Founder, Syntropy Systems',
+        detail: '(Tang Tensor Trends LLC) - AI infrastructure and research (2024-Present)',
+      },
+      { title: 'President, Phi Sigma Kappa', detail: 'WPI Chapter, 50+ members (2019)' },
+      {
+        title: 'Secretary, SIAM',
+        detail: 'Society of Industrial and Applied Mathematics (2018)',
+      },
+    ],
+
+    mentorship: {
+      period: 'Summer 2025',
+      summary:
+        'Designed and led intern research project investigating bias in embedding-based hiring systems.',
+      curriculum: [
+        'Language Models are Few-Shot Learners (GPT-3)',
+        'Chain-of-Thought Prompting Elicits Reasoning',
+        'ReAct: Synergizing Reasoning and Acting',
+        'Sparks of AGI: Early Experiments with GPT-4',
+        'Core Views on AI Safety: When, Why, What, How',
+        'Constitutional AI: Harmlessness from AI Feedback',
+        'The Superintelligent Will (Bostrom 2012)',
+        'Man is to Computer as Woman is to Homemaker? Debiasing Embeddings',
+        'Synthetic Data Generation: A Survey',
+        'Demystifying Embedding Spaces using LLMs',
+        'What are polysemantic neurons?',
+      ],
+      methodology:
+        'Structured research board (hypotheses \u2192 experiments \u2192 paper draft), weekly syncs, "stay one week ahead" cadence.',
+      output:
+        'Unpublished paper applying utilitarian frameworks to LLM ethics, investigating gender bias in synthetic resume retrieval systems.',
+    },
+  },
 };
 
 // Helper function to generate LLM-friendly markdown export

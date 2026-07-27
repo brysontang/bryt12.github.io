@@ -41,36 +41,41 @@ through both.
 
 ## Quantified Achievements
 
-- **Synapse**: Implemented Hebbian fast-weight updates (ΔW = η(y ⊗ x)) for context-dependent adaptation
-- **Scale**: Architected sub-1s semantic search across 300k embeddings
-- **Agent-Native**: Transformed 150k-line legacy codebase (1400 lint → 900 type → 300 tests) so agentic coding works like greenfield
-- **Optimization**: 10x query performance improvement (4s → 0.4s)
-- **Safety**: 466 safe merge requests delivered with zero regressions
+- **525K**: requests/month on production ML infrastructure
+- **150k**: lines → agent-native codebase
+- **10x**: query latency reduction (4s → 0.4s)
+- **300k**: resume chunks searchable in <1s via RAG
+- **466**: safe merge requests shipped without regressions
+- **2wks→2d**: prototype cycle acceleration via agent workflows
 
 ## Career Timeline
 
 ### Syntropy Systems (Jan 2026 - Present)
 - **Founder** (Tang Tensor Trends LLC)
-  - AI infrastructure company: shared authentication, payments, and LLM tooling
-  - Independent research: sparse autoencoders for mechanistic interpretability, replicating Anthropic's Golden Gate Claude on consumer hardware
-  - Go backend architecture designed to scale with users, not ideas
+  - Building AI infrastructure company: shared authentication, payments, and LLM tooling across product portfolio
+  - Independent research: replicating Anthropic’s Golden Gate Claude on consumer hardware — training sparse autoencoders on Qwen2.5-1.5B for mechanistic interpretability
+  - Go backend architecture designed to scale with users, not ideas — hosting 100+ products on minimal infrastructure
 
 ### CazVid LLC (3.5 years)
 - **Chief AI Officer** (May 2025 - Dec 2025)
-  - Founded Palmera Labs to investigate RAG systems and agentic alignment
-  - Lead architecture for video-based matching (hybrid vector/sparse retrieval)
-  - Investigating fast-weight plasticity and error-modulated updates
+  - Architect Kern ML infrastructure (525K requests/month): event-driven pipelines, probabilistic classification, embedding systems, evaluation frameworks
+  - Design AI systems using frontier models; evaluate tradeoffs between approaches (cost, latency, accuracy) and select architectures that match business constraints
+  - Transformed 150k-line legacy codebase into agent-native code: 1400 lint fixes → 900 type resolutions → 300-test suite. Agentic coding now works like greenfield.
 
 - **Director of AI** (Sep 2024 - May 2025)
-  - Delivered sub-1s search across 300k resume chunks
-  - Built event-driven ML service architecture (Kern)
+  - Achieved sub-1s full-text search across 300k resume chunks via LLM/RAG + MongoDB hybrid filters
+  - Architected Kern ML service: FastAPI intake → Kafka queue → Redis state → NestJS/Pusher delivery
+  - Built universal matching algorithm using triplet loss embeddings + hybrid vector/text search
 
 - **Senior Software Engineer / AI Specialist** (Aug 2023 - Oct 2024)
-  - Spearheaded ChatGPT API integration
-  - Built RAG-powered in-app support desk
+  - Integrated ChatGPT API for automated client workflows, reducing response latency by 60%
+  - Built RAG-powered support desk handling 500+ daily queries with 94% resolution rate
+  - Designed vector-based matching algorithms using MongoDB Atlas Vector Search, improving match accuracy 35%
 
 - **Software Engineer / Data Scientist** (Jun 2022 - Aug 2023)
-  - Engineered AWS infrastructure (ECS/Terraform)
+  - Engineered AWS infrastructure (ECS, S3) supporting 10k+ DAU with auto-scaling
+  - Architected web platform extending mobile app, increasing user engagement 40%
+  - Led post-acquisition technical integration: unified CI/CD, consolidated 3 codebases into 1
 
 ### Agency Leads (Sep 2021 - Jun 2022)
 - Full Stack Engineer / Junior Data Scientist
@@ -81,58 +86,47 @@ through both.
 
 ## Education
 
-- **Worcester Polytechnic Institute (WPI)** - B.S. Data Science, Minor in Math
+- **Worcester Polytechnic Institute (WPI)** - B.S. Data Science, Minor in Mathematical Sciences
   - GPA: 3.75/4.0, Graduated with High Distinction (May 2021)
+- **BlueDot Impact** - AI Safety Fundamentals: Alignment
 - **BlueDot Impact** - AI Safety Fundamentals: Alignment (June 2024)
 
 ## Technical Skills
 
-- **Research:** Mechanistic Interpretability, Sparse Autoencoders, Hebbian Learning, Fast Weights, Meta-Learning, Agent Protocols
-- **Languages:** Python, TypeScript, JavaScript, Rust, SQL
-- **ML/AI:** PyTorch, MLX, scikit-learn, Hugging Face, LangChain, RAG, Vector Embeddings
-- **Infrastructure:** AWS, Cloudflare Workers, Terraform, Kafka, Redis
-- **Protocols:** MCP, Agent Tokens, Nostr, Bitcoin/Ordinals
+- **Research:** PyTorch, MLX, NumPy, scikit-learn, Hugging Face, distilabel, Jupyter, matplotlib, LaTeX
+- **Languages:** Python, TypeScript, JavaScript, Rust, SQL, Bash
+- **ML/AI:** LangChain, RAG pipelines, Vector Embeddings, Triplet Loss
+- **Infrastructure:** AWS (ECS, S3), Cloudflare Workers, Terraform, Kafka, Redis
+- **Protocols:** MCP (Model Context Protocol), Agent Tokens, REST, GraphQL, Nostr
 
 ## Notable Work
 
 ### Golden Gate Qwen
-Minimal replication of Anthropic's Golden Gate Claude on consumer hardware. Trains a Sparse
-Autoencoder on Qwen2.5-1.5B, discovers interpretable features, and steers model behavior —
-all on an RTX 3070 Ti. Demonstrates that mechanistic interpretability research is accessible
-beyond frontier-scale compute.
-- Repository: https://github.com/brysontang/golden-gate-qwen
+Minimal replication of Anthropic's Golden Gate Claude on consumer hardware. Trains a Sparse Autoencoder on Qwen2.5-1.5B, discovers interpretable features, and steers model behavior — all on an RTX 3070 Ti. Demonstrates that mechanistic interpretability research is accessible beyond frontier-scale compute.
+- GitHub: https://github.com/brysontang/golden-gate-qwen
 
 ### ContextWars
-Adversarial token convergence experiments on MLX. Pits language models against each other
-to reveal training strata — solo mode converges in 2 iterations, adversarial mode never does.
-Under pressure, models collapse to their most defensible tokens, revealing composition
-invisible in normal evaluation. Model fingerprinting through adversarial pressure.
-- Repository: https://github.com/brysontang/ContextWars
+Adversarial token convergence experiments on MLX. Pits language models against each other to reveal training strata — solo mode converges in 2 iterations, adversarial mode never does. Under pressure, models collapse to their most defensible tokens, revealing composition invisible in normal evaluation.
+- GitHub: https://github.com/brysontang/ContextWars
 
 ### Synapse
-A research spike exploring fast-weight plasticity, built to validate that Crystallize +
-LLM-assisted development enables rapid hypothesis iteration. The architecture implements
-error-modulated Hebbian updates (ΔW = η(y ⊗ x)) — but the real artifact is the workflow:
-framework → theory → AI-assisted implementation → verification → next cycle.
-- Repository: https://github.com/brysontang/Synapse
+A proof-of-concept testing a new research workflow: use Crystallize to structure experiments, then let an LLM help implement hypotheses rapidly. Built in an evening to validate the loop. The insight wasn't the model—it was proving the workflow enables fast iteration.
+- GitHub: https://github.com/brysontang/Synapse
 
-### Crystallize
-A rigorous experimental framework for data science. Solves the "hidden state" problem of
-Jupyter notebooks by treating experiments as immutable graphs with statistical verification.
-Built as the structural precursor for self-learning agents to autonomously iterate on hypotheses.
-- Repository: https://github.com/brysontang/crystallize
-- Documentation: https://brysontang.github.io/crystallize/
+### crystallize
+A framework that makes data science experiments reproducible. Jupyter notebooks hide state—you can't tell what order cells ran or what values held. Crystallize treats each experiment as an immutable record with automatic statistical checks. Long-term goal: infrastructure that lets AI agents run their own experiments.
+- GitHub: https://github.com/brysontang/crystallize
+- Docs: https://brysontang.github.io/crystallize/
 
-### Agent Tokens Protocol
-A cryptographic protocol for agent provenance. Formalizes identity via digital signatures
-rather than heuristic detection, applying distributed systems theory to the emerging agent
-ecosystem.
+### agent-tokens
+A protocol for declaring agent intent at the HTTP layer. The problem: when an agent makes a request, origins can't tell if it matches what the user actually wanted. User says "check weather," agent calls the bank API—how does the bank know to block it? Agent Tokens let agents declare their allowed scope upfront so middleware can enforce policy automatically.
 - Website: https://agenttokens.org
+- Spec: https://github.com/agentokens/agent-tokens
 
 ### Resume MCP
-Your identity as an API endpoint. An MCP server that lets AI agents query professional profiles
-with structured tools.
-- Repository: https://github.com/brysontang/resume-mcp
+Your identity as an API endpoint. An MCP server that lets AI agents query your professional profile with structured tools instead of scraping HTML.
+- GitHub: https://github.com/brysontang/resume-mcp
+- Live Endpoint: https://mcp.brysontang.com
 
 ### Bias in Embedding-Based Hiring (Research Leadership)
 Led intern through AI fairness research. Designed paper curriculum: Few-Shot Learners →
@@ -157,7 +151,7 @@ Q: What is Crystallize?
 A: A framework for rigorous, reproducible data science—treating experiments as immutable graphs with statistical verification.
 
 Q: Is Bryson available for hire?
-A: Yes. Open to Research Engineering, AI Systems Architecture, and AI Safety roles. Ready to relocate.
+A: Yes. Open to AI Systems Architecture, MLOps, AI Safety, and Product roles. Ready to relocate.
 
 Q: What are Bryson's key achievements?
 A: Implementing fast-weight architectures from scratch, architecting sub-1s search for 300k documents, and building the Agent Tokens protocol.
