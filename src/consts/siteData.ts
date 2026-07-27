@@ -12,6 +12,8 @@ export interface LabProject {
   description: string;
   tags: string[];
   links: ProjectLink[];
+  /** Surfaces this project on the professional landing page, llms.txt Notable Work, and MCP featured_only queries */
+  featured?: boolean;
 }
 
 export interface StudioProject {
@@ -189,12 +191,12 @@ export const SITE_DATA: SiteData = {
   // Navigation Links
   // ---------------------------------------------------------------------------
   navigation: [
-    { label: 'Home', href: '/' },
-    { label: 'The Lab', href: '/lab' },
-    { label: 'The Studio', href: '/studio' },
-    { label: 'The Archive', href: '/archive' },
+    { label: 'Home', href: '/vintage' },
+    { label: 'The Lab', href: '/vintage/lab' },
+    { label: 'The Studio', href: '/vintage/studio' },
+    { label: 'The Archive', href: '/vintage/archive' },
     { label: 'Resume', href: '/resume' },
-    { label: 'Guestbook', href: '/guestbook' },
+    { label: 'Guestbook', href: '/vintage/guestbook' },
   ],
 
   // ---------------------------------------------------------------------------
@@ -203,6 +205,7 @@ export const SITE_DATA: SiteData = {
   research: [
     {
       name: 'AI Safety Compass',
+      featured: true,
       description:
         'Research paper exploring a gap: do models actually believe what their creators say about safety? I call this "meta-alignment"—not whether models do safe things, but whether they\'ve internalized their lab\'s safety philosophy. Surveyed 10 frontier models with 40 questions derived from 70+ papers. Interactive tool included.',
       tags: ['Research', 'AI Safety', 'Meta-Alignment', 'Literature Synthesis'],
@@ -217,6 +220,7 @@ export const SITE_DATA: SiteData = {
     },
     {
       name: 'crystallize',
+      featured: true,
       description:
         "A framework that makes data science experiments reproducible. Jupyter notebooks hide state—you can't tell what order cells ran or what values held. Crystallize treats each experiment as an immutable record with automatic statistical checks. Long-term goal: infrastructure that lets AI agents run their own experiments.",
       tags: ['Research Tooling', 'Reproducibility', 'Experimental Rigor'],
@@ -241,6 +245,7 @@ export const SITE_DATA: SiteData = {
     },
     {
       name: 'agent-tokens',
+      featured: true,
       description:
         'A protocol for declaring agent intent at the HTTP layer. The problem: when an agent makes a request, origins can\'t tell if it matches what the user actually wanted. User says "check weather," agent calls the bank API—how does the bank know to block it? Agent Tokens let agents declare their allowed scope upfront so middleware can enforce policy automatically.',
       tags: ['Protocol', 'Intent', 'Policy', 'Agent Systems'],
@@ -251,6 +256,7 @@ export const SITE_DATA: SiteData = {
     },
     {
       name: 'fMCP',
+      featured: true,
       description:
         'A proposed composition layer for MCP that lets agents submit multi-step plans as a single typed, auditable expression — without routing intermediate data through the model. Built entirely from already-specified MCP primitives, so it runs on top of the existing spec rather than forking it.',
       tags: ['Protocol', 'MCP', 'Specification', 'Agent Systems'],
@@ -258,6 +264,7 @@ export const SITE_DATA: SiteData = {
     },
     {
       name: 'Golden Gate Qwen',
+      featured: true,
       description:
         "Minimal replication of Anthropic's Golden Gate Claude on consumer hardware. Trains a Sparse Autoencoder on Qwen2.5-1.5B, discovers interpretable features, and steers model behavior — all on an RTX 3070 Ti. Demonstrates that mechanistic interpretability research is accessible beyond frontier-scale compute.",
       tags: [
@@ -270,6 +277,7 @@ export const SITE_DATA: SiteData = {
     },
     {
       name: 'jacobian-lens',
+      featured: true,
       description:
         'Fork of the companion code for "Verbalizable Representations Form a Global Workspace in Language Models" (Transformer Circuits), adding a backward "ghost-token" lens — the original Jacobian lens run in reverse, decoding residual states back into input-token space.',
       tags: ['Interpretability', 'Global Workspace', 'Paper Companion'],
@@ -280,6 +288,7 @@ export const SITE_DATA: SiteData = {
     },
     {
       name: 'ContextWars',
+      featured: true,
       description:
         'Adversarial token convergence experiments on MLX. Pits language models against each other to reveal training strata — solo mode converges in 2 iterations, adversarial mode never does. Under pressure, models collapse to their most defensible tokens, revealing composition invisible in normal evaluation.',
       tags: ['Interpretability', 'Adversarial', 'Model Fingerprinting', 'MLX'],
@@ -300,6 +309,7 @@ export const SITE_DATA: SiteData = {
   engineering: [
     {
       name: 'windtunnel',
+      featured: true,
       description:
         "Unittest for tool-using LLM agents. You don't fly a new airframe straight into a storm — Wind Tunnel is a reliability bench where agents run reproducible scenarios scored on four independent layers: outcome, trajectory, constraints, and robustness. Structured, diff-able, and runnable in CI. Open source from Syntropy Systems.",
       tags: ['Agent Evals', 'Reliability', 'MCP', 'CI'],
@@ -310,6 +320,7 @@ export const SITE_DATA: SiteData = {
     },
     {
       name: 'Kern',
+      featured: true,
       description:
         'Event-driven ML service architecture enabling long-running agentic workflows. Designed around distributed systems constraints: Kafka for async (no HTTP timeouts), Redis for large results (Pusher limits), dual-mode for internal app + external API. 525K requests/month in production.',
       tags: ['Systems Architecture', 'FastAPI', 'Kafka', 'Distributed Systems'],
@@ -317,6 +328,7 @@ export const SITE_DATA: SiteData = {
     },
     {
       name: 'Bloomdesk',
+      featured: true,
       description:
         'Addressing the "Translation Gap" between users and engineers. An intelligent pipeline that converts vague bug reports into structured, high-entropy technical tickets using LLMs.',
       tags: ['Product', 'AI Pipeline', 'SaaS'],
@@ -324,6 +336,7 @@ export const SITE_DATA: SiteData = {
     },
     {
       name: 'resume-mcp',
+      featured: true,
       description:
         'Your identity as an API endpoint. An MCP server that lets AI agents query your professional profile with structured tools instead of scraping HTML.',
       tags: ['MCP', 'Cloudflare Workers', 'API'],
@@ -334,6 +347,7 @@ export const SITE_DATA: SiteData = {
     },
     {
       name: 'whirr',
+      featured: true,
       description:
         'Local experiment orchestration: queue jobs, track metrics, wake up to results. A lightweight, self-hosted alternative to cloud experiment trackers — no accounts, no external dependencies, just SQLite and your filesystem. Open source from Syntropy Systems.',
       tags: ['MLOps', 'Experiment Tracking', 'Python', 'Local-First'],

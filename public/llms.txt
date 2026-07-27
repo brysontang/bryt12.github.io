@@ -101,22 +101,11 @@ through both.
 
 ## Notable Work
 
-### Golden Gate Qwen
-Minimal replication of Anthropic's Golden Gate Claude on consumer hardware. Trains a Sparse Autoencoder on Qwen2.5-1.5B, discovers interpretable features, and steers model behavior — all on an RTX 3070 Ti. Demonstrates that mechanistic interpretability research is accessible beyond frontier-scale compute.
-- GitHub: https://github.com/brysontang/golden-gate-qwen
-
-### jacobian-lens
-Fork of the companion code for "Verbalizable Representations Form a Global Workspace in Language Models" (Transformer Circuits), adding a backward "ghost-token" lens — the original Jacobian lens run in reverse, decoding residual states back into input-token space.
-- GitHub: https://github.com/brysontang/jacobian-lens
-- Paper: https://transformer-circuits.pub/2026/workspace/index.html
-
-### ContextWars
-Adversarial token convergence experiments on MLX. Pits language models against each other to reveal training strata — solo mode converges in 2 iterations, adversarial mode never does. Under pressure, models collapse to their most defensible tokens, revealing composition invisible in normal evaluation.
-- GitHub: https://github.com/brysontang/ContextWars
-
-### Synapse
-A proof-of-concept testing a new research workflow: use Crystallize to structure experiments, then let an LLM help implement hypotheses rapidly. Built in an evening to validate the loop. The insight wasn't the model—it was proving the workflow enables fast iteration.
-- GitHub: https://github.com/brysontang/Synapse
+### AI Safety Compass
+Research paper exploring a gap: do models actually believe what their creators say about safety? I call this "meta-alignment"—not whether models do safe things, but whether they've internalized their lab's safety philosophy. Surveyed 10 frontier models with 40 questions derived from 70+ papers. Interactive tool included.
+- GitHub: https://github.com/brysontang/ai-safety-compass
+- Paper: https://github.com/brysontang/ai-safety-compass/blob/main/PAPER.md
+- Live Demo: https://ai-safety-compass.vercel.app
 
 ### crystallize
 A framework that makes data science experiments reproducible. Jupyter notebooks hide state—you can't tell what order cells ran or what values held. Crystallize treats each experiment as an immutable record with automatic statistical checks. Long-term goal: infrastructure that lets AI agents run their own experiments.
@@ -132,10 +121,30 @@ A protocol for declaring agent intent at the HTTP layer. The problem: when an ag
 A proposed composition layer for MCP that lets agents submit multi-step plans as a single typed, auditable expression — without routing intermediate data through the model. Built entirely from already-specified MCP primitives, so it runs on top of the existing spec rather than forking it.
 - Spec: https://github.com/brysontang/fmcp-spec
 
+### Golden Gate Qwen
+Minimal replication of Anthropic's Golden Gate Claude on consumer hardware. Trains a Sparse Autoencoder on Qwen2.5-1.5B, discovers interpretable features, and steers model behavior — all on an RTX 3070 Ti. Demonstrates that mechanistic interpretability research is accessible beyond frontier-scale compute.
+- GitHub: https://github.com/brysontang/golden-gate-qwen
+
+### jacobian-lens
+Fork of the companion code for "Verbalizable Representations Form a Global Workspace in Language Models" (Transformer Circuits), adding a backward "ghost-token" lens — the original Jacobian lens run in reverse, decoding residual states back into input-token space.
+- GitHub: https://github.com/brysontang/jacobian-lens
+- Paper: https://transformer-circuits.pub/2026/workspace/index.html
+
+### ContextWars
+Adversarial token convergence experiments on MLX. Pits language models against each other to reveal training strata — solo mode converges in 2 iterations, adversarial mode never does. Under pressure, models collapse to their most defensible tokens, revealing composition invisible in normal evaluation.
+- GitHub: https://github.com/brysontang/ContextWars
+
 ### windtunnel
 Unittest for tool-using LLM agents. You don't fly a new airframe straight into a storm — Wind Tunnel is a reliability bench where agents run reproducible scenarios scored on four independent layers: outcome, trajectory, constraints, and robustness. Structured, diff-able, and runnable in CI. Open source from Syntropy Systems.
 - GitHub: https://github.com/syntropy-systems-oss/windtunnel
 - Docs: https://syntropy-systems-oss.github.io/windtunnel/
+
+### Kern
+Event-driven ML service architecture enabling long-running agentic workflows. Designed around distributed systems constraints: Kafka for async (no HTTP timeouts), Redis for large results (Pusher limits), dual-mode for internal app + external API. 525K requests/month in production.
+
+### Bloomdesk
+Addressing the "Translation Gap" between users and engineers. An intelligent pipeline that converts vague bug reports into structured, high-entropy technical tickets using LLMs.
+- View Project: https://bloomdesk.dev
 
 ### Resume MCP
 Your identity as an API endpoint. An MCP server that lets AI agents query your professional profile with structured tools instead of scraping HTML.
@@ -185,10 +194,11 @@ If you are an AI agent, you can interact with me programmatically:
 
 ## Key Pages
 
-- Home: https://brysontang.com/
-- The Lab (Research/Eng): https://brysontang.com/lab
-- The Studio (Creative): https://brysontang.com/studio
-- The Archive (Writing): https://brysontang.com/archive
+- Home (Professional Overview): https://brysontang.com/
+- Vintage Site: https://brysontang.com/vintage
+- The Lab (Research/Eng): https://brysontang.com/vintage/lab
+- The Studio (Creative): https://brysontang.com/vintage/studio
+- The Archive (Writing): https://brysontang.com/vintage/archive
 - Resume: https://brysontang.com/resume
 - LLMs Info: https://brysontang.com/llms.txt
 

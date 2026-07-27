@@ -1,0 +1,11 @@
+# Old top-level vintage routes now live under /vintage
+/lab /vintage/lab 301
+/lab/ /vintage/lab 301
+/studio /vintage/studio 301
+/studio/ /vintage/studio 301
+/archive /vintage/archive 301
+/archive/ /vintage/archive 301
+/guestbook /vintage/guestbook 301
+/guestbook/ /vintage/guestbook 301
+/hidden /vintage/hidden 301
+/hidden/ /vintage/hidden 301

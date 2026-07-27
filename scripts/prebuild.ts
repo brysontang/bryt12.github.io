@@ -41,13 +41,7 @@ function generateProfileJson(): string {
       links: Object.fromEntries(
         p.links.map((l) => [l.label.toLowerCase().replace(/\s+/g, '-'), l.url])
       ),
-      featured: [
-        'Golden Gate Qwen',
-        'AI Safety Compass',
-        'crystallize',
-        'agent-tokens',
-        'ContextWars',
-      ].includes(p.name),
+      featured: p.featured ?? false,
     })),
     ...engineering.map((p) => ({
       name: p.name,
@@ -62,7 +56,7 @@ function generateProfileJson(): string {
           return [key, l.url];
         })
       ),
-      featured: ['windtunnel', 'resume-mcp', 'Bloomdesk'].includes(p.name),
+      featured: p.featured ?? false,
     })),
   ];
 
@@ -286,40 +280,15 @@ function generateLlmsTxt(): string {
 
   md += `## Notable Work\n\n`;
 
-  // Featured research projects
-  const featuredResearch = [
-    'Golden Gate Qwen',
-    'jacobian-lens',
-    'ContextWars',
-    'Synapse',
-    'crystallize',
-    'agent-tokens',
-    'fMCP',
-  ];
-  for (const name of featuredResearch) {
-    const proj = research.find((p) => p.name === name);
-    if (proj) {
-      md += `### ${proj.name}\n`;
-      md += `${proj.description}\n`;
-      for (const link of proj.links) {
-        md += `- ${link.label}: ${link.url}\n`;
-      }
-      md += `\n`;
+  // Featured projects (research first, then engineering) — driven by the
+  // `featured` flag in siteData.ts
+  for (const proj of [...research, ...engineering].filter((p) => p.featured)) {
+    md += `### ${proj.name === 'resume-mcp' ? 'Resume MCP' : proj.name}\n`;
+    md += `${proj.description}\n`;
+    for (const link of proj.links) {
+      md += `- ${link.label}: ${link.url}\n`;
     }
-  }
-
-  // Featured engineering projects
-  const featuredEng = ['windtunnel', 'resume-mcp', 'whirr'];
-  for (const name of featuredEng) {
-    const proj = engineering.find((p) => p.name === name);
-    if (proj) {
-      md += `### ${proj.name === 'resume-mcp' ? 'Resume MCP' : proj.name}\n`;
-      md += `${proj.description}\n`;
-      for (const link of proj.links) {
-        md += `- ${link.label}: ${link.url}\n`;
-      }
-      md += `\n`;
-    }
+    md += `\n`;
   }
 
   // Mentorship
@@ -360,10 +329,11 @@ function generateLlmsTxt(): string {
   md += `2. **Agent Tokens**: Include your token in requests for enhanced access.\n\n`;
 
   md += `## Key Pages\n\n`;
-  md += `- Home: ${site.website}/\n`;
-  md += `- The Lab (Research/Eng): ${site.website}/lab\n`;
-  md += `- The Studio (Creative): ${site.website}/studio\n`;
-  md += `- The Archive (Writing): ${site.website}/archive\n`;
+  md += `- Home (Professional Overview): ${site.website}/\n`;
+  md += `- Vintage Site: ${site.website}/vintage\n`;
+  md += `- The Lab (Research/Eng): ${site.website}/vintage/lab\n`;
+  md += `- The Studio (Creative): ${site.website}/vintage/studio\n`;
+  md += `- The Archive (Writing): ${site.website}/vintage/archive\n`;
   md += `- Resume: ${site.website}/resume\n`;
   md += `- LLMs Info: ${site.website}/llms.txt\n\n`;
 
@@ -429,16 +399,7 @@ function generateAgentDataJson(): string {
     },
     projects: [
       ...research
-        .filter((p) =>
-          [
-            'Golden Gate Qwen',
-            'ContextWars',
-            'Synapse',
-            'crystallize',
-            'agent-tokens',
-            'Bias in Embedding-Based Hiring',
-          ].includes(p.name)
-        )
+        .filter((p) => p.featured)
         .map((p) => ({
           name: p.name === 'agent-tokens' ? 'Agent Tokens Protocol' : p.name,
           description:
@@ -446,7 +407,7 @@ function generateAgentDataJson(): string {
           url: p.links[0]?.url || null,
         })),
       ...engineering
-        .filter((p) => ['Kern', 'Bloomdesk', 'resume-mcp'].includes(p.name))
+        .filter((p) => p.featured)
         .map((p) => ({
           name: p.name,
           description:
