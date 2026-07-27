@@ -62,7 +62,7 @@ function generateProfileJson(): string {
           return [key, l.url];
         })
       ),
-      featured: ['resume-mcp', 'Bloomdesk'].includes(p.name),
+      featured: ['windtunnel', 'resume-mcp', 'Bloomdesk'].includes(p.name),
     })),
   ];
 
@@ -289,10 +289,12 @@ function generateLlmsTxt(): string {
   // Featured research projects
   const featuredResearch = [
     'Golden Gate Qwen',
+    'jacobian-lens',
     'ContextWars',
     'Synapse',
     'crystallize',
     'agent-tokens',
+    'fMCP',
   ];
   for (const name of featuredResearch) {
     const proj = research.find((p) => p.name === name);
@@ -307,11 +309,11 @@ function generateLlmsTxt(): string {
   }
 
   // Featured engineering projects
-  const featuredEng = ['resume-mcp'];
+  const featuredEng = ['windtunnel', 'resume-mcp', 'whirr'];
   for (const name of featuredEng) {
     const proj = engineering.find((p) => p.name === name);
     if (proj) {
-      md += `### Resume MCP\n`;
+      md += `### ${proj.name === 'resume-mcp' ? 'Resume MCP' : proj.name}\n`;
       md += `${proj.description}\n`;
       for (const link of proj.links) {
         md += `- ${link.label}: ${link.url}\n`;

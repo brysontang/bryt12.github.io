@@ -250,6 +250,13 @@ export const SITE_DATA: SiteData = {
       ],
     },
     {
+      name: 'fMCP',
+      description:
+        'A proposed composition layer for MCP that lets agents submit multi-step plans as a single typed, auditable expression — without routing intermediate data through the model. Built entirely from already-specified MCP primitives, so it runs on top of the existing spec rather than forking it.',
+      tags: ['Protocol', 'MCP', 'Specification', 'Agent Systems'],
+      links: [{ label: 'Spec', url: 'https://github.com/brysontang/fmcp-spec' }],
+    },
+    {
       name: 'Golden Gate Qwen',
       description:
         "Minimal replication of Anthropic's Golden Gate Claude on consumer hardware. Trains a Sparse Autoencoder on Qwen2.5-1.5B, discovers interpretable features, and steers model behavior — all on an RTX 3070 Ti. Demonstrates that mechanistic interpretability research is accessible beyond frontier-scale compute.",
@@ -260,6 +267,16 @@ export const SITE_DATA: SiteData = {
         'Mechanistic Interpretability',
       ],
       links: [{ label: 'GitHub', url: 'https://github.com/brysontang/golden-gate-qwen' }],
+    },
+    {
+      name: 'jacobian-lens',
+      description:
+        'Fork of the companion code for "Verbalizable Representations Form a Global Workspace in Language Models" (Transformer Circuits), adding a backward "ghost-token" lens — the original Jacobian lens run in reverse, decoding residual states back into input-token space.',
+      tags: ['Interpretability', 'Global Workspace', 'Paper Companion'],
+      links: [
+        { label: 'GitHub', url: 'https://github.com/brysontang/jacobian-lens' },
+        { label: 'Paper', url: 'https://transformer-circuits.pub/2026/workspace/index.html' },
+      ],
     },
     {
       name: 'ContextWars',
@@ -281,6 +298,16 @@ export const SITE_DATA: SiteData = {
   // Applied Engineering (Products / Systems)
   // ---------------------------------------------------------------------------
   engineering: [
+    {
+      name: 'windtunnel',
+      description:
+        "Unittest for tool-using LLM agents. You don't fly a new airframe straight into a storm — Wind Tunnel is a reliability bench where agents run reproducible scenarios scored on four independent layers: outcome, trajectory, constraints, and robustness. Structured, diff-able, and runnable in CI. Open source from Syntropy Systems.",
+      tags: ['Agent Evals', 'Reliability', 'MCP', 'CI'],
+      links: [
+        { label: 'GitHub', url: 'https://github.com/syntropy-systems-oss/windtunnel' },
+        { label: 'Docs', url: 'https://syntropy-systems-oss.github.io/windtunnel/' },
+      ],
+    },
     {
       name: 'Kern',
       description:
@@ -304,6 +331,20 @@ export const SITE_DATA: SiteData = {
         { label: 'GitHub', url: 'https://github.com/brysontang/resume-mcp' },
         { label: 'Live Endpoint', url: 'https://mcp.brysontang.com' },
       ],
+    },
+    {
+      name: 'whirr',
+      description:
+        'Local experiment orchestration: queue jobs, track metrics, wake up to results. A lightweight, self-hosted alternative to cloud experiment trackers — no accounts, no external dependencies, just SQLite and your filesystem. Open source from Syntropy Systems.',
+      tags: ['MLOps', 'Experiment Tracking', 'Python', 'Local-First'],
+      links: [{ label: 'GitHub', url: 'https://github.com/syntropy-systems-oss/whirr' }],
+    },
+    {
+      name: 'Domino',
+      description:
+        'Task management for Claude Code where the file system is the instruction set. Epics and stories live as markdown files; an orchestrator agent executes them by spawning TDD implementer subagents per story. Set up the dominos, push them over.',
+      tags: ['Claude Code', 'Agent Orchestration', 'DevTools'],
+      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/domino' }],
     },
     {
       name: 'DeltaTask',
@@ -472,6 +513,15 @@ export const SITE_DATA: SiteData = {
   // ---------------------------------------------------------------------------
   allRepos: [
     { name: 'windtunnel', url: 'https://github.com/syntropy-systems-oss/windtunnel' },
+    { name: 'resume-mcp', url: 'https://github.com/brysontang/resume-mcp' },
+    { name: 'jacobian-lens', url: 'https://github.com/brysontang/jacobian-lens' },
+    { name: 'domino', url: 'https://github.com/brysontang/domino' },
+    { name: '.DS_Store', url: 'https://github.com/brysontang/.DS_Store' },
+    { name: 'fmcp-spec', url: 'https://github.com/brysontang/fmcp-spec' },
+    { name: 'chief-wiggum', url: 'https://github.com/brysontang/chief-wiggum' },
+    { name: 'lore', url: 'https://github.com/brysontang/lore' },
+    { name: 'whirr', url: 'https://github.com/syntropy-systems-oss/whirr' },
+    { name: 'skep', url: 'https://github.com/syntropy-systems-oss/skep' },
     { name: 'golden-gate-qwen', url: 'https://github.com/brysontang/golden-gate-qwen' },
     { name: 'ContextWars', url: 'https://github.com/brysontang/ContextWars' },
     { name: 'Synapse', url: 'https://github.com/brysontang/Synapse' },
