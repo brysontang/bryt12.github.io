@@ -544,6 +544,12 @@ export const SITE_DATA: SiteData = {
   // ---------------------------------------------------------------------------
   timeline: [
     {
+      date: '2021-02-17',
+      dateDisplay: 'Feb 17, 2021',
+      label: 'BERT for sentiment analysis',
+      detail: 'College project classifying movie reviews with a fine-tuned transformer. First hands-on time with the architecture everything since is built on.',
+    },
+    {
       date: '2021-10-25',
       dateDisplay: 'Oct 25, 2021',
       label: 'GitHub Copilot technical preview',
