@@ -32,6 +32,18 @@ export interface WritingPost {
   description?: string;
 }
 
+export interface TimelineEntry {
+  /** ISO date (YYYY-MM-DD) or bare year */
+  date: string;
+  /** Human-readable date for display */
+  dateDisplay: string;
+  label: string;
+  detail: string;
+  url?: string;
+  /** A verbatim exchange worth preserving alongside the entry */
+  quote?: { prompt: string; reply: string; attribution: string };
+}
+
 export interface Repo {
   name: string;
   url: string;
@@ -154,6 +166,8 @@ export interface SiteData {
   engineering: LabProject[];
   studioProjects: StudioProject[];
   writing: WritingPost[];
+  /** AI tooling adoption log, oldest first */
+  timeline: TimelineEntry[];
   allRepos: Repo[];
   resume: ResumeData;
 }
@@ -525,6 +539,56 @@ export const SITE_DATA: SiteData = {
   // ---------------------------------------------------------------------------
   // All Public Repos (for Archive index)
   // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
+  // AI Tooling Timeline (adoption log, oldest first)
+  // ---------------------------------------------------------------------------
+  timeline: [
+    {
+      date: '2021-10-25',
+      dateDisplay: 'Oct 25, 2021',
+      label: 'GitHub Copilot technical preview',
+      detail: 'Started on the pre-release build, a year before ChatGPT existed.',
+      url: 'https://github.blog/2021-06-29-introducing-github-copilot-ai-pair-programmer/',
+    },
+    {
+      date: '2022-11-30',
+      dateDisplay: 'Nov 30, 2022',
+      label: 'ChatGPT launch night',
+      detail: 'Talking to it the evening it went live.',
+    },
+    {
+      date: '2024-03-04',
+      dateDisplay: 'Mar 4, 2024',
+      label: 'First conversation with Claude',
+      detail: 'Same day Claude 3 Opus shipped. Pulled from the account data export.',
+      quote: {
+        prompt: 'I think, therefore I am.\n\nDo you think?',
+        reply:
+          'As an artificial intelligence, I don\u2019t have subjective experiences or a sense of self in the same way that humans do. [\u2026] The question of whether an AI system like myself can be said to truly \u201cthink\u201d in any deeply meaningful sense remains an open philosophical question.',
+        attribution: 'Claude 3 Opus, first reply',
+      },
+    },
+    {
+      date: '2024-07-19',
+      dateDisplay: 'Jul 19, 2024',
+      label: 'Cursor',
+      detail: 'A month after Claude 3.5 Sonnet, when the editor could finally carry the model.',
+    },
+    {
+      date: '2025-12-31',
+      dateDisplay: 'Dec 31, 2025',
+      label: 'Left CazVid',
+      detail: 'Coding agents got good enough that the next move was to go build with them full time.',
+    },
+    {
+      date: '2026',
+      dateDisplay: '2026',
+      label: 'Syntropy Systems',
+      detail: 'The SaaS factory. Auth solved, payments solved, LLMs solved. Ship companies, not features.',
+      url: 'https://syntropysystems.com',
+    },
+  ],
+
   allRepos: [
     { name: 'windtunnel', url: 'https://github.com/syntropy-systems-oss/windtunnel' },
     { name: 'resume-mcp', url: 'https://github.com/brysontang/resume-mcp' },
@@ -913,7 +977,7 @@ export const SITE_DATA: SiteData = {
 
 // Helper function to generate LLM-friendly markdown export
 export function generateLLMExport(): string {
-  const { site, research, engineering, studioProjects, writing } = SITE_DATA;
+  const { site, research, engineering, studioProjects, writing, timeline } = SITE_DATA;
 
   let md = `# ${site.title}\n`;
   md += `**${site.tagline}**\n\n`;
@@ -967,6 +1031,13 @@ export function generateLLMExport(): string {
   writing.forEach((post) => {
     md += `- **${post.title}** (${post.date}) - ${post.platform}\n`;
     md += `  ${post.url}\n`;
+  });
+  md += `\n`;
+
+  md += `## AI Tooling Timeline\n`;
+  timeline.forEach((t) => {
+    md += `- **${t.dateDisplay}** 2014 ${t.label}. ${t.detail}\n`;
+    if (t.quote) md += `  First message: "${t.quote.prompt.replace(/\n+/g, " ")}"\n`;
   });
   md += `\n`;
 

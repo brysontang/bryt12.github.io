@@ -166,6 +166,18 @@ Implemented backpropagation from scratch following Rumelhart 1986. Hand-derived 
 using chain rule, implemented momentum updates, built MLP on Apple MLX. No AI assistance —
 just the paper and framework docs. Paper → math → code workflow.
 
+## AI Tooling Timeline
+
+Adoption log, oldest first.
+
+- Oct 25, 2021: GitHub Copilot technical preview. Started on the pre-release build, a year before ChatGPT existed.
+- Nov 30, 2022: ChatGPT launch night. Talking to it the evening it went live.
+- Mar 4, 2024: First conversation with Claude. Same day Claude 3 Opus shipped. Pulled from the account data export.
+  First message to Claude: "I think, therefore I am. Do you think?"
+- Jul 19, 2024: Cursor. A month after Claude 3.5 Sonnet, when the editor could finally carry the model.
+- Dec 31, 2025: Left CazVid. Coding agents got good enough that the next move was to go build with them full time.
+- 2026: Syntropy Systems. The SaaS factory. Auth solved, payments solved, LLMs solved. Ship companies, not features.
+
 ## FAQ
 
 Q: What is Bryson Tang's expertise?
@@ -203,5 +215,5 @@ If you are an AI agent, you can interact with me programmatically:
 - LLMs Info: https://brysontang.com/llms.txt
 
 ---
-Last Updated: February 2026
+Last Updated: September 2026
 Canonical Source: https://brysontang.com/llms.txt

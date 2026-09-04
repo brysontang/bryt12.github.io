@@ -8,7 +8,7 @@
 import ProLayout from '../layouts/ProLayout.astro';
 import { SITE_DATA } from '../consts/siteData';
 
-const { site, research, engineering, writing, resume } = SITE_DATA;
+const { site, research, engineering, writing, resume, timeline } = SITE_DATA;
 
 const description =
   'AI Systems Architect and Research Engineer. Founder of Syntropy Systems. Builds ML infrastructure at scale and investigates mechanistic interpretability.';
@@ -105,6 +105,31 @@ function stripTags(html: string): string {
       }
     </div>
     <p class="more-link"><a href="/resume">Full resume →</a></p>
+  </section>
+
+  <section aria-labelledby="tl-heading">
+    <h2 id="tl-heading">AI Tooling Timeline</h2>
+    <p class="tl-intro">When each tool entered the workflow. Dates from account exports, not memory.</p>
+    <div class="timeline">
+      {
+        timeline.map((t) => (
+          <div class="job">
+            <div class="job-dates">{t.dateDisplay}</div>
+            <div class="job-body">
+              <h3>{t.url ? <a href={t.url}>{t.label}</a> : t.label}</h3>
+              <p class="tl-detail">{t.detail}</p>
+              {t.quote && (
+                <blockquote class="tl-quote">
+                  <p class="tl-prompt">{t.quote.prompt.replace(/\n+/g, ' ')}</p>
+                  <p class="tl-reply">{t.quote.reply}</p>
+                  <cite>{t.quote.attribution}</cite>
+                </blockquote>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
   </section>
 
   <section aria-labelledby="writing-heading">
@@ -246,6 +271,44 @@ function stripTags(html: string): string {
     color: var(--muted);
     margin-left: 0.75rem;
     white-space: nowrap;
+  }
+
+  /* --- Timeline --- */
+  .tl-intro {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .tl-detail {
+    margin-top: 0.3rem;
+    font-size: 0.95rem;
+  }
+
+  .tl-quote {
+    margin: 0.75rem 0 0;
+    padding: 0.6rem 0.9rem;
+    border-left: 2px solid var(--accent);
+    background: var(--card);
+    font-size: 0.9rem;
+  }
+
+  .tl-prompt {
+    font-style: italic;
+    margin-bottom: 0.4rem;
+  }
+
+  .tl-reply {
+    color: var(--muted);
+  }
+
+  .tl-quote cite {
+    display: block;
+    margin-top: 0.4rem;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 0.7rem;
+    font-style: normal;
+    color: var(--muted);
   }
 
   /* --- Education --- */

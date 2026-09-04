@@ -3,6 +3,9 @@
  * index.astro - Homepage with splash screen
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_DATA } from '../consts/siteData';
+
+const { timeline } = SITE_DATA;
 ---
 
 <BaseLayout
@@ -43,6 +46,41 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <strong>Experimental Rigor:</strong> Building frameworks that treat experiments as immutable graphs.
     </li>
   </ul>
+
+  <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
+
+  <h3>The Timeline</h3>
+  <p class="mono" style="font-size: 0.75rem; color: var(--dim-text); margin-top: -8px;">
+    AI tooling adoption log. Dates pulled from account exports, not memory.
+  </p>
+  <dl class="tl-list">
+    {
+      timeline.map((t) => (
+        <>
+          <dt class="mono">
+            {t.dateDisplay} &mdash;{' '}
+            {t.url ? (
+              <a href={t.url} target="_blank" rel="noopener noreferrer">
+                {t.label}
+              </a>
+            ) : (
+              <strong>{t.label}</strong>
+            )}
+          </dt>
+          <dd>
+            {t.detail}
+            {t.quote && (
+              <blockquote class="tl-quote">
+                <p class="tl-prompt">&gt; {t.quote.prompt.replace(/\n+/g, ' ')}</p>
+                <p class="tl-reply">{t.quote.reply}</p>
+                <p class="mono tl-cite">&mdash; {t.quote.attribution}</p>
+              </blockquote>
+            )}
+          </dd>
+        </>
+      ))
+    }
+  </dl>
 
   <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
 
@@ -168,6 +206,46 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     >
   </p>
 </BaseLayout>
+
+<style>
+  .tl-list {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  .tl-list dt {
+    color: var(--dim-text);
+    font-size: 0.8rem;
+    margin-top: 14px;
+  }
+  .tl-list dt strong {
+    color: var(--text);
+  }
+  .tl-list dd {
+    margin: 4px 0 0 0;
+  }
+  .tl-quote {
+    margin: 8px 0 0 0;
+    padding: 6px 12px;
+    border-left: 2px solid var(--border);
+    background: var(--button-face);
+  }
+  .tl-quote p {
+    margin: 0 0 4px 0;
+  }
+  .tl-prompt {
+    font-family: monospace;
+    color: var(--text);
+  }
+  .tl-reply {
+    color: var(--dim-text);
+    font-size: 0.85rem;
+  }
+  .tl-cite {
+    font-size: 0.7rem;
+    color: var(--dim-text);
+    text-align: right;
+  }
+</style>
 
 <script>
   import { generateLLMExport } from '../consts/siteData';

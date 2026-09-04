@@ -310,6 +310,14 @@ function generateLlmsTxt(): string {
     md += `just the paper and framework docs. Paper → math → code workflow.\n\n`;
   }
 
+  md += `## AI Tooling Timeline\n\n`;
+  md += `Adoption log, oldest first.\n\n`;
+  SITE_DATA.timeline.forEach((t) => {
+    md += `- ${t.dateDisplay}: ${t.label}. ${t.detail}\n`;
+    if (t.quote) md += `  First message to Claude: "${t.quote.prompt.replace(/\n+/g, " ")}"\n`;
+  });
+  md += `\n`;
+
   md += `## FAQ\n\n`;
   md += `Q: What is Bryson Tang's expertise?\n`;
   md += `A: AI Systems Architecture and Research Engineering. Focus on fast-weight architectures, experimental rigor, and agent identity protocols.\n\n`;
@@ -338,7 +346,7 @@ function generateLlmsTxt(): string {
   md += `- LLMs Info: ${site.website}/llms.txt\n\n`;
 
   md += `---\n`;
-  md += `Last Updated: February 2026\n`;
+  md += `Last Updated: September 2026\n`;
   md += `Canonical Source: ${site.website}/llms.txt\n`;
 
   return md;
