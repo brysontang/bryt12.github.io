@@ -191,12 +191,12 @@ export const SITE_DATA: SiteData = {
   // Navigation Links
   // ---------------------------------------------------------------------------
   navigation: [
-    { label: 'Home', href: '/vintage' },
-    { label: 'The Lab', href: '/vintage/lab' },
-    { label: 'The Studio', href: '/vintage/studio' },
-    { label: 'The Archive', href: '/vintage/archive' },
+    { label: 'Home', href: '/' },
+    { label: 'The Lab', href: '/lab' },
+    { label: 'The Studio', href: '/studio' },
+    { label: 'The Archive', href: '/archive' },
     { label: 'Resume', href: '/resume' },
-    { label: 'Guestbook', href: '/vintage/guestbook' },
+    { label: 'Guestbook', href: '/guestbook' },
   ],
 
   // ---------------------------------------------------------------------------

@@ -1,11 +1,13 @@
-# Old top-level vintage routes now live under /vintage
-/lab /vintage/lab 301
-/lab/ /vintage/lab 301
-/studio /vintage/studio 301
-/studio/ /vintage/studio 301
-/archive /vintage/archive 301
-/archive/ /vintage/archive 301
-/guestbook /vintage/guestbook 301
-/guestbook/ /vintage/guestbook 301
-/hidden /vintage/hidden 301
-/hidden/ /vintage/hidden 301
+# Vintage site is back at the top level; /vintage/* URLs redirect home
+/vintage / 301
+/vintage/ / 301
+/vintage/lab /lab 301
+/vintage/lab/ /lab 301
+/vintage/studio /studio 301
+/vintage/studio/ /studio 301
+/vintage/archive /archive 301
+/vintage/archive/ /archive 301
+/vintage/guestbook /guestbook 301
+/vintage/guestbook/ /guestbook 301
+/vintage/hidden /hidden 301
+/vintage/hidden/ /hidden 301

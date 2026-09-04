@@ -194,11 +194,11 @@ If you are an AI agent, you can interact with me programmatically:
 
 ## Key Pages
 
-- Home (Professional Overview): https://brysontang.com/
-- Vintage Site: https://brysontang.com/vintage
-- The Lab (Research/Eng): https://brysontang.com/vintage/lab
-- The Studio (Creative): https://brysontang.com/vintage/studio
-- The Archive (Writing): https://brysontang.com/vintage/archive
+- Professional Overview: https://brysontang.com/pro
+- Home (Vintage Site): https://brysontang.com/
+- The Lab (Research/Eng): https://brysontang.com/lab
+- The Studio (Creative): https://brysontang.com/studio
+- The Archive (Writing): https://brysontang.com/archive
 - Resume: https://brysontang.com/resume
 - LLMs Info: https://brysontang.com/llms.txt
 

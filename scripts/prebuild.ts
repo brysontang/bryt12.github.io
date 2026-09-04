@@ -329,11 +329,11 @@ function generateLlmsTxt(): string {
   md += `2. **Agent Tokens**: Include your token in requests for enhanced access.\n\n`;
 
   md += `## Key Pages\n\n`;
-  md += `- Home (Professional Overview): ${site.website}/\n`;
-  md += `- Vintage Site: ${site.website}/vintage\n`;
-  md += `- The Lab (Research/Eng): ${site.website}/vintage/lab\n`;
-  md += `- The Studio (Creative): ${site.website}/vintage/studio\n`;
-  md += `- The Archive (Writing): ${site.website}/vintage/archive\n`;
+  md += `- Professional Overview: ${site.website}/pro\n`;
+  md += `- Home (Vintage Site): ${site.website}/\n`;
+  md += `- The Lab (Research/Eng): ${site.website}/lab\n`;
+  md += `- The Studio (Creative): ${site.website}/studio\n`;
+  md += `- The Archive (Writing): ${site.website}/archive\n`;
   md += `- Resume: ${site.website}/resume\n`;
   md += `- LLMs Info: ${site.website}/llms.txt\n\n`;
 

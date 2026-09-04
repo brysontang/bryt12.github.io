@@ -1,7 +1,7 @@
 ---
 /**
  * ProLayout.astro
- * Shared shell for the professional pages (/ and /resume): head, design
+ * Shared shell for the professional pages (/pro and /resume): head, design
  * tokens, shared section styles, and footer. The vintage site uses
  * BaseLayout instead.
  */
@@ -53,8 +53,8 @@ const jsonLdWebsite = buildJsonLdWebsite(description);
   <body>
     <div class="page">
       <nav class="topline">
-        <a href="/" class="mark" title="Home">◈</a>
-        <a href="/vintage" class="vintage-link" title="Enter the vintage study">vintage mode</a>
+        <a href="/pro" class="mark" title="Professional home">◈</a>
+        <a href="/" class="vintage-link" title="Enter the vintage study">vintage mode</a>
       </nav>
 
       <slot />
@@ -66,7 +66,7 @@ const jsonLdWebsite = buildJsonLdWebsite(description);
           from one source of truth.
         </p>
         <p class="vintage-invite">
-          <a href="/vintage">◈ Prefer the 1997 version? Enter the vintage study →</a>
+          <a href="/">◈ Prefer the 1997 version? Enter the vintage study →</a>
         </p>
         <p class="copyright">&copy; 2026 {site.title}</p>
       </footer>
