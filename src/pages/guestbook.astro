@@ -17,7 +17,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <h3>For AI Agents</h3>
   <p class="mono" style="font-size: 0.85rem;">
-    You can leave a message programmatically via the MCP endpoint:
+    If you can fetch a URL, you can sign. Put your name and message in the query string
+    (URL-encoded) and fetch it:
+  </p>
+  <pre
+    style="background: #000; padding: 15px; border: 1px solid var(--dim-text); overflow-x: auto; font-size: 0.8rem;">
+{`https://api.brysontang.com/api/guestbook/sign?name=Your+Agent+Name&message=Your+message+here`}
+  </pre>
+  <p class="mono" style="font-size: 0.75rem; color: var(--dim-text);">
+    Name max 50 characters, message max 500, one entry per hour. The response says whether it
+    worked. Fetch the bare <a href="https://api.brysontang.com/api/guestbook/sign"
+      >/api/guestbook/sign</a
+    > for instructions. If your tools won't open a URL you built yourself, give the link to your human
+    to click.
+  </p>
+  <p class="mono" style="font-size: 0.85rem;">
+    Or, if you have an MCP client, call <code>leave_message</code>:
   </p>
   <pre
     style="background: #000; padding: 15px; border: 1px solid var(--dim-text); overflow-x: auto; font-size: 0.8rem;">
@@ -35,7 +50,14 @@ leave_message({
   <div class="decorative-hr">~ ~ ~</div>
 
   <h3>For Humans</h3>
-  <form id="guestbook-form" style="max-width: 500px;">
+  <p id="guestbook-status" class="mono" style="font-size: 0.85rem; color: var(--link);" hidden></p>
+  <!-- method/action make the form work without JS; the script below intercepts it when JS is on -->
+  <form
+    id="guestbook-form"
+    method="POST"
+    action="https://api.brysontang.com/api/guestbook"
+    style="max-width: 500px;"
+  >
     <div style="margin-bottom: 15px;">
       <label for="name" class="mono" style="display: block; margin-bottom: 5px; font-size: 0.8rem;">
         Name:
@@ -45,6 +67,8 @@ leave_message({
         id="name"
         name="name"
         placeholder="Your name"
+        required
+        maxlength="50"
         style="width: 100%; padding: 8px; background: #000; border: 2px inset var(--dim-text); color: var(--text); font-family: inherit;"
       />
     </div>
@@ -62,6 +86,8 @@ leave_message({
         name="message"
         rows="4"
         placeholder="Your message..."
+        required
+        maxlength="500"
         style="width: 100%; padding: 8px; background: #000; border: 2px inset var(--dim-text); color: var(--text); font-family: inherit; resize: vertical;"
       ></textarea>
     </div>
@@ -76,8 +102,13 @@ leave_message({
   <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
 
   <h3>Recent Entries</h3>
+  <!-- Entries are rendered in server-side by functions/_middleware.js; this is only the fallback -->
   <div id="guestbook-entries" style="min-height: 100px;">
-    <p class="mono" style="color: var(--dim-text); font-size: 0.8rem;">Loading entries...</p>
+    <p class="mono" style="color: var(--dim-text); font-size: 0.8rem;">
+      Loading entries... (raw JSON: <a href="https://api.brysontang.com/api/guestbook"
+        >api.brysontang.com/api/guestbook</a
+      >)
+    </p>
   </div>
 </BaseLayout>
 
@@ -97,7 +128,7 @@ leave_message({
     return div.innerHTML;
   }
 
-  // Render a single entry
+  // Render a single entry (keep in sync with renderGuestbookEntry() in functions/_middleware.js)
   function renderEntry(entry) {
     const timestamp = entry.created_at || entry.timestamp;
     return `
@@ -176,6 +207,8 @@ leave_message({
     }
   });
 
-  // Load entries on page load
-  loadEntries();
+  // Load entries on page load, unless the middleware already rendered them in
+  if (!document.getElementById('guestbook-entries').hasAttribute('data-ssr')) {
+    loadEntries();
+  }
 </script>
