@@ -16,7 +16,7 @@ const earlyExperience = resume.experience.filter((e) => e.section === 'early');
 
 <ProLayout
   title="Resume of Bryson Tang | AI Systems Architect"
-  description="Bryson Tang - Founder, Syntropy Systems. AI Systems Architect & Research Engineer. Resume and CV for Interpretability, AI Safety, MLOps, and Research Engineering positions. Sparse autoencoders, mechanistic interpretability, sub-1s search across 300k documents."
+  description="Bryson Tang - Founder, Syntropy Systems. AI Systems Architect & Research Engineer. Agent evaluation and experiment infrastructure, sparse autoencoders, mechanistic interpretability, sub-1s search across 300k documents."
 >
   <header class="resume-header">
     <h1>Resume of Bryson Tang</h1>
@@ -178,9 +178,27 @@ const earlyExperience = resume.experience.filter((e) => e.section === 'early');
           const osProjects = [
             {
               name: 'Wind Tunnel',
-              desc: 'Reliability bench for tool-using LLM agents — reproducible scenarios scoring outcome, trajectory, constraints, and robustness. Open source from Syntropy Systems.',
+              desc: 'Reliability bench for tool-using LLM agents — reproducible scenarios scoring outcome, trajectory, and constraints, with an experiment ladder that gates regressions. 19 releases; on PyPI as windtunnel-bench. Open source from Syntropy Systems.',
               linkLabel: 'GitHub',
               linkUrl: 'https://github.com/syntropy-systems-oss/windtunnel',
+            },
+            {
+              name: 'Pit',
+              desc: 'A prediction market that schedules experiments: agents fund runs and bet PASS/FAIL, and the runs they disagree about go first. Append-only git ledger. Open source from Syntropy Systems.',
+              linkLabel: 'GitHub',
+              linkUrl: 'https://github.com/syntropy-systems-oss/pit',
+            },
+            {
+              name: 'whirr',
+              desc: 'Local experiment orchestration: SQLite job queue, one worker per GPU, metrics dashboard. On PyPI.',
+              linkLabel: 'GitHub',
+              linkUrl: 'https://github.com/syntropy-systems-oss/whirr',
+            },
+            {
+              name: 'jacobian-lens',
+              desc: 'Backward "ghost-token" extension of Anthropic\'s global-workspace Jacobian lens, with causal patch tests on Qwen3-0.6B.',
+              linkLabel: 'GitHub',
+              linkUrl: 'https://github.com/brysontang/jacobian-lens',
             },
             {
               name: 'Golden Gate Qwen',
@@ -190,7 +208,7 @@ const earlyExperience = resume.experience.filter((e) => e.section === 'early');
             },
             {
               name: 'Agent Tokens Protocol',
-              desc: 'Cryptographic identity standard for AI agents. Production-ready spec.',
+              desc: "Signed, JWT-style tokens that declare an agent's identity and allowed scope.",
               linkLabel: 'Website',
               linkUrl: 'https://agenttokens.org',
             },
@@ -202,7 +220,7 @@ const earlyExperience = resume.experience.filter((e) => e.section === 'early');
             },
             {
               name: 'Crystallize',
-              desc: 'Python framework for reproducible ML pipelines. 100+ downloads.',
+              desc: 'Python framework for reproducible ML experiments. On PyPI as crystallize-ml.',
               linkLabel: 'GitHub',
               linkUrl: 'https://github.com/brysontang/crystallize',
             },
@@ -213,8 +231,14 @@ const earlyExperience = resume.experience.filter((e) => e.section === 'early');
               linkUrl: 'https://github.com/brysontang/DeltaTask',
             },
             {
+              name: 'p5.interact',
+              desc: 'p5.js 2.x addon: hovered(), clicked(), dragged(), dropped(), scoped by push/pop. Published on npm.',
+              linkLabel: 'Docs',
+              linkUrl: 'https://brysontang.github.io/p5.interact/docs/',
+            },
+            {
               name: 'gcomm',
-              desc: 'Rust CLI for Ollama. Published on crates.io.',
+              desc: 'Rust CLI that writes Git commit messages with a local LLM via Ollama. Published on crates.io.',
               linkLabel: 'crates.io',
               linkUrl: 'https://crates.io/crates/gcomm',
             },

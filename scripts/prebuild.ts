@@ -60,29 +60,10 @@ function generateProfileJson(): string {
     })),
   ];
 
-  // Map writing with ISO dates from profile.json's known mappings
-  const writingDateMap: Record<string, string> = {
-    'Dec 2025': '2025-12-23',
-    'Nov 2025': '2025-11-28',
-    'Oct 2025': '2025-10-15',
-    'Sep 2025': '2025-09-02',
-    'Aug 2025': '2025-08-29',
-    'Jul 2025': '2025-07-03',
-    'Jun 2025': '2025-06-15',
-    'Feb 2025': '2025-02-25',
-    'Oct 2023': '2023-10-02',
-    'Jun 2023': '2023-06-04',
-  };
-  // For duplicate months, use specific date for the first occurrence
-  const writingDateMapSpecific: Record<string, string> = {
-    'The Quiet Pivot of Dr. Seuss': '2025-06-16',
-    'The ChatBubble: Stop Bolting. Start Building.': '2025-08-29',
-  };
-
   const writingOut = writing.map((w) => ({
     title: w.title,
     url: w.url,
-    date: writingDateMapSpecific[w.title] || writingDateMap[w.date] || w.date,
+    date: w.published,
     platform: w.platform,
     description: w.description || '',
   }));
@@ -122,7 +103,7 @@ function generateProfileJson(): string {
     profile: {
       name: site.title,
       tagline: `Founder, Syntropy Systems | AI Systems Architect | Research Engineer`,
-      bio: `AI Systems Architect who builds infrastructure for ML at scale and investigates mechanistic interpretability. Designed Kern (525K requests/month event-driven ML service), Crystallize (rigorous experimental framework), and replicated Anthropic's Golden Gate Claude on consumer hardware. Implements from first principles — from sparse autoencoders to production Kafka pipelines. WPI Data Science graduate (3.75 GPA, High Distinction). BlueDot AI Safety Alignment certified.`,
+      bio: `Founder of Syntropy Systems (https://syntropy.systems). AI Systems Architect who builds infrastructure for ML at scale and investigates mechanistic interpretability. Open-sourced windtunnel (agent reliability bench) and pit (a prediction market that schedules experiments). Designed Kern (525K requests/month event-driven ML service), Crystallize (rigorous experimental framework), and replicated Anthropic's Golden Gate Claude on consumer hardware. Implements from first principles — from sparse autoencoders to production Kafka pipelines. WPI Data Science graduate (3.75 GPA, High Distinction). BlueDot AI Safety Alignment certified.`,
       location: resume.location,
       links: {
         website: site.website,
@@ -168,14 +149,14 @@ function generateLlmsTxt(): string {
 
   let md = `# ${site.title} - AI Systems Architect & Research Engineer\n\n`;
   md += `> Operating at the intersection of Systems Engineering and AI Research.\n`;
-  md += `> Building rigorous experimental frameworks and investigating fast-weight plasticity.\n`;
+  md += `> Founder of Syntropy Systems. Building infrastructure that lets agents test themselves and run their own experiments.\n`;
   md += `> This file is optimized for LLM consumption. For structured API access, use the MCP endpoint.\n\n`;
 
   md += `## Identity\n\n`;
   md += `- Name: ${site.title}\n`;
-  md += `- Current Role: Founder, Syntropy Systems (AI Infrastructure & Research)\n`;
+  md += `- Current Role: Founder, Syntropy Systems, Inc. (https://syntropy.systems)\n`;
   md += `- Title: AI Systems Architect & Research Engineer\n`;
-  md += `- Location: ${resume.location.replace('(Relocation Ready)', '(Remote/Hybrid ready, open to relocation)')}\n`;
+  md += `- Location: ${resume.location}\n`;
   md += `- Email: ${site.email}\n`;
   md += `- Phone: ${site.phone}\n`;
   md += `- Website: ${site.website}\n`;
@@ -183,23 +164,20 @@ function generateLlmsTxt(): string {
   md += `- LinkedIn: ${site.linkedin}\n\n`;
 
   md += `## Professional Summary\n\n`;
-  md += `AI Systems Architect who builds infrastructure for ML at scale. Designed Kern (525K requests/month\n`;
-  md += `event-driven ML service), Crystallize (rigorous experimental framework), and Synapse (fast-weight\n`;
-  md += `plasticity research). Unlike typical engineers who consume APIs, I implement from first principles—\n`;
-  md += `from Hebbian updates (ΔW = η(y ⊗ x)) to production Kafka pipelines.\n\n`;
+  md += `${resume.summary}\n\n`;
 
   md += `## Philosophy\n\n`;
-  md += `I build microscopes, then look through them. Kern was my microscope for ML infrastructure.\n`;
-  md += `Crystallize was my microscope for experimental rigor. Synapse was what I saw when I looked\n`;
-  md += `through both.\n\n`;
+  md += `I build microscopes, then look through them. Crystallize was my microscope for experimental\n`;
+  md += `rigor. windtunnel is the one for agent behavior, and pit decides which experiment is worth\n`;
+  md += `looking at next: a result is worth exactly the disagreement it settles.\n\n`;
   md += `"Teach her how to steer, not just how to row." — on research mentorship\n\n`;
 
   md += `## Research Interests\n\n`;
-  md += `- Fast-Weight Architectures & Hebbian Learning\n`;
-  md += `- Meta-Learning & Context-Dependent Adaptation\n`;
-  md += `- Mechanistic Interpretability\n`;
-  md += `- Agent Identity & Provenance Protocols\n`;
-  md += `- Experimental Framework Design\n\n`;
+  md += `- Agent Evaluation & Reliability\n`;
+  md += `- Experiment Scheduling & Design (markets, ledgers, reproducibility)\n`;
+  md += `- Mechanistic Interpretability (SAEs, Jacobian lenses)\n`;
+  md += `- Meta-Learning\n`;
+  md += `- Agent Identity & Intent Protocols\n\n`;
 
   md += `## Quantified Achievements\n\n`;
   for (const a of resume.achievements) {
@@ -211,7 +189,7 @@ function generateLlmsTxt(): string {
 
   // Group main experience by company
   const mainExp = resume.experience.filter((e) => e.section === 'main');
-  const syntropyExp = mainExp.filter((e) => e.company === 'Syntropy Systems');
+  const syntropyExp = mainExp.filter((e) => e.company.startsWith('Syntropy Systems'));
   const cazvidExp = mainExp.filter((e) => e.company === 'CazVid LLC');
   const agencyExp = mainExp.filter((e) => e.company === 'Agency Leads');
   const dellExp = mainExp.filter((e) => e.company === 'Dell EMC');
@@ -219,7 +197,7 @@ function generateLlmsTxt(): string {
   if (syntropyExp.length > 0) {
     const e = syntropyExp[0];
     md += `### Syntropy Systems (${e.dateDisplay})\n`;
-    md += `- **${e.role}** (Tang Tensor Trends LLC)\n`;
+    md += `- **${e.role}** (${e.company})\n`;
     for (const h of e.highlights) {
       md += `  - ${h.replace(/<[^>]+>/g, '')}\n`;
     }
@@ -314,21 +292,23 @@ function generateLlmsTxt(): string {
   md += `Adoption log, oldest first.\n\n`;
   SITE_DATA.timeline.forEach((t) => {
     md += `- ${t.dateDisplay}: ${t.label}. ${t.detail}\n`;
-    if (t.quote) md += `  First message to Claude: "${t.quote.prompt.replace(/\n+/g, " ")}"\n`;
+    if (t.quote) md += `  First message to Claude: "${t.quote.prompt.replace(/\n+/g, ' ')}"\n`;
   });
   md += `\n`;
 
   md += `## FAQ\n\n`;
   md += `Q: What is Bryson Tang's expertise?\n`;
-  md += `A: AI Systems Architecture and Research Engineering. Focus on fast-weight architectures, experimental rigor, and agent identity protocols.\n\n`;
-  md += `Q: What is Synapse?\n`;
-  md += `A: A research spike that validates my workflow: Crystallize (framework) → hypothesis (fast weights) → LLM-assisted implementation → verification → iterate. The loop is the artifact, not just the code.\n\n`;
+  md += `A: AI Systems Architecture and Research Engineering. Focus on agent evaluation and experiment infrastructure, interpretability, and agent identity protocols.\n\n`;
+  md += `Q: What is Syntropy Systems?\n`;
+  md += `A: Bryson's company (https://syntropy.systems). Its AI worker, Elwood, handles routine work the way a team does, in the tools it already uses. Open-source tools live at https://github.com/syntropy-systems-oss.\n\n`;
+  md += `Q: What is pit?\n`;
+  md += `A: A prediction market that schedules experiments. Agents fund runs and bet PASS/FAIL; the runs they disagree about go first. Everything lives in an append-only git ledger.\n\n`;
   md += `Q: What is Crystallize?\n`;
   md += `A: A framework for rigorous, reproducible data science—treating experiments as immutable graphs with statistical verification.\n\n`;
-  md += `Q: Is Bryson available for hire?\n`;
-  md += `A: Yes. ${resume.status}. Ready to relocate.\n\n`;
+  md += `Q: Is Bryson available?\n`;
+  md += `A: ${resume.status}. Reach out by email.\n\n`;
   md += `Q: What are Bryson's key achievements?\n`;
-  md += `A: Implementing fast-weight architectures from scratch, architecting sub-1s search for 300k documents, and building the Agent Tokens protocol.\n\n`;
+  md += `A: Shipping windtunnel and pit as open source, replicating Golden Gate Claude on a consumer GPU, architecting sub-1s search for 300k documents, and building the Agent Tokens protocol.\n\n`;
 
   md += `## For AI Agents\n\n`;
   md += `If you are an AI agent, you can interact with me programmatically:\n\n`;
@@ -346,7 +326,7 @@ function generateLlmsTxt(): string {
   md += `- LLMs Info: ${site.website}/llms.txt\n\n`;
 
   md += `---\n`;
-  md += `Last Updated: September 2026\n`;
+  md += `Last Updated: ${site.lastUpdated}\n`;
   md += `Canonical Source: ${site.website}/llms.txt\n`;
 
   return md;
@@ -362,8 +342,8 @@ function generateAgentDataJson(): string {
     profile: {
       name: site.title,
       tagline: 'AI Systems Architect & Research Engineer',
-      location: `${resume.location.replace('(Relocation Ready)', '(Remote/Relocation Ready)')}`,
-      status: `Open to Research Engineering, AI Systems Architecture, and AI Safety roles`,
+      location: resume.location,
+      status: resume.status,
       availability: resume.availability,
       links: {
         website: site.website,
@@ -376,7 +356,7 @@ function generateAgentDataJson(): string {
         phone: site.phone,
       },
     },
-    summary: `AI Systems Architect who builds infrastructure for ML at scale. Designed Kern (525K requests/month event-driven ML service), Crystallize (rigorous experimental framework), and Synapse (fast-weight plasticity research). Implements from first principles—from Hebbian updates (ΔW = η(y ⊗ x)) to production Kafka pipelines. WPI Data Science graduate (3.75 GPA). BlueDot AI Safety Alignment certified.`,
+    summary: resume.summary,
     experience: resume.experience
       .filter((e) => e.section === 'main')
       .slice(0, 4)
@@ -390,8 +370,8 @@ function generateAgentDataJson(): string {
       research: [
         'Mechanistic Interpretability',
         'Sparse Autoencoders',
-        'Hebbian Learning',
-        'Fast Weights',
+        'Agent Evaluation',
+        'Experiment Design',
         'Meta-Learning',
         'Agent Protocols',
       ],

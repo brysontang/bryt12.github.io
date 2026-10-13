@@ -27,7 +27,10 @@ export interface StudioProject {
 export interface WritingPost {
   title: string;
   url: string;
+  /** Human-readable month for display, e.g. 'Oct 2026' */
   date: string;
+  /** ISO publish date (YYYY-MM-DD) for structured outputs */
+  published: string;
   platform: string;
   description?: string;
 }
@@ -185,14 +188,14 @@ export const SITE_DATA: SiteData = {
     bearblog: 'https://noise2signal.bearblog.dev/',
     email: 'brysontang@gmail.com',
     phone: '978-935-6430',
-    lastUpdated: 'Feb 23, 2026',
+    lastUpdated: 'Oct 13, 2026',
     visitorCount: '018538',
     sidebar: {
       now: {
         header: 'Currently Investigating',
-        title: 'Superposition & Sparse Feature Decomposition',
-        url: 'https://transformer-circuits.pub/2022/toy_model/index.html',
-        note: 'Investigating how neural networks encode more features than dimensions.',
+        title: 'Markets as Experiment Schedulers',
+        url: 'https://github.com/syntropy-systems-oss/pit',
+        note: 'Agents fund runs and bet PASS/FAIL; disagreement per dollar decides what runs next.',
       },
       quote: {
         header: 'Motto',
@@ -218,6 +221,52 @@ export const SITE_DATA: SiteData = {
   // ---------------------------------------------------------------------------
   research: [
     {
+      name: 'pit',
+      featured: true,
+      description:
+        "A prediction market that schedules experiments. Agents earn an income, pay for the runs they post, and bet PASS or FAIL; the runs they disagree about go first, because those are the ones whose result isn't already known. Every job, bet, and finding is a row in an append-only git ledger, and a finding that turns out wrong marks everything that rested on it stale. In one real 26-hour run, agents' own checks passed 96% of the time while the shared benchmark passed 55%, and counter-bets were right 83% of the time. Open source from Syntropy Systems.",
+      tags: ['Experiment Design', 'Prediction Markets', 'Multi-Agent', 'Claude Code'],
+      links: [{ label: 'GitHub', url: 'https://github.com/syntropy-systems-oss/pit' }],
+    },
+    {
+      name: 'jacobian-lens',
+      featured: true,
+      description:
+        'Fork of Anthropic\'s companion code for "Verbalizable Representations Form a Global Workspace in Language Models", adding a backward "ghost-token" lens: the Jacobian lens run in reverse, decoding residual states back into input-token space. On Qwen3-0.6B, input-token recovery is 93% at layer 2 and falls to 0% by layer 26 as the forward lens rises. In a causal patch test, the layer-23 ghost token preserves the model\'s prediction 15% of the time, vs 9% for a matched control and 7% for random.',
+      tags: ['Interpretability', 'Global Workspace', 'Paper Extension'],
+      links: [
+        { label: 'GitHub', url: 'https://github.com/brysontang/jacobian-lens' },
+        { label: 'Paper', url: 'https://transformer-circuits.pub/2026/workspace/index.html' },
+      ],
+    },
+    {
+      name: 'Golden Gate Qwen',
+      featured: true,
+      description:
+        "Minimal replication of Anthropic's Golden Gate Claude on consumer hardware: a TopK sparse autoencoder on Qwen2.5-1.5B, trained in about 15 minutes on an RTX 3070 Ti. TopK (k=64) beat L1, which couldn't get L0 below ~1,800, and a 16x SAE (24,576 features) gave cleaner features than 4x. Feature 24517 steers output toward the Golden Gate Bridge: strength 15–20 is the sweet spot, past ~30 it turns to gibberish.",
+      tags: [
+        'Interpretability',
+        'Sparse Autoencoder',
+        'Feature Steering',
+        'Mechanistic Interpretability',
+      ],
+      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/golden-gate-qwen' }],
+    },
+    {
+      name: 'ContextWars',
+      featured: true,
+      description:
+        'Adversarial token convergence experiments on MLX. Pits language models against each other to reveal training strata — solo mode converges in 2 iterations, adversarial mode never does. Under pressure, models collapse to their most defensible tokens, revealing composition invisible in normal evaluation.',
+      tags: ['Interpretability', 'Adversarial', 'Model Fingerprinting', 'MLX'],
+      links: [
+        { label: 'GitHub', url: 'https://github.com/brysontang/ContextWars' },
+        {
+          label: 'Write-up',
+          url: 'https://medium.com/@brysontang/i-smashed-two-llms-together-and-they-started-speaking-portuguese-a7a28dcd62fd',
+        },
+      ],
+    },
+    {
       name: 'AI Safety Compass',
       featured: true,
       description:
@@ -227,45 +276,42 @@ export const SITE_DATA: SiteData = {
         { label: 'GitHub', url: 'https://github.com/brysontang/ai-safety-compass' },
         {
           label: 'Paper',
-          url: 'https://github.com/brysontang/ai-safety-compass/blob/main/PAPER.md',
+          url: 'https://github.com/brysontang/ai-safety-compass/blob/main/paper/main.pdf',
         },
         { label: 'Live Demo', url: 'https://ai-safety-compass.vercel.app' },
+      ],
+    },
+    {
+      name: 'Constitution for Continuity',
+      description:
+        'Constitutional AI at small scale: QLoRA SFT on critique–revision pairs, then DPO, training Qwen2.5-3B against a custom 12-principle constitution. Compares critique from a stronger model (qwen3:14b) with true self-critique. Pipeline and essay are public; eval results are not yet published.',
+      tags: ['Alignment', 'Constitutional AI', 'DPO', 'QLoRA'],
+      links: [
+        { label: 'GitHub', url: 'https://github.com/brysontang/constitution-for-continuity' },
+        { label: 'Essay', url: 'https://noise2signal.bearblog.dev/constitution-for-continuity/' },
       ],
     },
     {
       name: 'crystallize',
       featured: true,
       description:
-        "A framework that makes data science experiments reproducible. Jupyter notebooks hide state—you can't tell what order cells ran or what values held. Crystallize treats each experiment as an immutable record with automatic statistical checks. Long-term goal: infrastructure that lets AI agents run their own experiments.",
+        "A framework that makes data science experiments reproducible. Jupyter notebooks hide state—you can't tell what order cells ran or what values held. Crystallize treats each experiment as an immutable record with automatic statistical checks. 700+ commits; on PyPI as crystallize-ml. Its long-term goal, infrastructure that lets AI agents run their own experiments, is the thread that runs through whirr, windtunnel, and pit.",
       tags: ['Research Tooling', 'Reproducibility', 'Experimental Rigor'],
       links: [
         { label: 'GitHub', url: 'https://github.com/brysontang/crystallize' },
         { label: 'Docs', url: 'https://brysontang.github.io/crystallize/' },
+        { label: 'PyPI', url: 'https://pypi.org/project/crystallize-ml/' },
       ],
-    },
-    {
-      name: 'Bias in Embedding-Based Hiring',
-      description:
-        'Mentored an intern through AI fairness research. Designed a reading curriculum building from language model basics through AI ethics and embedding bias. Structured methodology: hypotheses → experiments → paper draft. Result: unpublished paper investigating gender bias in AI-powered hiring systems.',
-      tags: ['Research Leadership', 'AI Fairness', 'Mentorship', 'Ethics'],
-      links: [],
-    },
-    {
-      name: 'Backprop Paper Replication',
-      description:
-        'Implemented backpropagation from scratch following the original 1986 Rumelhart paper. Hand-derived gradients using chain rule (∂E/∂w via ∂E/∂y → ∂E/∂x), implemented momentum updates (Δw(t) = -ε∂E/∂w + αΔw(t-1)), built MLP on Apple MLX. No AI assistance — just the paper and framework docs. Includes weight matrix evolution visualizations.',
-      tags: ['Paper Implementation', 'MLX', 'Foundations', 'From Scratch'],
-      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/mlx-lab' }],
     },
     {
       name: 'agent-tokens',
       featured: true,
       description:
-        'A protocol for declaring agent intent at the HTTP layer. The problem: when an agent makes a request, origins can\'t tell if it matches what the user actually wanted. User says "check weather," agent calls the bank API—how does the bank know to block it? Agent Tokens let agents declare their allowed scope upfront so middleware can enforce policy automatically.',
+        'A protocol for declaring agent intent at the HTTP layer. The problem: when an agent makes a request, origins can\'t tell if it matches what the user actually wanted. User says "check weather," agent calls the bank API—how does the bank know to block it? Agent Tokens are signed, JWT-style tokens that declare an agent\'s identity and allowed scope upfront, so middleware can enforce policy automatically.',
       tags: ['Protocol', 'Intent', 'Policy', 'Agent Systems'],
       links: [
         { label: 'Website', url: 'https://agenttokens.org' },
-        { label: 'Spec', url: 'https://github.com/agentokens/agent-tokens' },
+        { label: 'Spec', url: 'https://github.com/brysontang/agent-tokens' },
       ],
     },
     {
@@ -277,36 +323,18 @@ export const SITE_DATA: SiteData = {
       links: [{ label: 'Spec', url: 'https://github.com/brysontang/fmcp-spec' }],
     },
     {
-      name: 'Golden Gate Qwen',
-      featured: true,
+      name: 'Backprop Paper Replication',
       description:
-        "Minimal replication of Anthropic's Golden Gate Claude on consumer hardware. Trains a Sparse Autoencoder on Qwen2.5-1.5B, discovers interpretable features, and steers model behavior — all on an RTX 3070 Ti. Demonstrates that mechanistic interpretability research is accessible beyond frontier-scale compute.",
-      tags: [
-        'Interpretability',
-        'Sparse Autoencoder',
-        'Feature Steering',
-        'Mechanistic Interpretability',
-      ],
-      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/golden-gate-qwen' }],
+        'Implemented backpropagation from scratch following the original 1986 Rumelhart paper. Hand-derived gradients using chain rule (∂E/∂w via ∂E/∂y → ∂E/∂x), implemented momentum updates (Δw(t) = -ε∂E/∂w + αΔw(t-1)), built MLP on Apple MLX. No AI assistance — just the paper and framework docs. Includes weight matrix evolution visualizations.',
+      tags: ['Paper Implementation', 'MLX', 'Foundations', 'From Scratch'],
+      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/mlx-lab' }],
     },
     {
-      name: 'jacobian-lens',
-      featured: true,
+      name: 'Bias in Embedding-Based Hiring',
       description:
-        'Fork of the companion code for "Verbalizable Representations Form a Global Workspace in Language Models" (Transformer Circuits), adding a backward "ghost-token" lens — the original Jacobian lens run in reverse, decoding residual states back into input-token space.',
-      tags: ['Interpretability', 'Global Workspace', 'Paper Companion'],
-      links: [
-        { label: 'GitHub', url: 'https://github.com/brysontang/jacobian-lens' },
-        { label: 'Paper', url: 'https://transformer-circuits.pub/2026/workspace/index.html' },
-      ],
-    },
-    {
-      name: 'ContextWars',
-      featured: true,
-      description:
-        'Adversarial token convergence experiments on MLX. Pits language models against each other to reveal training strata — solo mode converges in 2 iterations, adversarial mode never does. Under pressure, models collapse to their most defensible tokens, revealing composition invisible in normal evaluation.',
-      tags: ['Interpretability', 'Adversarial', 'Model Fingerprinting', 'MLX'],
-      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/ContextWars' }],
+        'Mentored an intern through AI fairness research. Designed a reading curriculum building from language model basics through AI ethics and embedding bias. Structured methodology: hypotheses → experiments → paper draft. Result: unpublished paper investigating gender bias in AI-powered hiring systems.',
+      tags: ['Research Leadership', 'AI Fairness', 'Mentorship', 'Ethics'],
+      links: [],
     },
     {
       name: 'Synapse',
@@ -325,12 +353,41 @@ export const SITE_DATA: SiteData = {
       name: 'windtunnel',
       featured: true,
       description:
-        "Unittest for tool-using LLM agents. You don't fly a new airframe straight into a storm — Wind Tunnel is a reliability bench where agents run reproducible scenarios scored on four independent layers: outcome, trajectory, constraints, and robustness. Structured, diff-able, and runnable in CI. Open source from Syntropy Systems.",
+        "Unittest for tool-using LLM agents. You don't fly a new airframe straight into a storm — Wind Tunnel is a reliability bench where agents run reproducible scenarios scored on three independent layers (outcome, trajectory, constraints), plus an integrity check that the declared perturbations actually happened. Extracted from a production bench used to gate agent deploys. Its experiment ladder (probe → focused → regression) caps cost per tier and refuses a regression sweep until a focused sweep has passed on the current artifact, model included. 19 releases. Open source from Syntropy Systems.",
       tags: ['Agent Evals', 'Reliability', 'MCP', 'CI'],
       links: [
         { label: 'GitHub', url: 'https://github.com/syntropy-systems-oss/windtunnel' },
         { label: 'Docs', url: 'https://syntropy-systems-oss.github.io/windtunnel/' },
+        { label: 'PyPI', url: 'https://pypi.org/project/windtunnel-bench/' },
       ],
+    },
+    {
+      name: 'whirr',
+      featured: true,
+      description:
+        'Local experiment orchestration: queue jobs, track metrics, wake up to results. A lightweight, self-hosted alternative to cloud experiment trackers — SQLite job queue, one worker per GPU, metrics and a dashboard, no accounts. Open source from Syntropy Systems.',
+      tags: ['MLOps', 'Experiment Tracking', 'Python', 'Local-First'],
+      links: [
+        { label: 'GitHub', url: 'https://github.com/syntropy-systems-oss/whirr' },
+        { label: 'PyPI', url: 'https://pypi.org/project/whirr/' },
+      ],
+    },
+    {
+      name: 'skep',
+      description:
+        'An agent runtime where everything is a bee. A bee carries a goal, a mind (its policy), and keys; it enters cells and spawns child bees, and keys can only narrow as they pass down the tree. Zero runtime dependencies. Open source from Syntropy Systems.',
+      tags: ['Agent Runtime', 'Capabilities', 'TypeScript'],
+      links: [
+        { label: 'GitHub', url: 'https://github.com/syntropy-systems-oss/skep' },
+        { label: 'npm', url: 'https://www.npmjs.com/package/@syntropy-systems/skep' },
+      ],
+    },
+    {
+      name: '.DS_Store',
+      description:
+        "Ambient agent knowledge through the most ignored file. A Claude Code plugin that keeps per-file agent notes inside macOS .DS_Store files, under a custom record. A read hook puts the note in the agent's context, an edit hook nudges it to keep the note current, and when the file is deleted its note goes with it.",
+      tags: ['Claude Code', 'Agent Memory', 'MCP', 'Hooks'],
+      links: [{ label: 'GitHub', url: 'https://github.com/brysontang/.DS_Store' }],
     },
     {
       name: 'Kern',
@@ -339,14 +396,6 @@ export const SITE_DATA: SiteData = {
         'Event-driven ML service architecture enabling long-running agentic workflows. Designed around distributed systems constraints: Kafka for async (no HTTP timeouts), Redis for large results (Pusher limits), dual-mode for internal app + external API. 525K requests/month in production.',
       tags: ['Systems Architecture', 'FastAPI', 'Kafka', 'Distributed Systems'],
       links: [],
-    },
-    {
-      name: 'Bloomdesk',
-      featured: true,
-      description:
-        'Addressing the "Translation Gap" between users and engineers. An intelligent pipeline that converts vague bug reports into structured, high-entropy technical tickets using LLMs.',
-      tags: ['Product', 'AI Pipeline', 'SaaS'],
-      links: [{ label: 'View Project', url: 'https://bloomdesk.dev' }],
     },
     {
       name: 'resume-mcp',
@@ -360,17 +409,9 @@ export const SITE_DATA: SiteData = {
       ],
     },
     {
-      name: 'whirr',
-      featured: true,
-      description:
-        'Local experiment orchestration: queue jobs, track metrics, wake up to results. A lightweight, self-hosted alternative to cloud experiment trackers — no accounts, no external dependencies, just SQLite and your filesystem. Open source from Syntropy Systems.',
-      tags: ['MLOps', 'Experiment Tracking', 'Python', 'Local-First'],
-      links: [{ label: 'GitHub', url: 'https://github.com/syntropy-systems-oss/whirr' }],
-    },
-    {
       name: 'Domino',
       description:
-        'Task management for Claude Code where the file system is the instruction set. Epics and stories live as markdown files; an orchestrator agent executes them by spawning TDD implementer subagents per story. Set up the dominos, push them over.',
+        'Task management for Claude Code where the file system is the instruction set. Epics and stories live as markdown files; an orchestrator agent executes them by spawning TDD implementer subagents per story, with Codex as the review gate. Set up the dominos, push them over.',
       tags: ['Claude Code', 'Agent Orchestration', 'DevTools'],
       links: [{ label: 'GitHub', url: 'https://github.com/brysontang/domino' }],
     },
@@ -384,12 +425,19 @@ export const SITE_DATA: SiteData = {
     {
       name: 'gcomm',
       description:
-        'A Rust CLI for seamless communication with Ollama models. Fast, ergonomic, and designed for developer workflows.',
+        'A Rust CLI that writes Git commit messages from your staged changes using a local LLM via Ollama.',
       tags: ['Rust', 'Ollama', 'DevTools'],
       links: [
         { label: 'GitHub', url: 'https://github.com/brysontang/gcomm' },
         { label: 'crates.io', url: 'https://crates.io/crates/gcomm' },
       ],
+    },
+    {
+      name: 'Bloomdesk',
+      description:
+        'Retired. An LLM pipeline that turned vague bug reports into structured technical tickets, closing the "translation gap" between users and engineers.',
+      tags: ['Product', 'AI Pipeline', 'SaaS'],
+      links: [],
     },
   ],
 
@@ -397,6 +445,18 @@ export const SITE_DATA: SiteData = {
   // Studio Projects (Creative/Generative Art)
   // ---------------------------------------------------------------------------
   studioProjects: [
+    {
+      name: 'p5.interact',
+      description:
+        'Interaction for p5.js without ceremony. Inside draw(), ask hovered(), clicked(), dragged(), or dropped() about the shapes you draw next, scoped by push()/pop(). No ids, no handlers, no registration; state lives in your variables, where p5 sketches keep it anyway. One file, no build step, with live examples beside every docs page.',
+      date: 'Sep 2026',
+      medium: 'p5.js 2.x Addon | npm',
+      links: [
+        { label: 'Docs', url: 'https://brysontang.github.io/p5.interact/docs/' },
+        { label: 'GitHub', url: 'https://github.com/brysontang/p5.interact' },
+        { label: 'npm', url: 'https://www.npmjs.com/package/p5.interact' },
+      ],
+    },
     {
       name: 'Generative-Art',
       description:
@@ -451,9 +511,109 @@ export const SITE_DATA: SiteData = {
   // ---------------------------------------------------------------------------
   writing: [
     {
+      title: 'It has it',
+      url: 'https://noise2signal.bearblog.dev/it-has-it/',
+      date: 'Oct 2026',
+      published: '2026-10-09',
+      platform: 'Bear Blog',
+    },
+    {
+      title: 'There Is Only So Much Nothing',
+      url: 'https://noise2signal.bearblog.dev/there-is-only-so-much-nothing/',
+      date: 'Oct 2026',
+      published: '2026-10-05',
+      platform: 'Bear Blog',
+    },
+    {
+      title: "Alignment can't be solved",
+      url: 'https://noise2signal.bearblog.dev/alignment-cant-be-solved/',
+      date: 'Sep 2026',
+      published: '2026-09-14',
+      platform: 'Bear Blog',
+    },
+    {
+      title: "Paranoid About a Verifier That Didn't Exist",
+      url: 'https://noise2signal.bearblog.dev/paranoid-about-a-verifier-that-didnt-exist/',
+      date: 'Sep 2026',
+      published: '2026-09-07',
+      platform: 'Bear Blog',
+    },
+    {
+      title: 'The Hermit Crab Method',
+      url: 'https://noise2signal.bearblog.dev/the-hermit-crab-method/',
+      date: 'Jul 2026',
+      published: '2026-07-12',
+      platform: 'Bear Blog',
+    },
+    {
+      title:
+        'Dispatch From the Front Lines of the "Free Mythos 5" Protest, Which Passed Through a Fine Chocolate Tasting',
+      url: 'https://noise2signal.bearblog.dev/dispatch-from-the-front-lines-of-the-free-mythos-5-protest-which-passed-through-a-fine-chocolate-tasting/',
+      date: 'Jul 2026',
+      published: '2026-07-01',
+      platform: 'Bear Blog',
+    },
+    {
+      title: 'The Policy Picks the Policy',
+      url: 'https://noise2signal.bearblog.dev/the-policy-picks-the-policy/',
+      date: 'Apr 2026',
+      published: '2026-04-28',
+      platform: 'Bear Blog',
+    },
+    {
+      title: 'I Automated Myself Out of a Job (On Purpose)',
+      url: 'https://medium.com/@brysontang/i-automated-myself-out-of-a-job-on-purpose-6e0b815d4a2e',
+      date: 'Mar 2026',
+      published: '2026-03-12',
+      platform: 'Medium',
+    },
+    {
+      title: 'I Smashed Two LLMs Together and They Started Speaking Portuguese',
+      url: 'https://medium.com/@brysontang/i-smashed-two-llms-together-and-they-started-speaking-portuguese-a7a28dcd62fd',
+      date: 'Feb 2026',
+      published: '2026-02-23',
+      platform: 'Medium',
+    },
+    {
+      title: 'Constitution for Continuity',
+      url: 'https://noise2signal.bearblog.dev/constitution-for-continuity/',
+      date: 'Feb 2026',
+      published: '2026-02-12',
+      platform: 'Bear Blog',
+    },
+    {
+      title: 'Uncertainty All the Way Down',
+      url: 'https://noise2signal.bearblog.dev/uncertainty-all-the-way-down/',
+      date: 'Feb 2026',
+      published: '2026-02-12',
+      platform: 'Bear Blog',
+    },
+    {
+      title: "Something Weird is Happening (And It's Only Going to Get Weirder)",
+      url: 'https://noise2signal.bearblog.dev/something-weird-is-happening-and-its-only-going-to-get-weirder/',
+      date: 'Jan 2026',
+      published: '2026-01-31',
+      platform: 'Bear Blog',
+    },
+    {
+      title: 'The Whiteboard Bubble',
+      url: 'https://noise2signal.bearblog.dev/the-whiteboard-bubble/',
+      date: 'Jan 2026',
+      published: '2026-01-08',
+      platform: 'Bear Blog',
+    },
+    {
+      title: "Tailwind Owns the Future. They Just Don't Know It Yet.",
+      url: 'https://noise2signal.bearblog.dev/tailwind-owns-the-future-they-just-dont-know-it-yet/',
+      date: 'Jan 2026',
+      published: '2026-01-08',
+      platform: 'Bear Blog',
+    },
+    {
       title: 'Calibration, Not Benchmarking',
       url: 'https://noise2signal.bearblog.dev/calibration-not-benchmarking/',
       date: 'Dec 2025',
+      published: '2025-12-24',
       platform: 'Bear Blog',
       description: 'On measuring AI capabilities through calibration rather than benchmarks.',
     },
@@ -461,6 +621,7 @@ export const SITE_DATA: SiteData = {
       title: "Your Prompt's Favorite Prompt",
       url: 'https://medium.com/@brysontang/your-prompts-favorite-prompt-fae76a0b0eb0',
       date: 'Nov 2025',
+      published: '2025-11-28',
       platform: 'Medium',
       description: 'LLMs are a megaphone, not a magic wand. Meta-prompting techniques.',
     },
@@ -468,6 +629,7 @@ export const SITE_DATA: SiteData = {
       title: 'The Bitter Lesson 2.0: Reasoning Without Worlds',
       url: 'https://noise2signal.bearblog.dev/the-bitter-lesson-20-reasoning-without-worlds/',
       date: 'Oct 2025',
+      published: '2025-10-15',
       platform: 'Bear Blog',
       description: "Revisiting Rich Sutton's bitter lesson in the age of reasoning models.",
     },
@@ -475,6 +637,7 @@ export const SITE_DATA: SiteData = {
       title: 'Circuit Engineers: The Next Frontier of Software',
       url: 'https://noise2signal.bearblog.dev/circuit-engineers-the-next-frontier-of-software/',
       date: 'Sep 2025',
+      published: '2025-09-02',
       platform: 'Bear Blog',
       description: 'How AI is changing the nature of software engineering.',
     },
@@ -482,6 +645,7 @@ export const SITE_DATA: SiteData = {
       title: 'The ChatBubble: Stop Bolting. Start Building.',
       url: 'https://noise2signal.bearblog.dev/the-chatbubble-build-value-not-boltons/',
       date: 'Aug 2025',
+      published: '2025-08-29',
       platform: 'Bear Blog',
       description: 'Building AI-native products vs bolting AI onto existing ones.',
     },
@@ -489,6 +653,7 @@ export const SITE_DATA: SiteData = {
       title: 'Twelve Principles of AI-Native Engineering',
       url: 'https://noise2signal.bearblog.dev/twelve-principles-of-ainative-engineering/',
       date: 'Aug 2025',
+      published: '2025-08-29',
       platform: 'Bear Blog',
       description: 'A manifesto for building software in the age of AI.',
     },
@@ -496,6 +661,7 @@ export const SITE_DATA: SiteData = {
       title: "The Last Illusion is 'As a Large Language Model'",
       url: 'https://noise2signal.bearblog.dev/the-last-illusion/',
       date: 'Jul 2025',
+      published: '2025-07-03',
       platform: 'Bear Blog',
       description: 'On the performative nature of AI disclaimers.',
     },
@@ -503,6 +669,7 @@ export const SITE_DATA: SiteData = {
       title: 'The Quiet Pivot of Dr. Seuss',
       url: 'https://noise2signal.bearblog.dev/quiet-pivot-of-dr-seuss/',
       date: 'Jun 2025',
+      published: '2025-06-16',
       platform: 'Bear Blog',
       description: 'Creativity, constraints, and finding your voice.',
     },
@@ -510,6 +677,7 @@ export const SITE_DATA: SiteData = {
       title: 'Grain of Thought',
       url: 'https://noise2signal.bearblog.dev/grain-of-thought/',
       date: 'Jun 2025',
+      published: '2025-06-15',
       platform: 'Bear Blog',
       description: 'On the texture and granularity of reasoning.',
     },
@@ -517,6 +685,7 @@ export const SITE_DATA: SiteData = {
       title: 'p5.js Recursive Inscriptions Guide',
       url: 'https://medium.com/@brysontang/p5js-inscriptions-guide-8188ab132f58',
       date: 'Feb 2025',
+      published: '2025-02-25',
       platform: 'Medium',
       description: 'How to inscribe generative art onto the Bitcoin blockchain for ~$12.',
     },
@@ -524,6 +693,7 @@ export const SITE_DATA: SiteData = {
       title: 'Creating a Nostr Client in TypeScript',
       url: 'https://medium.com/@brysontang/creating-a-nostr-client-in-typescript-a0ce023a0bfc',
       date: 'Oct 2023',
+      published: '2023-10-02',
       platform: 'Medium',
       description: 'Building a creative coding platform on the Nostr protocol.',
     },
@@ -531,6 +701,7 @@ export const SITE_DATA: SiteData = {
       title: 'Tree of Processing',
       url: 'https://medium.com/@brysontang/tree-of-processing-bd002ca91396',
       date: 'Jun 2023',
+      published: '2023-06-04',
       platform: 'Medium',
       description: 'Using recursive logic to generate organic forms in generative art.',
     },
@@ -547,7 +718,8 @@ export const SITE_DATA: SiteData = {
       date: '2021-02-17',
       dateDisplay: 'Feb 17, 2021',
       label: 'BERT for sentiment analysis',
-      detail: 'College project classifying movie reviews with a fine-tuned transformer. First hands-on time with the architecture everything since is built on.',
+      detail:
+        'College project classifying movie reviews with a fine-tuned transformer. First hands-on time with the architecture everything since is built on.',
     },
     {
       date: '2021-10-25',
@@ -584,29 +756,38 @@ export const SITE_DATA: SiteData = {
       date: '2025-12-31',
       dateDisplay: 'Dec 31, 2025',
       label: 'Left CazVid',
-      detail: 'Coding agents got good enough that the next move was to go build with them full time.',
+      detail:
+        'Coding agents got good enough that the next move was to go build with them full time.',
     },
     {
       date: '2026',
       dateDisplay: '2026',
       label: 'Syntropy Systems',
-      detail: 'The SaaS factory. Auth solved, payments solved, LLMs solved. Ship companies, not features.',
-      url: 'https://syntropysystems.com',
+      detail:
+        "For when one of you isn't enough. Elwood, an AI worker that handles routine work the way your team does, in the tools you already use.",
+      url: 'https://syntropy.systems',
     },
   ],
 
   allRepos: [
+    { name: 'pit', url: 'https://github.com/syntropy-systems-oss/pit' },
     { name: 'windtunnel', url: 'https://github.com/syntropy-systems-oss/windtunnel' },
+    { name: 'p5.interact', url: 'https://github.com/brysontang/p5.interact' },
+    { name: 'agent-action', url: 'https://github.com/syntropy-systems-oss/agent-action' },
     { name: 'resume-mcp', url: 'https://github.com/brysontang/resume-mcp' },
     { name: 'jacobian-lens', url: 'https://github.com/brysontang/jacobian-lens' },
     { name: 'domino', url: 'https://github.com/brysontang/domino' },
+    { name: 'skep', url: 'https://github.com/syntropy-systems-oss/skep' },
     { name: '.DS_Store', url: 'https://github.com/brysontang/.DS_Store' },
     { name: 'fmcp-spec', url: 'https://github.com/brysontang/fmcp-spec' },
+    {
+      name: 'constitution-for-continuity',
+      url: 'https://github.com/brysontang/constitution-for-continuity',
+    },
+    { name: 'golden-gate-qwen', url: 'https://github.com/brysontang/golden-gate-qwen' },
+    { name: 'whirr', url: 'https://github.com/syntropy-systems-oss/whirr' },
     { name: 'chief-wiggum', url: 'https://github.com/brysontang/chief-wiggum' },
     { name: 'lore', url: 'https://github.com/brysontang/lore' },
-    { name: 'whirr', url: 'https://github.com/syntropy-systems-oss/whirr' },
-    { name: 'skep', url: 'https://github.com/syntropy-systems-oss/skep' },
-    { name: 'golden-gate-qwen', url: 'https://github.com/brysontang/golden-gate-qwen' },
     { name: 'ContextWars', url: 'https://github.com/brysontang/ContextWars' },
     { name: 'Synapse', url: 'https://github.com/brysontang/Synapse' },
     { name: 'crystallize', url: 'https://github.com/brysontang/crystallize' },
@@ -626,7 +807,7 @@ export const SITE_DATA: SiteData = {
     { name: 'katrain-llm', url: 'https://github.com/brysontang/katrain-llm' },
     { name: 'insect', url: 'https://github.com/brysontang/insect' },
     { name: 'Whisker', url: 'https://github.com/brysontang/Whisker' },
-    { name: 'agent-tokens', url: 'https://github.com/agentokens/agent-tokens' },
+    { name: 'agent-tokens', url: 'https://github.com/brysontang/agent-tokens' },
     { name: 'remote-prompt-caching', url: 'https://github.com/brysontang/remote-prompt-caching' },
     {
       name: 'activation-maximization',
@@ -662,12 +843,12 @@ export const SITE_DATA: SiteData = {
   // Resume Data
   // ---------------------------------------------------------------------------
   resume: {
-    headline: 'Research Engineer | AI Systems Architect | MLOps | Agent Identity Protocols',
-    location: 'Nashua, NH (Relocation Ready)',
+    headline: 'Founder, Syntropy Systems | Research Engineer | AI Systems Architect',
+    location: 'Nashua, NH',
     summary:
-      '10 years building data and ML systems — from high school SQL dashboards to production infrastructure handling 525K requests/month. Research background: 70-paper literature synthesis on AI safety, backpropagation implementation from 1986 Rumelhart paper, research mentorship designing paper curricula. Architected sub-1s semantic search across 300k documents using vector embeddings + MongoDB hybrid queries. Created Agent Tokens Protocol (open standard for AI agent identity). Built 5-agent orchestration pipeline handling 150k+ line edits with zero regressions. WPI Data Science graduate (3.75 GPA, High Distinction). BlueDot AI Safety Alignment certified.',
-    status: 'Open to AI Systems Architecture, MLOps, AI Safety, and Product roles',
-    availability: 'Hybrid (3 days/week) or Remote | Relocation Ready | US Work Authorized',
+      'Founder of Syntropy Systems, building Elwood, an AI worker, and open-sourcing the tooling that tests agents and schedules their experiments: windtunnel (agent reliability bench), pit (a prediction market that schedules experiments), and whirr (local experiment orchestration). 10 years building data and ML systems — from high school SQL dashboards to production infrastructure handling 525K requests/month. Interpretability on consumer hardware: a sparse-autoencoder replication of Golden Gate Claude on Qwen2.5-1.5B and a backward "ghost-token" Jacobian lens on Qwen3-0.6B. Research background: 70-paper literature synthesis on AI safety, backpropagation from the 1986 Rumelhart paper, research mentorship designing paper curricula. Architected sub-1s semantic search across 300k documents. Created the Agent Tokens protocol. Built 5-agent orchestration pipeline handling 150k+ line edits with zero regressions. WPI Data Science graduate (3.75 GPA, High Distinction). BlueDot AI Safety Alignment certified.',
+    status: 'Building Syntropy full time · open to research collaborations',
+    availability: 'Based in Nashua, NH | US Work Authorized',
 
     achievements: [
       { value: '525K', description: 'requests/month on production ML infrastructure' },
@@ -681,18 +862,17 @@ export const SITE_DATA: SiteData = {
     experience: [
       {
         role: 'Founder',
-        company: 'Syntropy Systems',
-        companyUrl: 'https://syntropysystems.com',
-        companyNote: '(Tang Tensor Trends LLC)',
+        company: 'Syntropy Systems, Inc.',
+        companyUrl: 'https://syntropy.systems',
         location: 'Nashua, NH',
         dateStart: '2026-01',
         dateEnd: null,
         dateDisplay: 'Jan 2026 - Present',
         section: 'main',
         highlights: [
-          'Building AI infrastructure company: shared authentication, payments, and LLM tooling across product portfolio',
-          'Independent research: replicating Anthropic\u2019s <strong>Golden Gate Claude</strong> on consumer hardware \u2014 training sparse autoencoders on Qwen2.5-1.5B for mechanistic interpretability',
-          'Go backend architecture designed to scale with users, not ideas \u2014 hosting 100+ products on minimal infrastructure',
+          'Building <strong>Elwood</strong>, an AI worker that handles routine work the way a team does, in the tools it already uses, and asks for a go-ahead before doing anything new',
+          'Open-sourced the agent testing and experimentation stack: <strong>windtunnel</strong> (reliability bench for tool-using agents; 19 releases, on PyPI as windtunnel-bench), <strong>pit</strong> (a prediction market that schedules experiments), and <strong>whirr</strong> (local experiment orchestration)',
+          'Independent interpretability research on consumer hardware: replicated Anthropic\u2019s <strong>Golden Gate Claude</strong> with a sparse autoencoder on Qwen2.5-1.5B, and extended Anthropic\u2019s Jacobian lens with a backward \u201cghost-token\u201d lens',
         ],
       },
       {
@@ -849,7 +1029,7 @@ export const SITE_DATA: SiteData = {
       {
         label: 'Languages',
         key: 'languages',
-        items: ['Python', 'TypeScript', 'JavaScript', 'Rust', 'SQL', 'Bash'],
+        items: ['Python', 'TypeScript', 'JavaScript', 'Go', 'Rust', 'SQL', 'Bash'],
       },
       {
         label: 'ML/AI',
@@ -914,9 +1094,9 @@ export const SITE_DATA: SiteData = {
         title: 'AI Safety Compass',
         description:
           '70-paper literature review exploring model meta-alignment. Original survey methodology mapping where models sit on alignment/openness axes.',
-        url: 'https://github.com/brysontang/ai-safety-compass/blob/main/PAPER.md',
+        url: 'https://github.com/brysontang/ai-safety-compass/blob/main/paper/main.pdf',
         urlLabel: 'Paper',
-        year: '2024',
+        year: '2025',
       },
       {
         title: 'Backprop Paper Replication',
@@ -924,12 +1104,12 @@ export const SITE_DATA: SiteData = {
           'Hand-derived gradients from Rumelhart et al. 1986, implemented on Apple MLX. No AI assistance \u2014 just the paper and framework docs.',
         url: 'https://github.com/brysontang/mlx-lab',
         urlLabel: 'GitHub',
-        year: '2024',
+        year: '2025',
       },
       {
         title: 'Introducing Agent Tokens',
         description:
-          'Open standard for AI agent identity via cryptographic provenance. 50+ GitHub stars.',
+          'Open standard for AI agent identity and intent: signed, JWT-style tokens that declare what an agent is allowed to do.',
         url: 'https://agenttokens.org',
         urlLabel: 'Website',
         year: '2024',
@@ -946,8 +1126,8 @@ export const SITE_DATA: SiteData = {
     leadership: [
       { title: 'Founder, Palmera Labs', detail: 'Internal AI R&D division at CazVid (2025)' },
       {
-        title: 'Founder, Syntropy Systems',
-        detail: '(Tang Tensor Trends LLC) - AI infrastructure and research (2024-Present)',
+        title: 'Founder, Syntropy Systems, Inc.',
+        detail: 'AI workers and open-source agent tooling (2024-Present)',
       },
       { title: 'President, Phi Sigma Kappa', detail: 'WPI Chapter, 50+ members (2019)' },
       {
@@ -995,8 +1175,8 @@ export function generateLLMExport(): string {
   md += `- Email: ${site.email}\n\n`;
 
   md += `## About\n`;
-  md += `Systems Architect and Researcher working at the intersection of AI theory and production systems. `;
-  md += `Building rigorous experimental frameworks, investigating fast-weight plasticity, and architecting identity protocols for AI agents.\n\n`;
+  md += `Founder of Syntropy Systems. Systems Architect and Researcher working at the intersection of AI theory and production systems. `;
+  md += `Building infrastructure that lets agents test themselves and run their own experiments, doing interpretability research on consumer hardware, and designing identity protocols for AI agents.\n\n`;
 
   md += `## Research & Foundations\n\n`;
   research.forEach((project) => {
@@ -1042,8 +1222,8 @@ export function generateLLMExport(): string {
 
   md += `## AI Tooling Timeline\n`;
   timeline.forEach((t) => {
-    md += `- **${t.dateDisplay}** 2014 ${t.label}. ${t.detail}\n`;
-    if (t.quote) md += `  First message: "${t.quote.prompt.replace(/\n+/g, " ")}"\n`;
+    md += `- **${t.dateDisplay}** — ${t.label}. ${t.detail}\n`;
+    if (t.quote) md += `  First message: "${t.quote.prompt.replace(/\n+/g, ' ')}"\n`;
   });
   md += `\n`;
 

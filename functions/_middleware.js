@@ -32,8 +32,9 @@ Current Status: ${AGENT_DATA.profile.status}
 Location: ${AGENT_DATA.profile.location}
 
 Quick Summary:
+- Founder, Syntropy Systems (https://syntropy.systems)
 - AI Systems Architect & Research Engineer
-- Creator of Synapse (Fast-Weight Architecture) & Agent Tokens Protocol
+- Creator of windtunnel (agent reliability bench), pit (experiment scheduling market), and the Agent Tokens Protocol
 - Builder of Crystallize (Experimental Framework)
 - WPI Data Science (3.75 GPA, High Distinction)
 - BlueDot AI Safety Alignment certified

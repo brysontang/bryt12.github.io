@@ -17,7 +17,7 @@ export const jsonLdPerson = {
   familyName: 'Tang',
   jobTitle: 'AI Systems Architect',
   description:
-    'Systems Architect and Data Artisan building agent identity protocols, ML pipelines, and generative art systems.',
+    'Founder of Syntropy Systems. Systems architect and researcher building agent evaluation and experiment infrastructure, interpretability tools, agent identity protocols, and generative art.',
   url: site.website,
   sameAs: [
     site.github,
@@ -43,6 +43,8 @@ export const jsonLdPerson = {
     { '@type': 'Thing', name: 'Agent Identity Protocols' },
     { '@type': 'Thing', name: 'MCP Servers' },
     { '@type': 'Thing', name: 'MLOps' },
+    { '@type': 'Thing', name: 'Mechanistic Interpretability' },
+    { '@type': 'Thing', name: 'Agent Evaluation' },
   ],
   // Proprietary concepts originated by this entity
   mainEntityOfPage: [
@@ -64,6 +66,18 @@ export const jsonLdPerson = {
       description: 'A framework for rigorous, reproducible data science pipelines',
       url: 'https://github.com/brysontang/crystallize',
     },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Wind Tunnel',
+      description: 'Unittest for tool-using LLM agents',
+      url: 'https://github.com/syntropy-systems-oss/windtunnel',
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Pit',
+      description: 'A prediction market that schedules experiments',
+      url: 'https://github.com/syntropy-systems-oss/pit',
+    },
   ],
   // Education - linked to Wikidata for entity resolution
   alumniOf: {
@@ -75,9 +89,9 @@ export const jsonLdPerson = {
   // Current employer
   worksFor: {
     '@type': 'Organization',
-    name: 'Syntropy Systems',
-    url: 'https://syntropysystems.com',
-    description: 'AI infrastructure and research',
+    name: 'Syntropy Systems, Inc.',
+    url: 'https://syntropy.systems',
+    description: 'AI workers that handle routine work in the tools a team already uses',
   },
   // Current job title
   hasOccupation: {

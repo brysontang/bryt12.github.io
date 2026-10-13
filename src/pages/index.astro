@@ -1,6 +1,6 @@
 ---
 /**
- * index.astro - Homepage with splash screen
+ * index.astro - Homepage (vintage face)
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_DATA } from '../consts/siteData';
@@ -22,6 +22,17 @@ const { timeline } = SITE_DATA;
     Welcome to my digital study. <em>I build microscopes, then look through them.</em>
   </p>
   <p>
+    I run <a href="https://syntropy.systems" target="_blank" rel="noopener noreferrer"
+      >Syntropy Systems</a
+    >, where we build Elwood, an AI worker that handles routine work in the tools a team already
+    uses. The microscopes I build along the way, for testing agents and deciding which experiment to
+    run next, are <a
+      href="https://github.com/syntropy-systems-oss"
+      target="_blank"
+      rel="noopener noreferrer">open source</a
+    >.
+  </p>
+  <p>
     In an era of black boxes and ephemeral feeds, this site serves as a permanent archive of my work
     across AI Research, Experimental Frameworks, and Generative Art.
   </p>
@@ -33,17 +44,21 @@ const { timeline } = SITE_DATA;
 
   <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
 
-  <h3>Current Investigation</h3>
+  <h3>Current Investigations</h3>
   <ul>
     <li>
-      <strong>Superposition:</strong> Reproducing Anthropic's <em>Towards Monosemanticity</em> — understanding
-      how features compress.
+      <strong>Markets as experiment schedulers:</strong> In <em>pit</em>, agents fund runs and bet
+      PASS or FAIL, and the runs they disagree about go first. In one 26-hour run, agents' own
+      checks passed 96% of the time; the shared benchmark passed 55%.
     </li>
     <li>
-      <strong>Sparse Autoencoders:</strong> Building interpretable feature decomposition on small transformers.
+      <strong>Agent reliability:</strong>
+      <em>windtunnel</em>'s experiment ladder. Probe, then focused, then regression, each with a
+      cost cap, and no regression sweep until a focused one has passed.
     </li>
     <li>
-      <strong>Experimental Rigor:</strong> Building frameworks that treat experiments as immutable graphs.
+      <strong>Reading the residual stream backwards:</strong> A "ghost-token" Jacobian lens on Qwen3-0.6B,
+      and sparse-autoencoder feature steering on a single RTX 3070 Ti.
     </li>
   </ul>
 
@@ -84,13 +99,47 @@ const { timeline } = SITE_DATA;
 
   <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
 
-  <h3>Research & Foundations</h3>
+  <h3>Selected Work</h3>
   <ul>
     <li>
-      <strong>Synapse</strong> — Research spike validating that Crystallize + LLM-assisted development
-      enables rapid hypothesis iteration. The loop is the artifact.
-      <a href="https://github.com/brysontang/Synapse" target="_blank" rel="noopener noreferrer"
-        >[GitHub]</a
+      <strong>pit</strong> — A prediction market that schedules experiments. A result is worth exactly
+      the disagreement it settles.
+      <a
+        href="https://github.com/syntropy-systems-oss/pit"
+        target="_blank"
+        rel="noopener noreferrer">[GitHub]</a
+      >
+    </li>
+    <li>
+      <strong>windtunnel</strong> — Unittest for tool-using agents: reproducible scenarios scored on outcome,
+      trajectory, and constraints. On PyPI as <code>windtunnel-bench</code>.
+      <a
+        href="https://github.com/syntropy-systems-oss/windtunnel"
+        target="_blank"
+        rel="noopener noreferrer">[GitHub]</a
+      >
+      <a
+        href="https://syntropy-systems-oss.github.io/windtunnel/"
+        target="_blank"
+        rel="noopener noreferrer">[Docs]</a
+      >
+    </li>
+    <li>
+      <strong>jacobian-lens</strong> — Anthropic's global-workspace lens, run in reverse to decode residual
+      states back into input tokens.
+      <a
+        href="https://github.com/brysontang/jacobian-lens"
+        target="_blank"
+        rel="noopener noreferrer">[GitHub]</a
+      >
+    </li>
+    <li>
+      <strong>Golden Gate Qwen</strong> — Golden Gate Claude, replicated on Qwen2.5-1.5B in 15 minutes
+      on a consumer GPU.
+      <a
+        href="https://github.com/brysontang/golden-gate-qwen"
+        target="_blank"
+        rel="noopener noreferrer">[GitHub]</a
       >
     </li>
     <li>
@@ -101,7 +150,8 @@ const { timeline } = SITE_DATA;
       >
     </li>
     <li>
-      <strong>Agent Tokens Protocol</strong> — Cryptographic standard for AI agent identity and provenance.
+      <strong>Agent Tokens Protocol</strong> — Signed tokens that let an agent declare who it is and what
+      it's allowed to do.
       <a href="https://agenttokens.org" target="_blank" rel="noopener noreferrer">agenttokens.org</a
       >
     </li>
@@ -126,6 +176,10 @@ const { timeline } = SITE_DATA;
       >
     </li>
   </ul>
+  <p class="mono" style="font-size: 0.8rem; color: var(--dim-text);">
+    Everything else lives in <a href="/lab">The Lab</a>, <a href="/studio">The Studio</a>, and
+    <a href="/archive">The Archive</a>.
+  </p>
 
   <div class="decorative-hr">~ ~ ~ &#9672; ~ ~ ~</div>
 
@@ -135,27 +189,38 @@ const { timeline } = SITE_DATA;
       <strong>Q: What is Bryson Tang's expertise?</strong>
     </dt>
     <dd style="margin-left: 0; margin-bottom: 8px;">
-      AI Systems Architecture and Research Engineering. Focus on fast-weight architectures,
-      experimental rigor, agent identity protocols, and AI safety. Founder of Syntropy Systems.
-      Previously Chief AI Officer at CazVid.
+      AI Systems Architecture and Research Engineering. Focus on agent evaluation and experiment
+      infrastructure, interpretability on consumer hardware, agent identity protocols, and AI
+      safety. Founder of Syntropy Systems. Previously Chief AI Officer at CazVid.
     </dd>
 
     <dt style="color: var(--link); margin-top: 12px;">
-      <strong>Q: What is Synapse?</strong>
+      <strong>Q: What is Syntropy Systems?</strong>
     </dt>
     <dd style="margin-left: 0; margin-bottom: 8px;">
-      A research spike that validates my workflow: Crystallize (framework) → hypothesis (fast
-      weights) → LLM-assisted implementation → verification → iterate. The loop is the artifact, not
-      just the code.
+      For when one of you isn't enough. Its AI worker, Elwood, handles routine work the way your
+      team does, in the tools you already use, and asks for a go-ahead before anything new. The
+      open-source tools (windtunnel, pit, whirr, skep) live at <a
+        href="https://github.com/syntropy-systems-oss">github.com/syntropy-systems-oss</a
+      >.
+    </dd>
+
+    <dt style="color: var(--link); margin-top: 12px;">
+      <strong>Q: What is pit?</strong>
+    </dt>
+    <dd style="margin-left: 0; margin-bottom: 8px;">
+      A prediction market that schedules experiments. Agents earn an income, pay for the runs they
+      post, and bet on the outcome. Compute is the only hard limit, so disagreement per dollar
+      decides what runs next. Every bet and result lives in an append-only git ledger, and a finding
+      that turns out wrong marks everything built on it stale.
     </dd>
 
     <dt style="color: var(--link); margin-top: 12px;">
       <strong>Q: What is the Agent Tokens Protocol?</strong>
     </dt>
     <dd style="margin-left: 0; margin-bottom: 8px;">
-      A cryptographic protocol for agent provenance. Formalizes identity via digital signatures
-      rather than heuristic detection, applying distributed systems theory to the emerging agent
-      ecosystem.
+      Signed, JWT-style tokens an agent sends with its requests to declare who it is and what it's
+      allowed to do, so an origin can enforce policy instead of guessing from heuristics.
     </dd>
 
     <dt style="color: var(--link); margin-top: 12px;"><strong>Q: What is Resume MCP?</strong></dt>
@@ -166,13 +231,12 @@ const { timeline } = SITE_DATA;
     </dd>
 
     <dt style="color: var(--link); margin-top: 12px;">
-      <strong>Q: Is Bryson available for hire?</strong>
+      <strong>Q: How do I reach Bryson?</strong>
     </dt>
     <dd style="margin-left: 0; margin-bottom: 8px;">
-      Yes. Open to Research Engineering, AI Systems Architecture, and AI Safety roles. Hybrid or
-      remote. <a href="/resume">View full resume</a> or <a href="mailto:brysontang@gmail.com"
-        >contact directly</a
-      >.
+      Building Syntropy full time and open to research collaborations. <a href="/resume"
+        >View the resume</a
+      > or <a href="mailto:brysontang@gmail.com">email directly</a>.
     </dd>
 
     <dt style="color: var(--link); margin-top: 12px;">

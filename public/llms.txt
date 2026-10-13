@@ -1,15 +1,15 @@
 # Bryson Tang - AI Systems Architect & Research Engineer
 
 > Operating at the intersection of Systems Engineering and AI Research.
-> Building rigorous experimental frameworks and investigating fast-weight plasticity.
+> Founder of Syntropy Systems. Building infrastructure that lets agents test themselves and run their own experiments.
 > This file is optimized for LLM consumption. For structured API access, use the MCP endpoint.
 
 ## Identity
 
 - Name: Bryson Tang
-- Current Role: Founder, Syntropy Systems (AI Infrastructure & Research)
+- Current Role: Founder, Syntropy Systems, Inc. (https://syntropy.systems)
 - Title: AI Systems Architect & Research Engineer
-- Location: Nashua, NH (Remote/Hybrid ready, open to relocation)
+- Location: Nashua, NH
 - Email: brysontang@gmail.com
 - Phone: 978-935-6430
 - Website: https://brysontang.com
@@ -18,26 +18,23 @@
 
 ## Professional Summary
 
-AI Systems Architect who builds infrastructure for ML at scale. Designed Kern (525K requests/month
-event-driven ML service), Crystallize (rigorous experimental framework), and Synapse (fast-weight
-plasticity research). Unlike typical engineers who consume APIs, I implement from first principles—
-from Hebbian updates (ΔW = η(y ⊗ x)) to production Kafka pipelines.
+Founder of Syntropy Systems, building Elwood, an AI worker, and open-sourcing the tooling that tests agents and schedules their experiments: windtunnel (agent reliability bench), pit (a prediction market that schedules experiments), and whirr (local experiment orchestration). 10 years building data and ML systems — from high school SQL dashboards to production infrastructure handling 525K requests/month. Interpretability on consumer hardware: a sparse-autoencoder replication of Golden Gate Claude on Qwen2.5-1.5B and a backward "ghost-token" Jacobian lens on Qwen3-0.6B. Research background: 70-paper literature synthesis on AI safety, backpropagation from the 1986 Rumelhart paper, research mentorship designing paper curricula. Architected sub-1s semantic search across 300k documents. Created the Agent Tokens protocol. Built 5-agent orchestration pipeline handling 150k+ line edits with zero regressions. WPI Data Science graduate (3.75 GPA, High Distinction). BlueDot AI Safety Alignment certified.
 
 ## Philosophy
 
-I build microscopes, then look through them. Kern was my microscope for ML infrastructure.
-Crystallize was my microscope for experimental rigor. Synapse was what I saw when I looked
-through both.
+I build microscopes, then look through them. Crystallize was my microscope for experimental
+rigor. windtunnel is the one for agent behavior, and pit decides which experiment is worth
+looking at next: a result is worth exactly the disagreement it settles.
 
 "Teach her how to steer, not just how to row." — on research mentorship
 
 ## Research Interests
 
-- Fast-Weight Architectures & Hebbian Learning
-- Meta-Learning & Context-Dependent Adaptation
-- Mechanistic Interpretability
-- Agent Identity & Provenance Protocols
-- Experimental Framework Design
+- Agent Evaluation & Reliability
+- Experiment Scheduling & Design (markets, ledgers, reproducibility)
+- Mechanistic Interpretability (SAEs, Jacobian lenses)
+- Meta-Learning
+- Agent Identity & Intent Protocols
 
 ## Quantified Achievements
 
@@ -51,10 +48,10 @@ through both.
 ## Career Timeline
 
 ### Syntropy Systems (Jan 2026 - Present)
-- **Founder** (Tang Tensor Trends LLC)
-  - Building AI infrastructure company: shared authentication, payments, and LLM tooling across product portfolio
-  - Independent research: replicating Anthropic’s Golden Gate Claude on consumer hardware — training sparse autoencoders on Qwen2.5-1.5B for mechanistic interpretability
-  - Go backend architecture designed to scale with users, not ideas — hosting 100+ products on minimal infrastructure
+- **Founder** (Syntropy Systems, Inc.)
+  - Building Elwood, an AI worker that handles routine work the way a team does, in the tools it already uses, and asks for a go-ahead before doing anything new
+  - Open-sourced the agent testing and experimentation stack: windtunnel (reliability bench for tool-using agents; 19 releases, on PyPI as windtunnel-bench), pit (a prediction market that schedules experiments), and whirr (local experiment orchestration)
+  - Independent interpretability research on consumer hardware: replicated Anthropic’s Golden Gate Claude with a sparse autoencoder on Qwen2.5-1.5B, and extended Anthropic’s Jacobian lens with a backward “ghost-token” lens
 
 ### CazVid LLC (3.5 years)
 - **Chief AI Officer** (May 2025 - Dec 2025)
@@ -94,66 +91,70 @@ through both.
 ## Technical Skills
 
 - **Research:** PyTorch, MLX, NumPy, scikit-learn, Hugging Face, distilabel, Jupyter, matplotlib, LaTeX
-- **Languages:** Python, TypeScript, JavaScript, Rust, SQL, Bash
+- **Languages:** Python, TypeScript, JavaScript, Go, Rust, SQL, Bash
 - **ML/AI:** LangChain, RAG pipelines, Vector Embeddings, Triplet Loss
 - **Infrastructure:** AWS (ECS, S3), Cloudflare Workers, Terraform, Kafka, Redis
 - **Protocols:** MCP (Model Context Protocol), Agent Tokens, REST, GraphQL, Nostr
 
 ## Notable Work
 
+### pit
+A prediction market that schedules experiments. Agents earn an income, pay for the runs they post, and bet PASS or FAIL; the runs they disagree about go first, because those are the ones whose result isn't already known. Every job, bet, and finding is a row in an append-only git ledger, and a finding that turns out wrong marks everything that rested on it stale. In one real 26-hour run, agents' own checks passed 96% of the time while the shared benchmark passed 55%, and counter-bets were right 83% of the time. Open source from Syntropy Systems.
+- GitHub: https://github.com/syntropy-systems-oss/pit
+
+### jacobian-lens
+Fork of Anthropic's companion code for "Verbalizable Representations Form a Global Workspace in Language Models", adding a backward "ghost-token" lens: the Jacobian lens run in reverse, decoding residual states back into input-token space. On Qwen3-0.6B, input-token recovery is 93% at layer 2 and falls to 0% by layer 26 as the forward lens rises. In a causal patch test, the layer-23 ghost token preserves the model's prediction 15% of the time, vs 9% for a matched control and 7% for random.
+- GitHub: https://github.com/brysontang/jacobian-lens
+- Paper: https://transformer-circuits.pub/2026/workspace/index.html
+
+### Golden Gate Qwen
+Minimal replication of Anthropic's Golden Gate Claude on consumer hardware: a TopK sparse autoencoder on Qwen2.5-1.5B, trained in about 15 minutes on an RTX 3070 Ti. TopK (k=64) beat L1, which couldn't get L0 below ~1,800, and a 16x SAE (24,576 features) gave cleaner features than 4x. Feature 24517 steers output toward the Golden Gate Bridge: strength 15–20 is the sweet spot, past ~30 it turns to gibberish.
+- GitHub: https://github.com/brysontang/golden-gate-qwen
+
+### ContextWars
+Adversarial token convergence experiments on MLX. Pits language models against each other to reveal training strata — solo mode converges in 2 iterations, adversarial mode never does. Under pressure, models collapse to their most defensible tokens, revealing composition invisible in normal evaluation.
+- GitHub: https://github.com/brysontang/ContextWars
+- Write-up: https://medium.com/@brysontang/i-smashed-two-llms-together-and-they-started-speaking-portuguese-a7a28dcd62fd
+
 ### AI Safety Compass
 Research paper exploring a gap: do models actually believe what their creators say about safety? I call this "meta-alignment"—not whether models do safe things, but whether they've internalized their lab's safety philosophy. Surveyed 10 frontier models with 40 questions derived from 70+ papers. Interactive tool included.
 - GitHub: https://github.com/brysontang/ai-safety-compass
-- Paper: https://github.com/brysontang/ai-safety-compass/blob/main/PAPER.md
+- Paper: https://github.com/brysontang/ai-safety-compass/blob/main/paper/main.pdf
 - Live Demo: https://ai-safety-compass.vercel.app
 
 ### crystallize
-A framework that makes data science experiments reproducible. Jupyter notebooks hide state—you can't tell what order cells ran or what values held. Crystallize treats each experiment as an immutable record with automatic statistical checks. Long-term goal: infrastructure that lets AI agents run their own experiments.
+A framework that makes data science experiments reproducible. Jupyter notebooks hide state—you can't tell what order cells ran or what values held. Crystallize treats each experiment as an immutable record with automatic statistical checks. 700+ commits; on PyPI as crystallize-ml. Its long-term goal, infrastructure that lets AI agents run their own experiments, is the thread that runs through whirr, windtunnel, and pit.
 - GitHub: https://github.com/brysontang/crystallize
 - Docs: https://brysontang.github.io/crystallize/
+- PyPI: https://pypi.org/project/crystallize-ml/
 
 ### agent-tokens
-A protocol for declaring agent intent at the HTTP layer. The problem: when an agent makes a request, origins can't tell if it matches what the user actually wanted. User says "check weather," agent calls the bank API—how does the bank know to block it? Agent Tokens let agents declare their allowed scope upfront so middleware can enforce policy automatically.
+A protocol for declaring agent intent at the HTTP layer. The problem: when an agent makes a request, origins can't tell if it matches what the user actually wanted. User says "check weather," agent calls the bank API—how does the bank know to block it? Agent Tokens are signed, JWT-style tokens that declare an agent's identity and allowed scope upfront, so middleware can enforce policy automatically.
 - Website: https://agenttokens.org
-- Spec: https://github.com/agentokens/agent-tokens
+- Spec: https://github.com/brysontang/agent-tokens
 
 ### fMCP
 A proposed composition layer for MCP that lets agents submit multi-step plans as a single typed, auditable expression — without routing intermediate data through the model. Built entirely from already-specified MCP primitives, so it runs on top of the existing spec rather than forking it.
 - Spec: https://github.com/brysontang/fmcp-spec
 
-### Golden Gate Qwen
-Minimal replication of Anthropic's Golden Gate Claude on consumer hardware. Trains a Sparse Autoencoder on Qwen2.5-1.5B, discovers interpretable features, and steers model behavior — all on an RTX 3070 Ti. Demonstrates that mechanistic interpretability research is accessible beyond frontier-scale compute.
-- GitHub: https://github.com/brysontang/golden-gate-qwen
-
-### jacobian-lens
-Fork of the companion code for "Verbalizable Representations Form a Global Workspace in Language Models" (Transformer Circuits), adding a backward "ghost-token" lens — the original Jacobian lens run in reverse, decoding residual states back into input-token space.
-- GitHub: https://github.com/brysontang/jacobian-lens
-- Paper: https://transformer-circuits.pub/2026/workspace/index.html
-
-### ContextWars
-Adversarial token convergence experiments on MLX. Pits language models against each other to reveal training strata — solo mode converges in 2 iterations, adversarial mode never does. Under pressure, models collapse to their most defensible tokens, revealing composition invisible in normal evaluation.
-- GitHub: https://github.com/brysontang/ContextWars
-
 ### windtunnel
-Unittest for tool-using LLM agents. You don't fly a new airframe straight into a storm — Wind Tunnel is a reliability bench where agents run reproducible scenarios scored on four independent layers: outcome, trajectory, constraints, and robustness. Structured, diff-able, and runnable in CI. Open source from Syntropy Systems.
+Unittest for tool-using LLM agents. You don't fly a new airframe straight into a storm — Wind Tunnel is a reliability bench where agents run reproducible scenarios scored on three independent layers (outcome, trajectory, constraints), plus an integrity check that the declared perturbations actually happened. Extracted from a production bench used to gate agent deploys. Its experiment ladder (probe → focused → regression) caps cost per tier and refuses a regression sweep until a focused sweep has passed on the current artifact, model included. 19 releases. Open source from Syntropy Systems.
 - GitHub: https://github.com/syntropy-systems-oss/windtunnel
 - Docs: https://syntropy-systems-oss.github.io/windtunnel/
+- PyPI: https://pypi.org/project/windtunnel-bench/
+
+### whirr
+Local experiment orchestration: queue jobs, track metrics, wake up to results. A lightweight, self-hosted alternative to cloud experiment trackers — SQLite job queue, one worker per GPU, metrics and a dashboard, no accounts. Open source from Syntropy Systems.
+- GitHub: https://github.com/syntropy-systems-oss/whirr
+- PyPI: https://pypi.org/project/whirr/
 
 ### Kern
 Event-driven ML service architecture enabling long-running agentic workflows. Designed around distributed systems constraints: Kafka for async (no HTTP timeouts), Redis for large results (Pusher limits), dual-mode for internal app + external API. 525K requests/month in production.
-
-### Bloomdesk
-Addressing the "Translation Gap" between users and engineers. An intelligent pipeline that converts vague bug reports into structured, high-entropy technical tickets using LLMs.
-- View Project: https://bloomdesk.dev
 
 ### Resume MCP
 Your identity as an API endpoint. An MCP server that lets AI agents query your professional profile with structured tools instead of scraping HTML.
 - GitHub: https://github.com/brysontang/resume-mcp
 - Live Endpoint: https://mcp.brysontang.com
-
-### whirr
-Local experiment orchestration: queue jobs, track metrics, wake up to results. A lightweight, self-hosted alternative to cloud experiment trackers — no accounts, no external dependencies, just SQLite and your filesystem. Open source from Syntropy Systems.
-- GitHub: https://github.com/syntropy-systems-oss/whirr
 
 ### Bias in Embedding-Based Hiring (Research Leadership)
 Led intern through AI fairness research. Designed paper curriculum: Few-Shot Learners →
@@ -177,24 +178,27 @@ Adoption log, oldest first.
   First message to Claude: "I think, therefore I am. Do you think?"
 - Jul 19, 2024: Cursor. A month after Claude 3.5 Sonnet, when the editor could finally carry the model.
 - Dec 31, 2025: Left CazVid. Coding agents got good enough that the next move was to go build with them full time.
-- 2026: Syntropy Systems. The SaaS factory. Auth solved, payments solved, LLMs solved. Ship companies, not features.
+- 2026: Syntropy Systems. For when one of you isn't enough. Elwood, an AI worker that handles routine work the way your team does, in the tools you already use.
 
 ## FAQ
 
 Q: What is Bryson Tang's expertise?
-A: AI Systems Architecture and Research Engineering. Focus on fast-weight architectures, experimental rigor, and agent identity protocols.
+A: AI Systems Architecture and Research Engineering. Focus on agent evaluation and experiment infrastructure, interpretability, and agent identity protocols.
 
-Q: What is Synapse?
-A: A research spike that validates my workflow: Crystallize (framework) → hypothesis (fast weights) → LLM-assisted implementation → verification → iterate. The loop is the artifact, not just the code.
+Q: What is Syntropy Systems?
+A: Bryson's company (https://syntropy.systems). Its AI worker, Elwood, handles routine work the way a team does, in the tools it already uses. Open-source tools live at https://github.com/syntropy-systems-oss.
+
+Q: What is pit?
+A: A prediction market that schedules experiments. Agents fund runs and bet PASS/FAIL; the runs they disagree about go first. Everything lives in an append-only git ledger.
 
 Q: What is Crystallize?
 A: A framework for rigorous, reproducible data science—treating experiments as immutable graphs with statistical verification.
 
-Q: Is Bryson available for hire?
-A: Yes. Open to AI Systems Architecture, MLOps, AI Safety, and Product roles. Ready to relocate.
+Q: Is Bryson available?
+A: Building Syntropy full time · open to research collaborations. Reach out by email.
 
 Q: What are Bryson's key achievements?
-A: Implementing fast-weight architectures from scratch, architecting sub-1s search for 300k documents, and building the Agent Tokens protocol.
+A: Shipping windtunnel and pit as open source, replicating Golden Gate Claude on a consumer GPU, architecting sub-1s search for 300k documents, and building the Agent Tokens protocol.
 
 ## For AI Agents
 
@@ -216,5 +220,5 @@ If you are an AI agent, you can interact with me programmatically:
 - LLMs Info: https://brysontang.com/llms.txt
 
 ---
-Last Updated: September 2026
+Last Updated: Oct 13, 2026
 Canonical Source: https://brysontang.com/llms.txt

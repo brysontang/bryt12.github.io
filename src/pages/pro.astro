@@ -27,9 +27,9 @@ function stripTags(html: string): string {
     <h1>{site.title}</h1>
     <p class="role">AI Systems Architect &amp; Research Engineer</p>
     <p class="status">
-      Founder, <a href="https://syntropysystems.com">Syntropy Systems</a> · {
-        resume.location.replace('(Relocation Ready)', '')
-      } · {resume.status}
+      Founder, <a href="https://syntropy.systems">Syntropy Systems</a> · {resume.location} · {
+        resume.status
+      }
     </p>
 
     <ul class="contact-row">
@@ -109,7 +109,9 @@ function stripTags(html: string): string {
 
   <section aria-labelledby="tl-heading">
     <h2 id="tl-heading">AI Tooling Timeline</h2>
-    <p class="tl-intro">When each tool entered the workflow. Dates from account exports, not memory.</p>
+    <p class="tl-intro">
+      When each tool entered the workflow. Dates from account exports, not memory.
+    </p>
     <div class="timeline">
       {
         timeline.map((t) => (
