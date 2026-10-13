@@ -91,7 +91,7 @@ export const jsonLdPerson = {
     '@type': 'Organization',
     name: 'Syntropy Systems, Inc.',
     url: 'https://syntropy.systems',
-    description: 'AI workers that handle routine work in the tools a team already uses',
+    description: 'AI workers that give teams leverage over the tools they already use',
   },
   // Current job title
   hasOccupation: {

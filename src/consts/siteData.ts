@@ -764,7 +764,7 @@ export const SITE_DATA: SiteData = {
       dateDisplay: '2026',
       label: 'Syntropy Systems',
       detail:
-        "For when one of you isn't enough. Elwood, an AI worker that handles routine work the way your team does, in the tools you already use.",
+        "For when one of you isn't enough. Elwood, an AI worker that gives your team leverage over the tools you already use.",
       url: 'https://syntropy.systems',
     },
   ],
@@ -870,7 +870,7 @@ export const SITE_DATA: SiteData = {
         dateDisplay: 'Jan 2026 - Present',
         section: 'main',
         highlights: [
-          'Building <strong>Elwood</strong>, an AI worker that handles routine work the way a team does, in the tools it already uses, and asks for a go-ahead before doing anything new',
+          'Building <strong>Elwood</strong>, an AI worker that gives teams leverage over the tools they already use, and asks for a go-ahead before doing anything new',
           'Open-sourced the agent testing and experimentation stack: <strong>windtunnel</strong> (reliability bench for tool-using agents; 19 releases, on PyPI as windtunnel-bench), <strong>pit</strong> (a prediction market that schedules experiments), and <strong>whirr</strong> (local experiment orchestration)',
           'Independent interpretability research on consumer hardware: replicated Anthropic\u2019s <strong>Golden Gate Claude</strong> with a sparse autoencoder on Qwen2.5-1.5B, and extended Anthropic\u2019s Jacobian lens with a backward \u201cghost-token\u201d lens',
         ],

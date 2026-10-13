@@ -300,7 +300,7 @@ function generateLlmsTxt(): string {
   md += `Q: What is Bryson Tang's expertise?\n`;
   md += `A: AI Systems Architecture and Research Engineering. Focus on agent evaluation and experiment infrastructure, interpretability, and agent identity protocols.\n\n`;
   md += `Q: What is Syntropy Systems?\n`;
-  md += `A: Bryson's company (https://syntropy.systems). Its AI worker, Elwood, handles routine work the way a team does, in the tools it already uses. Open-source tools live at https://github.com/syntropy-systems-oss.\n\n`;
+  md += `A: Bryson's company (https://syntropy.systems). Its AI worker, Elwood, gives teams leverage over the tools they already use. Open-source tools live at https://github.com/syntropy-systems-oss.\n\n`;
   md += `Q: What is pit?\n`;
   md += `A: A prediction market that schedules experiments. Agents fund runs and bet PASS/FAIL; the runs they disagree about go first. Everything lives in an append-only git ledger.\n\n`;
   md += `Q: What is Crystallize?\n`;

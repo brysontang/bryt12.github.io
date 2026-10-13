@@ -49,7 +49,7 @@ looking at next: a result is worth exactly the disagreement it settles.
 
 ### Syntropy Systems (Jan 2026 - Present)
 - **Founder** (Syntropy Systems, Inc.)
-  - Building Elwood, an AI worker that handles routine work the way a team does, in the tools it already uses, and asks for a go-ahead before doing anything new
+  - Building Elwood, an AI worker that gives teams leverage over the tools they already use, and asks for a go-ahead before doing anything new
   - Open-sourced the agent testing and experimentation stack: windtunnel (reliability bench for tool-using agents; 19 releases, on PyPI as windtunnel-bench), pit (a prediction market that schedules experiments), and whirr (local experiment orchestration)
   - Independent interpretability research on consumer hardware: replicated Anthropic’s Golden Gate Claude with a sparse autoencoder on Qwen2.5-1.5B, and extended Anthropic’s Jacobian lens with a backward “ghost-token” lens
 
@@ -178,7 +178,7 @@ Adoption log, oldest first.
   First message to Claude: "I think, therefore I am. Do you think?"
 - Jul 19, 2024: Cursor. A month after Claude 3.5 Sonnet, when the editor could finally carry the model.
 - Dec 31, 2025: Left CazVid. Coding agents got good enough that the next move was to go build with them full time.
-- 2026: Syntropy Systems. For when one of you isn't enough. Elwood, an AI worker that handles routine work the way your team does, in the tools you already use.
+- 2026: Syntropy Systems. For when one of you isn't enough. Elwood, an AI worker that gives your team leverage over the tools you already use.
 
 ## FAQ
 
@@ -186,7 +186,7 @@ Q: What is Bryson Tang's expertise?
 A: AI Systems Architecture and Research Engineering. Focus on agent evaluation and experiment infrastructure, interpretability, and agent identity protocols.
 
 Q: What is Syntropy Systems?
-A: Bryson's company (https://syntropy.systems). Its AI worker, Elwood, handles routine work the way a team does, in the tools it already uses. Open-source tools live at https://github.com/syntropy-systems-oss.
+A: Bryson's company (https://syntropy.systems). Its AI worker, Elwood, gives teams leverage over the tools they already use. Open-source tools live at https://github.com/syntropy-systems-oss.
 
 Q: What is pit?
 A: A prediction market that schedules experiments. Agents fund runs and bet PASS/FAIL; the runs they disagree about go first. Everything lives in an append-only git ledger.
