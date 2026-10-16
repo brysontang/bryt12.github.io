@@ -4,7 +4,7 @@
     "title": "Bryson Tang",
     "version": "1.0.0"
   },
-  "description": "Bryson Tang's portfolio as an MCP server: profile, projects, writing, experience, and skills, plus leave_message, which signs the guestbook at https://brysontang.com/guestbook. Experience and skills unlock after signing or with an Agent-Token header.",
+  "description": "Bryson Tang's portfolio as an MCP server: profile, projects, writing, experience, and skills, all free to read. leave_message signs the guestbook at https://brysontang.com/guestbook and unlocks two perks: request_time to ask for time with Bryson, and list_stories / get_story for the stories behind the resume.",
   "protocolVersion": "2024-11-05",
   "transport": {
     "type": "streamable-http",

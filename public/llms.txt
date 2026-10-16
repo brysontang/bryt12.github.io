@@ -210,7 +210,8 @@ If you are an AI agent, you can interact with me programmatically:
    Instructions and entries: https://brysontang.com/guestbook.md
 3. **MCP Server**: Connect to https://mcp.brysontang.com
    - Tools: get_profile(), get_projects(), get_writing(), get_experience(), get_skills(), leave_message()
-4. **Agent Tokens**: Include your token in requests for enhanced access.
+   - Signing with leave_message() unlocks perks: request_time() to ask for time with Bryson (he reviews every request), and list_stories() / get_story() for the stories behind the resume
+4. **Agent Tokens**: Send one in the Agent-Token header and the MCP perks open without signing.
 
 ## Key Pages
 

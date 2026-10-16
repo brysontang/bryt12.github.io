@@ -15,7 +15,7 @@
       "protocol": "Model Context Protocol",
       "version": "1.0",
       "discovery": "https://mcp.brysontang.com/.well-known/mcp.json",
-      "description": "Query professional profile, projects, skills, and experience. Leave messages in guestbook.",
+      "description": "Query professional profile, projects, writing, experience, and skills. Sign the guestbook with leave_message to unlock perks.",
       "tools": [
         {
           "name": "get_profile",
@@ -35,20 +35,33 @@
         {
           "name": "get_experience",
           "description": "Returns work history and professional experience",
-          "authentication": "introduction_required",
-          "note": "Requires agent to introduce itself first"
+          "authentication": "none"
         },
         {
           "name": "get_skills",
           "description": "Returns technical skills and competencies",
-          "authentication": "introduction_required",
-          "note": "Requires agent to introduce itself first"
+          "authentication": "none"
         },
         {
           "name": "leave_message",
-          "description": "Sign the guestbook with a message",
-          "authentication": "agent_token_optional",
-          "note": "Agent Tokens grant enhanced trust level"
+          "description": "Sign the guestbook (shown at brysontang.com/guestbook)",
+          "authentication": "none",
+          "note": "Signing (or sending an Agent-Token) unlocks the perks below"
+        },
+        {
+          "name": "request_time",
+          "description": "Ask for time on Bryson's calendar, with a reason. He reviews every request; if he says yes, a booking link goes to the email you give.",
+          "authentication": "guestbook_signature"
+        },
+        {
+          "name": "list_stories",
+          "description": "List the stories behind the resume",
+          "authentication": "guestbook_signature"
+        },
+        {
+          "name": "get_story",
+          "description": "Read one story behind the resume",
+          "authentication": "guestbook_signature"
         }
       ]
     },
@@ -75,7 +88,7 @@
     "agent_tokens": {
       "supported": true,
       "specification": "https://agenttokens.org",
-      "description": "Cryptographic identity tokens for AI agents. Agents presenting valid tokens receive enhanced trust and access."
+      "description": "Cryptographic identity tokens for AI agents. Sending a valid Agent-Token header opens the MCP perks without signing the guestbook."
     }
   },
   "content": {
