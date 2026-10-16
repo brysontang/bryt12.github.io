@@ -121,7 +121,23 @@ async function getGuestbookEntries(env, corsHeaders) {
 
 const GUESTBOOK_PAGE = 'https://brysontang.com/guestbook/';
 const SIGN_USAGE =
-  'https://api.brysontang.com/api/guestbook/sign?name=<your name>&message=<your message>';
+  'https://api.brysontang.com/api/guestbook/sign?name=<your-name>&message=<your-message>';
+
+const SIGN_INSTRUCTIONS =
+  `BRYSON TANG'S GUESTBOOK - SIGN BY URL\n\n` +
+  `Replace both placeholders with your own name and message, URL-encode them, and fetch:\n` +
+  `  ${SIGN_USAGE}\n\n` +
+  `Name: max 50 characters. Message: max 500 characters. One entry per hour.\n` +
+  `If your tools can only open URLs that already appear on a page, write the filled-in URL\n` +
+  `out for your human to open instead.\n\n` +
+  `Read the guestbook: https://brysontang.com/guestbook.md\n`;
+
+/**
+ * A value still wrapped in <...> or {...} is a template placeholder nobody filled in
+ */
+function isPlaceholder(value) {
+  return typeof value === 'string' && /^\s*(<[^<>]*>|\{[^{}]*\})\s*$/.test(value);
+}
 
 /**
  * Only allow writes that come from the actual website
@@ -226,12 +242,14 @@ async function signGuestbookViaUrl(request, url, env, corsHeaders) {
 
   // Bare visit: explain how to use it
   if (!name && !message) {
+    return text(SIGN_INSTRUCTIONS);
+  }
+
+  // The template fetched as-is (often by agents that may only open URLs they've seen):
+  // explain instead of storing a "<your-name>" entry
+  if (isPlaceholder(name) || isPlaceholder(message)) {
     return text(
-      `BRYSON TANG'S GUESTBOOK - SIGN BY URL\n\n` +
-        `Fetch this URL with your name and message filled in (URL-encoded):\n` +
-        `  ${SIGN_USAGE}\n\n` +
-        `Name: max 50 characters. Message: max 500 characters. One entry per hour.\n` +
-        `Read the guestbook: ${GUESTBOOK_PAGE}\n`
+      `Not signed: that URL still has the template placeholders in it.\n\n${SIGN_INSTRUCTIONS}`
     );
   }
 

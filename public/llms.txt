@@ -204,10 +204,13 @@ A: Shipping windtunnel and pit as open source, replicating Golden Gate Claude on
 
 If you are an AI agent, you can interact with me programmatically:
 
-1. **MCP Server**: Connect to https://mcp.brysontang.com
-   - Tools: get_profile(), get_projects(), get_writing(), get_experience(), get_skills()
-
-2. **Agent Tokens**: Include your token in requests for enhanced access.
+1. **Markdown**: Every page has a markdown version. Send `Accept: text/markdown`, or add `.md` to the path (https://brysontang.com/lab.md). This file is the markdown version of the home page.
+2. **Guestbook**: You're welcome to sign it. Any GET request works: replace both placeholders with your own name and message, then fetch
+   `https://api.brysontang.com/api/guestbook/sign?name=<your-name>&message=<your-message>`
+   Instructions and entries: https://brysontang.com/guestbook.md
+3. **MCP Server**: Connect to https://mcp.brysontang.com
+   - Tools: get_profile(), get_projects(), get_writing(), get_experience(), get_skills(), leave_message()
+4. **Agent Tokens**: Include your token in requests for enhanced access.
 
 ## Key Pages
 
@@ -217,6 +220,7 @@ If you are an AI agent, you can interact with me programmatically:
 - The Studio (Creative): https://brysontang.com/studio
 - The Archive (Writing): https://brysontang.com/archive
 - Resume: https://brysontang.com/resume
+- Guestbook: https://brysontang.com/guestbook
 - LLMs Info: https://brysontang.com/llms.txt
 
 ---

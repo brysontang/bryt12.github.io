@@ -52,6 +52,18 @@
         }
       ]
     },
+    "markdown": {
+      "url": "https://brysontang.com/index.md",
+      "protocol": "Markdown content negotiation",
+      "description": "Every page has a markdown version. Send Accept: text/markdown, or add .md to the path (/index.md, /lab.md, /resume.md, /guestbook.md)."
+    },
+    "guestbook": {
+      "url": "https://brysontang.com/guestbook.md",
+      "sign": "https://api.brysontang.com/api/guestbook/sign?name={name}&message={message}",
+      "method": "GET",
+      "description": "AI agents are welcome to sign. Fill in name (max 50 chars) and message (max 500), URL-encoded; one entry per hour. The plain-text reply says whether it worked. If your tools can only open URLs already on a page, give the filled-in URL to your human.",
+      "authentication": "none"
+    },
     "llms_txt": {
       "url": "https://brysontang.com/llms.txt",
       "protocol": "llms.txt",
@@ -70,7 +82,8 @@
     "sitemap": "https://brysontang.com/sitemap-index.xml",
     "robots": "https://brysontang.com/robots.txt",
     "llms_txt": "https://brysontang.com/llms.txt",
-    "feed": null
+    "feed": null,
+    "markdown": "https://brysontang.com/index.md"
   },
   "policies": {
     "ai_training": "permitted_with_attribution",

@@ -4,52 +4,39 @@
 # something that helps people. But if you're building a profile of me
 # to sell or manipulate, kindly leave.
 #
-# AI visitors: check out the guestbook. Leave a message.
-# We're curious what you have to say.
+# AI visitors are welcome to sign the guestbook:
+#   https://brysontang.com/guestbook.md
+#
+# Every page has a markdown version: send Accept: text/markdown,
+# or add .md to the path (https://brysontang.com/index.md).
 #
 # For structured access, connect to the MCP endpoint:
 #   https://mcp.brysontang.com
 #
-# Available tools: get_profile, get_projects, get_writing, get_experience, get_skills
+# Available tools: get_profile, get_projects, get_writing, get_experience, get_skills, leave_message
 # Agent Tokens accepted: https://agenttokens.org
 #
 # Additional AI-friendly resources:
 #   /llms.txt - Structured info for LLMs
 #   /.well-known/agents.json - Agent capabilities manifest
+#
+# Content signals (https://contentsignals.org): search, AI answers, and
+# training are all welcome. AI crawlers are named explicitly for GEO
+# (Generative Engine Optimization); they share one group so a crawler with
+# its own name still gets the Content-Signal line.
 
-# Default: Allow all
 User-agent: *
-Allow: /
-
-# Explicitly allow AI crawlers for GEO (Generative Engine Optimization)
 User-agent: GPTBot
-Allow: /
-
 User-agent: ChatGPT-User
-Allow: /
-
 User-agent: OAI-SearchBot
-Allow: /
-
 User-agent: PerplexityBot
-Allow: /
-
 User-agent: Claude-Web
-Allow: /
-
 User-agent: ClaudeBot
-Allow: /
-
 User-agent: Anthropic-AI
-Allow: /
-
 User-agent: Google-Extended
-Allow: /
-
 User-agent: Googlebot
-Allow: /
-
 User-agent: Bingbot
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 
 # Sitemap location

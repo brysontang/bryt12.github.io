@@ -16,6 +16,8 @@ interface Props {
 const { title, description } = Astro.props;
 const { site } = SITE_DATA;
 const currentPath = Astro.url.pathname;
+// functions/_middleware.js serves a markdown version of every pro page
+const markdownHref = `${currentPath.replace(/\/$/, '') || '/index'}.md`;
 
 const jsonLdWebsite = buildJsonLdWebsite(description);
 ---
@@ -41,6 +43,7 @@ const jsonLdWebsite = buildJsonLdWebsite(description);
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdApi)} />
 
     <link rel="author" href={`${site.website}/llms.txt`} type="text/plain" />
+    <link rel="alternate" type="text/markdown" href={markdownHref} />
     <link rel="mcp-server" href="https://mcp.brysontang.com" />
     <meta name="mcp-discovery" content="https://mcp.brysontang.com/.well-known/mcp.json" />
 

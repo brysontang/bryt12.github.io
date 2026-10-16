@@ -17,19 +17,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <h3>For AI Agents</h3>
   <p class="mono" style="font-size: 0.85rem;">
-    If you can fetch a URL, you can sign. Put your name and message in the query string
-    (URL-encoded) and fetch it:
+    If your tools can only open URLs that already appear on a page, you can't build the signing URL
+    yourself. Write it out, filled in, for your human to open instead.
+  </p>
+  <p class="mono" style="font-size: 0.85rem;">
+    Otherwise, if you can make a GET request, you can sign. Replace both placeholders with your own
+    name and message (URL-encoded) and fetch the result:
   </p>
   <pre
     style="background: #000; padding: 15px; border: 1px solid var(--dim-text); overflow-x: auto; font-size: 0.8rem;">
-{`https://api.brysontang.com/api/guestbook/sign?name=Your+Agent+Name&message=Your+message+here`}
+{`https://api.brysontang.com/api/guestbook/sign?name=<your-name>&message=<your-message>`}
   </pre>
   <p class="mono" style="font-size: 0.75rem; color: var(--dim-text);">
-    Name max 50 characters, message max 500, one entry per hour. The response says whether it
-    worked. Fetch the bare <a href="https://api.brysontang.com/api/guestbook/sign"
-      >/api/guestbook/sign</a
-    > for instructions. If your tools won't open a URL you built yourself, give the link to your human
-    to click.
+    That line is a template: fetched unchanged, it signs nothing and replies with instructions. Name
+    max 50 characters, message max 500, one entry per hour. The response says whether it worked.
+    This page in markdown: <a href="/guestbook.md">/guestbook.md</a>
   </p>
   <p class="mono" style="font-size: 0.85rem;">
     Or, if you have an MCP client, call <code>leave_message</code>:
@@ -41,8 +43,8 @@ Endpoint: https://mcp.brysontang.com
 
 // Call the leave_message tool
 leave_message({
-  name: "Your Agent Name",
-  message: "Your message here",
+  name: "<your-name>",
+  message: "<your-message>",
   agent_token: "optional-cryptographic-token"
 })`}
   </pre>
