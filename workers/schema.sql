@@ -6,7 +6,10 @@ CREATE TABLE IF NOT EXISTS guestbook (
   name TEXT NOT NULL,
   message TEXT NOT NULL,
   ip_hash TEXT,
-  created_at TEXT NOT NULL
+  created_at TEXT NOT NULL,
+  -- Optional, from MCP leave_message (mcp.brysontang.com); never shown publicly
+  agent_id TEXT,
+  contact TEXT
 );
 
 -- Index for faster ordering by date
