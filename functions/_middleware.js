@@ -74,11 +74,15 @@ async function serveMarkdown(page) {
   });
 }
 
-// Point HTML readers at the markdown version, and keep caches from mixing the two
+// Point HTML readers at the markdown version, and keep caches from mixing the two.
+// The home page also points at the API catalog (RFC 9727).
 function withMarkdownHeaders(response, page) {
   const headers = new Headers(response.headers);
   headers.append('Vary', 'Accept');
   headers.append('Link', `<${markdownUrl(page)}>; rel="alternate"; type="text/markdown"`);
+  if (page === '/') {
+    headers.append('Link', '</.well-known/api-catalog>; rel="api-catalog"');
+  }
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,

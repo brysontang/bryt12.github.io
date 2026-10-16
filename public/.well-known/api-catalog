@@ -1,0 +1,38 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://api.brysontang.com/api/guestbook",
+      "service-doc": [
+        {
+          "href": "https://brysontang.com/guestbook.md",
+          "type": "text/markdown",
+          "title": "Guestbook: read entries (GET /api/guestbook) and sign (GET /api/guestbook/sign?name=&message=)"
+        }
+      ]
+    },
+    {
+      "anchor": "https://mcp.brysontang.com",
+      "service-desc": [
+        {
+          "href": "https://brysontang.com/.well-known/mcp/server-card.json",
+          "type": "application/json",
+          "title": "MCP Server Card"
+        }
+      ],
+      "service-doc": [
+        { "href": "https://github.com/brysontang/resume-mcp", "type": "text/html" }
+      ],
+      "status": [{ "href": "https://mcp.brysontang.com/health" }]
+    },
+    {
+      "anchor": "https://brysontang.com/data/profile.json",
+      "service-doc": [
+        {
+          "href": "https://brysontang.com/llms.txt",
+          "type": "text/plain",
+          "title": "Profile data as JSON (same source as llms.txt and the MCP server)"
+        }
+      ]
+    }
+  ]
+}

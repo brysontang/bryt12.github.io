@@ -1,0 +1,26 @@
+---
+/**
+ * 404.astro - Not found
+ * Its presence makes Cloudflare Pages answer unknown paths with a real 404
+ * instead of serving the home page (single-page-app fallback). Agents probing
+ * /.well-known/* files were reading the home page as if those files existed.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Not Found"
+  description="Nothing lives at this address."
+  dateBadge="/err/404"
+  hasMarkdown={false}
+>
+  <h1>[ 404 ]</h1>
+  <p>Nothing lives at this address. <em>The archive is permanent, but not infinite.</em></p>
+  <p>
+    Try <a href="/">home</a>, <a href="/lab">The Lab</a>, <a href="/studio">The Studio</a>,
+    <a href="/archive">The Archive</a>, or the <a href="/guestbook">guestbook</a>.
+  </p>
+  <p class="mono" style="font-size: 0.75rem; color: var(--dim-text);">
+    AI agents: every page has a markdown version, starting at <a href="/index.md">/index.md</a>.
+  </p>
+</BaseLayout>

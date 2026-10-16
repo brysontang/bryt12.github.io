@@ -1,0 +1,3 @@
+# RFC 9727: the API catalog is a linkset
+/.well-known/api-catalog
+  Content-Type: application/linkset+json

@@ -1,0 +1,20 @@
+{
+  "serverInfo": {
+    "name": "resume-mcp",
+    "title": "Bryson Tang",
+    "version": "1.0.0"
+  },
+  "description": "Bryson Tang's portfolio as an MCP server: profile, projects, writing, experience, and skills, plus leave_message, which signs the guestbook at https://brysontang.com/guestbook. Experience and skills unlock after signing or with an Agent-Token header.",
+  "protocolVersion": "2024-11-05",
+  "transport": {
+    "type": "streamable-http",
+    "endpoint": "https://mcp.brysontang.com"
+  },
+  "capabilities": {
+    "tools": {}
+  },
+  "authentication": {
+    "required": false
+  },
+  "documentation": "https://github.com/brysontang/resume-mcp"
+}
