@@ -5,6 +5,11 @@ name = "brysontang-api"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
 
+# Custom domain route
+# routes = [
+#   { pattern = "api.yourdomain.com", custom_domain = true }
+# ]
+
 # Your Cloudflare account ID (find in dashboard URL or run `wrangler whoami`)
 account_id = "YOUR_ACCOUNT_ID"
 
@@ -13,10 +18,10 @@ account_id = "YOUR_ACCOUNT_ID"
 binding = "SITE_KV"
 id = "YOUR_KV_NAMESPACE_ID"
 
-# D1 Database for guestbook entries
+# D1 Database for guestbook entries (resume-mcp binds the same database as GUESTBOOK_DB)
 [[d1_databases]]
-binding = "DB"
-database_name = "guestbook-db"
+binding = "brysontang_guestbook"
+database_name = "brysontang-guestbook"
 database_id = "YOUR_D1_DATABASE_ID"
 
 # Environment variables (non-secret)

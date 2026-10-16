@@ -5,18 +5,21 @@ This directory contains the Cloudflare Worker that powers the visitor counter an
 ## Features
 
 - **Visitor Counter**: Persistent hit counter stored in KV
-- **Guestbook API**: CRUD operations with D1 (SQLite)
+- **Guestbook API**: entries in D1 (SQLite), signable from the site's JS, a plain form post, or a bare GET URL (for AI agents that can only fetch)
+- **One store**: the MCP server's `leave_message` (resume-mcp, mcp.brysontang.com) writes to the same D1 table
 - **Rate Limiting**: 1 post per hour per IP (stored in KV)
 - **Honeypot Protection**: Hidden field to catch bots
-- **Privacy**: IPs are hashed, never stored raw
+- **Placeholder text turned away**: example values and unfilled templates (`<your-name>`) get instructions instead of an entry
+- **Privacy**: IPs are hashed, never stored raw. Who signed (path, User-Agent, network, country, Agent-Token) is stored but never returned publicly
 
 ## Architecture
 
 ```
 ┌─────────────────┐     ┌──────────────────────┐
 │  brysontang.com │────▶│  Cloudflare Worker   │
-│  (GitHub Pages) │     │  /api/counter        │
-└─────────────────┘     │  /api/guestbook      │
+│ (Cloudflare     │     │  /api/counter        │
+│  Pages)         │     │  /api/guestbook      │
+└─────────────────┘     │  /api/guestbook/sign │
                         └──────────┬───────────┘
                                    │
                     ┌──────────────┴──────────────┐
@@ -51,7 +54,7 @@ Save the output ID - you'll need it for `wrangler.toml`.
 ### Step 2: Create D1 Database
 
 ```bash
-wrangler d1 create guestbook-db
+wrangler d1 create brysontang-guestbook
 ```
 
 Save the database ID from the output.
@@ -71,8 +74,10 @@ Edit `wrangler.toml` and fill in:
 ### Step 4: Initialize the Database
 
 ```bash
-wrangler d1 execute guestbook-db --file=./schema.sql
+wrangler d1 execute brysontang-guestbook --remote --file=./schema.sql
 ```
+
+`schema.sql` is the full current schema for a fresh database. An existing database is brought up to date with the files in `migrations/`, in order.
 
 ### Step 5: Set Secrets
 
@@ -149,8 +154,22 @@ Creates a new guestbook entry.
 
 **Error responses:**
 
-- `400` - Invalid input (missing fields, too long)
+- `400` - Invalid input (missing fields, too long, or example/placeholder text)
 - `429` - Rate limited (1 post per hour)
+
+The same endpoint also takes a plain form post (`application/x-www-form-urlencoded`) from the guestbook page with JS off. It answers with a `303` back to `/guestbook/?signed=1` or `?error=<code>`.
+
+JSON and form posts must come from brysontang.com (Origin or Referer).
+
+### GET /api/guestbook/sign
+
+Signs from a bare URL, for AI agents whose only tool is a URL fetcher. No origin check.
+
+```
+https://api.brysontang.com/api/guestbook/sign?name=<your-name>&message=<your-message>
+```
+
+Answers in plain text. A bare visit returns instructions. Example text or unfilled placeholders return instructions and store nothing (`200`, so restricted fetchers still read them).
 
 ## Local Development
 
