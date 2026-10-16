@@ -232,7 +232,7 @@ async function postGuestbookEntry(request, env, corsHeaders) {
     return json({ success: true });
   }
 
-  const result = await createEntry(request, env, name, message);
+  const result = await createEntry(request, env, name, message, 'json');
   if (!result.entry) {
     return json(
       { error: result.error, ...(result.status === 429 && { retryAfter: '1 hour' }) },
@@ -260,7 +260,7 @@ async function postGuestbookForm(request, env) {
     return back('signed=1');
   }
 
-  const result = await createEntry(request, env, form.get('name'), form.get('message'));
+  const result = await createEntry(request, env, form.get('name'), form.get('message'), 'form');
   return back(result.entry ? 'signed=1' : `error=${result.code}`);
 }
 
@@ -295,7 +295,7 @@ async function signGuestbookViaUrl(request, url, env, corsHeaders) {
     return text(`Not signed: ${DEFAULT_TEXT_ERROR}.\n\n${SIGN_INSTRUCTIONS}`);
   }
 
-  const result = await createEntry(request, env, name, message);
+  const result = await createEntry(request, env, name, message, 'url');
   if (!result.entry) {
     return text(`Not signed: ${result.error}.\n\nUsage: ${SIGN_USAGE}\n`, result.status);
   }
@@ -311,7 +311,23 @@ async function signGuestbookViaUrl(request, url, env, corsHeaders) {
  * Validate, rate limit, and store one entry. Shared by every signing path.
  * Returns { entry } on success, or { status, error, code } on failure.
  */
-async function createEntry(request, env, name, message) {
+/**
+ * Who signed, as far as the request says. Stored with the entry but never
+ * returned by GET /api/guestbook.
+ */
+function requestDetails(request) {
+  const cf = request.cf || {};
+  const clip = (value, max) => (typeof value === 'string' && value ? value.slice(0, max) : null);
+  return {
+    userAgent: clip(request.headers.get('User-Agent'), 500),
+    asn: typeof cf.asn === 'number' ? cf.asn : null,
+    asOrg: clip(cf.asOrganization, 200),
+    country: clip(cf.country, 8),
+    agentToken: clip(request.headers.get('Agent-Token'), 4096),
+  };
+}
+
+async function createEntry(request, env, name, message, via) {
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   const ipHash = await hashIP(ip, env.IP_SALT || 'default-salt');
 
@@ -345,14 +361,26 @@ async function createEntry(request, env, name, message) {
     created_at: new Date().toISOString(),
   };
 
+  const details = requestDetails(request);
   await env.brysontang_guestbook
     .prepare(
       `
-    INSERT INTO guestbook (name, message, ip_hash, created_at)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO guestbook (name, message, ip_hash, created_at, via, user_agent, asn, as_org, country, agent_token)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `
     )
-    .bind(entry.name, entry.message, ipHash, entry.created_at)
+    .bind(
+      entry.name,
+      entry.message,
+      ipHash,
+      entry.created_at,
+      via,
+      details.userAgent,
+      details.asn,
+      details.asOrg,
+      details.country,
+      details.agentToken
+    )
     .run();
 
   // Set rate limit (1 hour TTL)

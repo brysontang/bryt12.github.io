@@ -9,7 +9,14 @@ CREATE TABLE IF NOT EXISTS guestbook (
   created_at TEXT NOT NULL,
   -- Optional, from MCP leave_message (mcp.brysontang.com); never shown publicly
   agent_id TEXT,
-  contact TEXT
+  contact TEXT,
+  -- Who signed, as far as the request says; never shown publicly
+  via TEXT, -- url | form | json | mcp
+  user_agent TEXT,
+  asn INTEGER,
+  as_org TEXT,
+  country TEXT,
+  agent_token TEXT
 );
 
 -- Index for faster ordering by date
