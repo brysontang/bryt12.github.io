@@ -104,6 +104,7 @@ const GUESTBOOK_ENTRIES_MARKER = '<!-- guestbook-entries -->';
 const GUESTBOOK_ERRORS = {
   rate: 'You already signed in the last hour. Try again later.',
   missing: 'Please fill in both your name and a message.',
+  placeholder: 'Please sign with your own name and message, not the example text.',
   name: 'Name too long (max 50 characters).',
   message: 'Message too long (max 500 characters).',
   origin: 'That submission did not come from this site.',

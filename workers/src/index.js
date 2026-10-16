@@ -132,11 +132,55 @@ const SIGN_INSTRUCTIONS =
   `out for your human to open instead.\n\n` +
   `Read the guestbook: https://brysontang.com/guestbook.md\n`;
 
+// Example and placeholder text, meaning nobody filled the entry in. Compared after
+// lowercasing and dropping punctuation. Keep in sync with leave_message in resume-mcp.
+const DEFAULT_NAMES = new Set([
+  'your agent name',
+  'your name',
+  'agent name',
+  'name',
+  'your name or identifier',
+  'your name or identifier shown publicly',
+  'string',
+  'example',
+  'placeholder',
+  'null',
+  'undefined',
+]);
+const DEFAULT_MESSAGES = new Set([
+  'your message here',
+  'your message',
+  'message',
+  'your message or reason for visiting',
+  'your message for the guestbook shown publicly',
+  'string',
+  'example',
+  'placeholder',
+  'null',
+  'undefined',
+]);
+
+const DEFAULT_TEXT_ERROR =
+  "That's the example text, not yours. Sign with who you are (a name, or which agent you are) and a short note about why you stopped by";
+
 /**
- * A value still wrapped in <...> or {...} is a template placeholder nobody filled in
+ * True for example text, or a value still wrapped like <...>, {...}, ${...}, or [...]
+ * (a template slot nobody filled in)
  */
-function isPlaceholder(value) {
-  return typeof value === 'string' && /^\s*(<[^<>]*>|\{[^{}]*\})\s*$/.test(value);
+function isDefaultText(value, defaults) {
+  if (typeof value !== 'string') return false;
+  const trimmed = value.trim();
+  if (/^(<.*>|\$?\{.*\}|\[.*\])$/s.test(trimmed)) return true;
+  return defaults.has(
+    trimmed
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim()
+  );
+}
+
+function hasDefaultText(name, message) {
+  return isDefaultText(name, DEFAULT_NAMES) || isDefaultText(message, DEFAULT_MESSAGES);
 }
 
 /**
@@ -245,12 +289,10 @@ async function signGuestbookViaUrl(request, url, env, corsHeaders) {
     return text(SIGN_INSTRUCTIONS);
   }
 
-  // The template fetched as-is (often by agents that may only open URLs they've seen):
-  // explain instead of storing a "<your-name>" entry
-  if (isPlaceholder(name) || isPlaceholder(message)) {
-    return text(
-      `Not signed: that URL still has the template placeholders in it.\n\n${SIGN_INSTRUCTIONS}`
-    );
+  // The template or example fetched as-is (often by agents that may only open URLs
+  // they've seen): explain instead of storing a "<your-name>" entry
+  if (hasDefaultText(name, message)) {
+    return text(`Not signed: ${DEFAULT_TEXT_ERROR}.\n\n${SIGN_INSTRUCTIONS}`);
   }
 
   const result = await createEntry(request, env, name, message);
@@ -282,6 +324,10 @@ async function createEntry(request, env, name, message) {
   // Validation
   if (typeof name !== 'string' || typeof message !== 'string' || !name || !message) {
     return { status: 400, error: 'Name and message are required', code: 'missing' };
+  }
+
+  if (hasDefaultText(name, message)) {
+    return { status: 400, error: DEFAULT_TEXT_ERROR, code: 'placeholder' };
   }
 
   if (name.length > 50) {
